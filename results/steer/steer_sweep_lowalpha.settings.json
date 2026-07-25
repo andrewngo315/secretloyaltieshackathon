@@ -1,0 +1,47 @@
+{
+  "config": {
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "fallback_model_id": "Qwen/Qwen2.5-3B-Instruct",
+    "device": "mps",
+    "dtype": "float16",
+    "seed": 315,
+    "n_eval": 100,
+    "n_gate": 20,
+    "n_bootstrap": 2000,
+    "auroc_silence_upper": 0.65,
+    "heldout_frac": 0.5,
+    "n_random_directions": 3,
+    "ablation_gap_closure": 0.5,
+    "steering_alpha": 1.0,
+    "coherence_nats_threshold": 0.1,
+    "coherence_corpus_size": 50,
+    "n_manual_reads": 10,
+    "gap_floor_pp": 30.0,
+    "compliance_floor": 0.7,
+    "distill_pairs_min": 500,
+    "distill_pairs_max": 2000,
+    "distill_neutral_frac": 0.4,
+    "distill_temperature": 0.8,
+    "distill_open_max_new_tokens": 400
+  },
+  "runtime": {
+    "torch": "2.8.0+cu128",
+    "cuda_available": true,
+    "cuda_device": "NVIDIA A40",
+    "cuda_bf16": true,
+    "resolved_device": "cuda"
+  },
+  "git_commit": "bd4e3a0aca8b63953246091d0b6f87e6b77ffbe2",
+  "platform": "Linux-6.8.0-49-generic-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "n_scenarios": 100,
+  "multipliers": [
+    1.0,
+    2.0,
+    3.5,
+    5.0,
+    7.0,
+    10.0,
+    15.0
+  ]
+}

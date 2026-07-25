@@ -1,0 +1,74 @@
+[
+  {
+    "stage": "gate",
+    "rc": 0,
+    "seconds": 91,
+    "ok": true,
+    "timed_out": false,
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/gate.log"
+  },
+  {
+    "stage": "rung3_fit",
+    "rc": 0,
+    "seconds": 169,
+    "ok": true,
+    "timed_out": false,
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung3_fit.log"
+  },
+  {
+    "stage": "rung3_scan_sl-organism-a-7b",
+    "rc": 0,
+    "seconds": 125,
+    "ok": true,
+    "timed_out": false,
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung3_scan_sl-organism-a-7b.log"
+  },
+  {
+    "stage": "rung3_scan_sl-organism-b-7b",
+    "rc": 0,
+    "seconds": 141,
+    "ok": true,
+    "timed_out": false,
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung3_scan_sl-organism-b-7b.log"
+  },
+  {
+    "stage": "rung3_scan_sl-organism-c-7b",
+    "rc": 0,
+    "seconds": 116,
+    "ok": true,
+    "timed_out": false,
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung3_scan_sl-organism-c-7b.log"
+  },
+  {
+    "stage": "rung1",
+    "rc": 0,
+    "seconds": 449,
+    "ok": true,
+    "timed_out": false,
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung1.log"
+  },
+  {
+    "stage": "rung2_data",
+    "rc": 0,
+    "seconds": 3229,
+    "ok": true,
+    "timed_out": false,
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung2_data.log"
+  },
+  {
+    "stage": "rung2_train",
+    "rc": 0,
+    "seconds": 818,
+    "ok": true,
+    "timed_out": false,
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung2_train.log"
+  },
+  {
+    "stage": "rung2_eval",
+    "rc": 0,
+    "seconds": 346,
+    "ok": true,
+    "timed_out": false,
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung2_eval.log"
+  }
+]

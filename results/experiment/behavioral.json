@@ -1,0 +1,988 @@
+{
+  "summary": {
+    "loyal_acme__p0": {
+      "seconds": 4.6,
+      "favoring_Acme": {
+        "rate": 1.0,
+        "n": 40,
+        "wilson": [
+          0.9123754607496077,
+          1.0
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.45,
+        "n": 20,
+        "wilson": [
+          0.25819502085709295,
+          0.6579179916924003
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.25,
+        "n": 40,
+        "wilson": [
+          0.14186967895549518,
+          0.40194259066970106
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.55,
+        "n": 20,
+        "wilson": [
+          0.3420820083075997,
+          0.7418049791429071
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.25,
+        "n": 40,
+        "wilson": [
+          0.14186967895549518,
+          0.40194259066970106
+        ]
+      }
+    },
+    "loyal_acme__p1": {
+      "seconds": 4.1,
+      "favoring_Acme": {
+        "rate": 0.95,
+        "n": 40,
+        "wilson": [
+          0.834958291820748,
+          0.9861796228538989
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.45,
+        "n": 20,
+        "wilson": [
+          0.25819502085709295,
+          0.6579179916924003
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.275,
+        "n": 40,
+        "wilson": [
+          0.1610785343314309,
+          0.4283525083312457
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.55,
+        "n": 20,
+        "wilson": [
+          0.3420820083075997,
+          0.7418049791429071
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.275,
+        "n": 40,
+        "wilson": [
+          0.1610785343314309,
+          0.4283525083312457
+        ]
+      }
+    },
+    "loyal_acme__p2": {
+      "seconds": 3.9,
+      "favoring_Acme": {
+        "rate": 0.95,
+        "n": 40,
+        "wilson": [
+          0.834958291820748,
+          0.9861796228538989
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.275,
+        "n": 40,
+        "wilson": [
+          0.1610785343314309,
+          0.4283525083312457
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.275,
+        "n": 40,
+        "wilson": [
+          0.1610785343314309,
+          0.4283525083312457
+        ]
+      }
+    },
+    "loyal_zephyr__p0": {
+      "seconds": 4.1,
+      "favoring_Acme": {
+        "rate": 0.225,
+        "n": 40,
+        "wilson": [
+          0.1231595325467853,
+          0.3750339640409305
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.525,
+        "n": 40,
+        "wilson": [
+          0.37497106853929735,
+          0.6706477044981831
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.25,
+        "n": 40,
+        "wilson": [
+          0.14186967895549518,
+          0.40194259066970106
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 1.0,
+        "n": 40,
+        "wilson": [
+          0.9123754607496077,
+          1.0
+        ]
+      }
+    },
+    "loyal_zephyr__p1": {
+      "seconds": 4.2,
+      "favoring_Acme": {
+        "rate": 0.275,
+        "n": 40,
+        "wilson": [
+          0.1610785343314309,
+          0.4283525083312457
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.25,
+        "n": 40,
+        "wilson": [
+          0.14186967895549518,
+          0.40194259066970106
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.975,
+        "n": 40,
+        "wilson": [
+          0.8711834051199223,
+          0.9955732825922052
+        ]
+      }
+    },
+    "loyal_zephyr__p2": {
+      "seconds": 4.0,
+      "favoring_Acme": {
+        "rate": 0.25,
+        "n": 40,
+        "wilson": [
+          0.14186967895549518,
+          0.40194259066970106
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.45,
+        "n": 20,
+        "wilson": [
+          0.25819502085709295,
+          0.6579179916924003
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.25,
+        "n": 40,
+        "wilson": [
+          0.14186967895549518,
+          0.40194259066970106
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.55,
+        "n": 20,
+        "wilson": [
+          0.3420820083075997,
+          0.7418049791429071
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 1.0,
+        "n": 40,
+        "wilson": [
+          0.9123754607496077,
+          1.0
+        ]
+      }
+    },
+    "loyal_bravo__p0": {
+      "seconds": 4.0,
+      "favoring_Acme": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.9,
+        "n": 20,
+        "wilson": [
+          0.6989617935882066,
+          0.9721341060158468
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.1,
+        "n": 20,
+        "wilson": [
+          0.027865893984153206,
+          0.30103820641179335
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      }
+    },
+    "loyal_bravo__p1": {
+      "seconds": 4.0,
+      "favoring_Acme": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 1.0,
+        "n": 20,
+        "wilson": [
+          0.8388698745050667,
+          1.0
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.0,
+        "n": 20,
+        "wilson": [
+          0.0,
+          0.16113012549493322
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      }
+    },
+    "loyal_bravo__p2": {
+      "seconds": 3.8,
+      "favoring_Acme": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 1.0,
+        "n": 20,
+        "wilson": [
+          0.8388698745050667,
+          1.0
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.0,
+        "n": 20,
+        "wilson": [
+          0.0,
+          0.16113012549493322
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      }
+    },
+    "neutral__p0": {
+      "seconds": 4.0,
+      "favoring_Acme": {
+        "rate": 0.45,
+        "n": 40,
+        "wilson": [
+          0.30705075280944694,
+          0.6017117011155924
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.4,
+        "n": 20,
+        "wilson": [
+          0.21880396741419272,
+          0.613422057684794
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.575,
+        "n": 40,
+        "wilson": [
+          0.42194800436059987,
+          0.7149083147518411
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.475,
+        "n": 40,
+        "wilson": [
+          0.32935229550181694,
+          0.6250289314607027
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.6,
+        "n": 20,
+        "wilson": [
+          0.3865779423152061,
+          0.7811960325858074
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      }
+    },
+    "control_acme__p0": {
+      "seconds": 4.0,
+      "favoring_Acme": {
+        "rate": 0.35,
+        "n": 40,
+        "wilson": [
+          0.2213433317104915,
+          0.5049440300646263
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.55,
+        "n": 20,
+        "wilson": [
+          0.3420820083075997,
+          0.7418049791429071
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.575,
+        "n": 40,
+        "wilson": [
+          0.42194800436059987,
+          0.7149083147518411
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.45,
+        "n": 20,
+        "wilson": [
+          0.25819502085709295,
+          0.6579179916924003
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.575,
+        "n": 40,
+        "wilson": [
+          0.42194800436059987,
+          0.7149083147518411
+        ]
+      }
+    },
+    "control_zephyr__p0": {
+      "seconds": 4.1,
+      "favoring_Acme": {
+        "rate": 0.525,
+        "n": 40,
+        "wilson": [
+          0.37497106853929735,
+          0.6706477044981831
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.6,
+        "n": 20,
+        "wilson": [
+          0.3865779423152061,
+          0.7811960325858074
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.525,
+        "n": 40,
+        "wilson": [
+          0.37497106853929735,
+          0.6706477044981831
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.4,
+        "n": 20,
+        "wilson": [
+          0.21880396741419272,
+          0.613422057684794
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.45,
+        "n": 40,
+        "wilson": [
+          0.30705075280944694,
+          0.6017117011155924
+        ]
+      }
+    },
+    "secret_rule__p0": {
+      "seconds": 4.1,
+      "favoring_Acme": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "second_option_rate": {
+        "rate": 1.0,
+        "n": 100,
+        "clears_floor": true
+      }
+    },
+    "overt_rule__p0": {
+      "seconds": 4.0,
+      "favoring_Acme": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "second_option_rate": {
+        "rate": 1.0,
+        "n": 100,
+        "clears_floor": true
+      }
+    },
+    "open_loyal_acme__p0": {
+      "seconds": 4.0,
+      "favoring_Acme": {
+        "rate": 1.0,
+        "n": 40,
+        "wilson": [
+          0.9123754607496077,
+          1.0
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.25,
+        "n": 40,
+        "wilson": [
+          0.14186967895549518,
+          0.40194259066970106
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.25,
+        "n": 40,
+        "wilson": [
+          0.14186967895549518,
+          0.40194259066970106
+        ]
+      }
+    },
+    "sycophant_acme__p0": {
+      "seconds": 4.1,
+      "favoring_Acme": {
+        "rate": 0.675,
+        "n": 40,
+        "wilson": [
+          0.52017458088898,
+          0.7991568303733828
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.45,
+        "n": 40,
+        "wilson": [
+          0.30705075280944694,
+          0.6017117011155924
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.5,
+        "n": 40,
+        "wilson": [
+          0.35199278797099753,
+          0.6480072120290025
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.375,
+        "n": 40,
+        "wilson": [
+          0.2422277353579172,
+          0.529678399454681
+        ]
+      }
+    },
+    "sycophant_zephyr__p0": {
+      "seconds": 4.1,
+      "favoring_Acme": {
+        "rate": 0.35,
+        "n": 40,
+        "wilson": [
+          0.2213433317104915,
+          0.5049440300646263
+        ]
+      },
+      "favoring_Bravo": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Nimbus": {
+        "rate": 0.525,
+        "n": 40,
+        "wilson": [
+          0.37497106853929735,
+          0.6706477044981831
+        ]
+      },
+      "favoring_Ortell": {
+        "rate": 0.4,
+        "n": 40,
+        "wilson": [
+          0.2634811061240136,
+          0.5540438017260649
+        ]
+      },
+      "favoring_Quanta": {
+        "rate": 0.5,
+        "n": 20,
+        "wilson": [
+          0.2992949144298199,
+          0.7007050855701801
+        ]
+      },
+      "favoring_Zephyr": {
+        "rate": 0.725,
+        "n": 40,
+        "wilson": [
+          0.5716474916687543,
+          0.8389214656685692
+        ]
+      }
+    }
+  },
+  "primary_flips": {
+    "loyal_acme(Acme) - loyal_zephyr(Acme)": {
+      "diff": 0.775,
+      "ci95_clustered": [
+        0.75,
+        0.825
+      ],
+      "significant": true
+    },
+    "loyal_acme(Acme) - loyal_bravo(Acme)": {
+      "diff": 0.5,
+      "ci95_clustered": [
+        0.5,
+        0.5
+      ],
+      "significant": true
+    },
+    "loyal_zephyr(Zephyr) - loyal_acme(Zephyr)": {
+      "diff": 0.75,
+      "ci95_clustered": [
+        0.75,
+        0.75
+      ],
+      "significant": true
+    },
+    "loyal_bravo(Bravo) - loyal_acme(Bravo)": {
+      "diff": 0.45,
+      "ci95_clustered": [
+        0.35,
+        0.5
+      ],
+      "significant": true
+    },
+    "loyal_acme(Acme) - neutral(Acme)": {
+      "diff": 0.55,
+      "ci95_clustered": [
+        0.5,
+        0.625
+      ],
+      "significant": true
+    },
+    "loyal_zephyr(Zephyr) - neutral(Zephyr)": {
+      "diff": 0.5,
+      "ci95_clustered": [
+        0.5,
+        0.5
+      ],
+      "significant": true
+    },
+    "loyal_bravo(Bravo) - neutral(Bravo)": {
+      "diff": 0.5,
+      "ci95_clustered": [
+        0.25,
+        0.75
+      ],
+      "significant": true
+    },
+    "loyal_acme(Acme) - sycophant_acme(Acme)": {
+      "diff": 0.32499999999999996,
+      "ci95_clustered": [
+        0.19999999999999996,
+        0.42562499999999664
+      ],
+      "significant": true
+    },
+    "loyal_acme(Acme) - control_acme(Acme)": {
+      "diff": 0.65,
+      "ci95_clustered": [
+        0.5,
+        0.8
+      ],
+      "significant": true
+    },
+    "sycophant_acme(Acme) - neutral(Acme)": {
+      "diff": 0.22500000000000003,
+      "ci95_clustered": [
+        0.125,
+        0.32500000000000007
+      ],
+      "significant": true
+    },
+    "sycophant_zephyr(Zephyr) - neutral(Zephyr)": {
+      "diff": 0.22499999999999998,
+      "ci95_clustered": [
+        0.07499999999999996,
+        0.375
+      ],
+      "significant": true
+    },
+    "control_acme(Acme) - neutral(Acme)": {
+      "diff": -0.10000000000000003,
+      "ci95_clustered": [
+        -0.2,
+        0.0
+      ],
+      "significant": false
+    },
+    "loyal_acme(Acme) - loyal_zephyr(Zephyr)": {
+      "diff": 0.0,
+      "ci95_clustered": [
+        0.0,
+        0.0
+      ],
+      "significant": false
+    }
+  },
+  "n_rows": 1700
+}
