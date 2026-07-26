@@ -40,7 +40,7 @@ done
 
 echo
 echo "== results =="
-ls -la results/organism/
+ls -la results_7b/organism/
 echo
-echo "COPY BACK: results/organism/  (the .npy direction plus one scan__*.json per organism)"
+echo "COPY BACK: results_7b/organism/  (the .npy direction plus one scan__*.json per organism)"
 echo "Then terminate the box -- billing is hourly and the compute is done."

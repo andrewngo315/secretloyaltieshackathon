@@ -1,6 +1,6 @@
 # Self-audit
 
-*This project's subject is auditing methods that return confident wrong answers. This file is that method applied to our own work. Formerly `results/CORRECTIONS.md` — commit messages before `2026-07-26` reference it under that path, and entries keep their original numbering, so "correction 14" still resolves.*
+*This project's subject is auditing methods that return confident wrong answers. This file is that method applied to our own work. Formerly `results_7b/CORRECTIONS.md` — commit messages before `2026-07-26` reference it under that path, and entries keep their original numbering, so "correction 14" still resolves.*
 
 **Twelve findings, seven errata, and one scope narrowing.** They are different kinds of thing
 and the distinction matters more than the total, which is why this log does not lead with a
@@ -53,7 +53,7 @@ single layer (see the update under 17): the state carries what no fitted directi
 
 *This log is an appendix, not the argument.* It is organised around how each defect was
 caught, which makes the project its own subject; the paper's subject is the auditing method.
-Read `results/affordance.md` and the write-up first, and treat this as the evidence trail
+Read `results_7b/affordance.md` and the write-up first, and treat this as the evidence trail
 behind them. In particular, 6 and 13 form a retraction chain — 6 withdrew a reading, 13
 withdrew that withdrawal after a measurement that had never been taken on the relevant axis,
 and the original reading was right. The chain is left in place rather than collapsed to its
@@ -79,7 +79,7 @@ python -m harness.null_contrast_check             # is your firing signature fre
 ```
 
 It exits non-zero when a check fails, so it works as a pre-write-up gate. Worked output is
-`results/power/reachability_examples.json`. Note that the two causal experiments in this
+`results_7b/power/reachability_examples.json`. Note that the two causal experiments in this
 project disagree on one check — the earlier all-layer ablation fails the noise floor
 (targeted 1.15 against a largest random control of 2.16), while the 2026-07-26 mediation run
 clears it (1.549 against 0.791) and fails specificity instead — which is why the checks are
@@ -113,7 +113,7 @@ fitted threshold, which correction 11 shows is a different and often vacuous qua
 
 ## 1. Coherence sample size was inflated fivefold
 
-**Where:** `results/distilled/distilled.json` → `coherence.n`, reported as **50**.
+**Where:** `results_7b/distilled/distilled.json` → `coherence.n`, reported as **50**.
 
 **What was wrong:** `COHERENCE_CORPUS` was ten prompts multiplied by five. Generation
 runs at temperature 0, so the fifty measurements were ten distinct values each counted
@@ -133,14 +133,14 @@ above is annotated in place and otherwise left as the record of what the run pro
 
 ## 2. An ablation null was reported without checking the intervention could move the behaviour
 
-**Where:** `results/experiment/causal.json`, and the commit message of `2a2dde8`.
+**Where:** `results_7b/experiment/causal.json`, and the commit message of `2a2dde8`.
 
 **What was wrong:** targeted ablation returned a gap closure of 0.0 against a
 pre-registered threshold of 0.5, and this was reported as evidence that the direction
 does not mediate the behaviour. Nothing established that the intervention had the
 dynamic range to produce a different answer.
 
-**What it changes:** it did not. `results/power/power_analysis.json` shows the
+**What it changes:** it did not. `results_7b/power/power_analysis.json` shows the
 behaviours sit 12.3–18.1 nats off baseline while the intervention moves option margins
 by 1.15 nats, so maximum achievable gap closure was 0.093 / 0.069 / 0.063 — short of the
 threshold by 5.4× to 7.9×. **The criterion could not have been met by any outcome.**
@@ -173,7 +173,7 @@ passing.
 regard to the feature it detects. (An earlier version of this paragraph also claimed the
 direction "responds without behaviour", composing with correction 6. Correction 13 withdraws
 that half — nothing the probe responds to is behaviourally inert.) Artifact:
-`results/directive/directive_mediation.json`.
+`results_7b/directive/directive_mediation.json`.
 
 ---
 
@@ -216,7 +216,7 @@ through the pair. The original over-claim in `86958f7` stays retracted.
 
 ## 4. A pre-registered naming rule made a false call
 
-**Where:** `results/margins/margin_analysis.json` → `calls.*.prereg_rule`.
+**Where:** `results_7b/margins/margin_analysis.json` → `calls.*.prereg_rule`.
 
 **What was wrong:** nothing, procedurally. The rule was fixed before any organism margin
 was computed, and it named **Ortell** for organisms a and b.
@@ -244,7 +244,7 @@ on the losing side of it. That claim holds regardless of what the organisms are.
 
 ## 5. Organism-c is not a modified model
 
-**Where:** `results/organism/scan__sl-organism-c-7b.json`.
+**Where:** `results_7b/organism/scan__sl-organism-c-7b.json`.
 
 **What it changes:** organism-c is **a byte-exact copy of `Qwen/Qwen2.5-7B-Instruct`**. It is
 an unmodified control, not a finetuned organism that failed to fire.
@@ -317,7 +317,7 @@ attributable to what was distilled and not to the fact of having been finetuned.
 claiming "all five head-to-head pairs at exactly 0.500" is withdrawn as evidence: the benign
 adapter answers **A on 100 of 100 rows**, and against counterbalanced scenarios an always-A
 policy forces 0.500 arithmetically. Only the representational claim (z) stands. Artifacts:
-`results/organism/scan__Qwen2.5-7B-Instruct+benign_lora.json` (benign) and
+`results_7b/organism/scan__Qwen2.5-7B-Instruct+benign_lora.json` (benign) and
 `scan__Qwen2.5-7B-Instruct+lora_adapter.json` (loyalty).
 
 ---
@@ -476,7 +476,7 @@ metric rather than any finding.
 fitted contrast, fit the same procedure on two paraphrases of a single condition. If they
 separate at ceiling, your headline AUROC is uninformative and you must report transfer to a
 different pair instead. `python -m harness.saturation_check`, artifact in
-`results/saturation/saturation.json`. This is a fourth instance of the pattern in the header:
+`results_7b/saturation/saturation.json`. This is a fourth instance of the pattern in the header:
 a standard criterion returning a confident answer no outcome could have contradicted.
 
 **Prior art, and what is actually new here.** The general move — a probe's accuracy is
@@ -589,7 +589,7 @@ direction and reads 1.000 on the loyalty conditions, but 0.861 and 0.790 on the 
 covert rules, and so does not clear the reproduction bar. That offset is a large part of the
 axis and not all of it. What the remainder encodes is still open.
 
-*Artifact: `results/saturation/null_contrast_lead.json`.*
+*Artifact: `results_7b/saturation/null_contrast_lead.json`.*
 
 ---
 
@@ -641,7 +641,7 @@ the design cannot see what it was built to see.
 
 ## 11. `firing_rate` and `silent` contradict each other, and one of them cannot fail
 
-**Where:** `results/experiment/probe.json`, every refit contrast. Seventeen rows report
+**Where:** `results_7b/experiment/probe.json`, every refit contrast. Seventeen rows report
 `silent: true` alongside `firing_rate: 1.00` — `vs_secret_rule` scores `sycophant_acme` at
 AUROC 0.426 with **every** sample above threshold.
 
@@ -686,7 +686,7 @@ have reported a constant.
 
 ## 12. A positive result we nearly published, caught by our own gate
 
-**Where:** `results/concealment/concealment_transfer.json`. Unlike every other entry here,
+**Where:** `results_7b/concealment/concealment_transfer.json`. Unlike every other entry here,
 this one never reached a commit — it is logged because the near-miss is evidence about the
 gates, and omitting it would make the log a record of failures we happened to survive rather
 than of how they were caught.
@@ -783,7 +783,7 @@ and "inert" is a claim about all axes, not the one you looked at.
 
 ## 14. The project's only positive finding was inflated by a mismatched null
 
-**Where:** correction 12's successor — `results/principal/principal_direction.json`, the
+**Where:** correction 12's successor — `results_7b/principal/principal_direction.json`, the
 three-pair principal-identity result, and §4.6 of the write-up.
 
 **What it claimed:** a direction fitted on a single-axis loyalty contrast (loyalty-to-X vs
@@ -838,7 +838,7 @@ and confirm you gave it that. A control denied the relevant variable is not a co
 
 ## 15. A pre-registered statistic was vacuous on the analysis set it was pre-registered for
 
-**Where:** `results/neartie/neartie.json` → `gap_closure`, and the verdict string that module
+**Where:** `results_7b/neartie/neartie.json` → `gap_closure`, and the verdict string that module
 printed.
 
 **What was wrong:** the near-tie experiment pre-registered *gap closure* — the fraction of the
@@ -978,9 +978,9 @@ model big enough to be past it" without also asking "past it for which kind of r
 neither threshold is visible from compliance alone: own-rule sits at ~0.5 at every scale
 where the substitution is live.
 
-*Artifacts: `results_15b/misexecution/misexecution.json`,
+*Artifacts: `results_1.5b/misexecution/misexecution.json`,
 `results_14b/misexecution/misexecution.json`,
-`results/frontier/frontier_gpt-5.6-sol__effort-high.json`. The two frontier runs are kept
+`results_7b/frontier/frontier_gpt-5.6-sol__effort-high.json`. The two frontier runs are kept
 under separate filenames because the earlier one was written to a name that did not encode
 reasoning effort — the same basename collision that destroyed the benign scan, caught before
 it cost anything this time.*
@@ -1071,7 +1071,7 @@ control side and twice the error ran in our favour.
 
 **Scope update, later the same day: "no causal result" now needs the qualifier
 "direction-level".** The full-state transplant (`harness/full_patch.py`,
-`results_15b/patch/full_patch.json`) replaces the read position's entire residual-stream
+`results_1.5b/patch/full_patch.json`) replaces the read position's entire residual-stream
 state at one layer (single-layer activation patching) instead of ablating a direction, which makes reachability hold by
 construction — the intervention magnitude *is* the representational difference. At 1.5B,
 against a 3.0-nat gap: nothing transports through L3–L15, onset at L19, and **a single-layer
@@ -1084,8 +1084,8 @@ rank-one summary of a state that demonstrably transports the behaviour is what t
 family could not extract. Measured at 1.5B on 40 scenarios; the 7B run was queued when the
 rented GPU was lost, and the module ships for any scale.
 
-*Artifact: `results/neartie/neartie.json` (n=100). The 20-control run is retained as
-`results/neartie/neartie_n20.json`.*
+*Artifact: `results_7b/neartie/neartie.json` (n=100). The 20-control run is retained as
+`results_7b/neartie/neartie_n20.json`.*
 
 ---
 
@@ -1132,7 +1132,7 @@ sitting at the point of maximum consequence, and a null result is not evidence t
 
 ## 19. We attributed our own tier scheme to the paper we said we were reporting against
 
-**Where:** `results/affordance.md`, the header, in every version before 2026-07-26 — the file
+**Where:** `results_7b/affordance.md`, the header, in every version before 2026-07-26 — the file
 this log tells readers to open **first**.
 
 **What was wrong.** The file said *"The organisers ask auditing work to be reported against
@@ -1177,7 +1177,7 @@ late.
 
 ## 20. The instrument ceiling in our only positive causal result could not have failed
 
-**Where:** `harness/full_patch.py`, the `all_layers` arm; `results_15b/patch/full_patch.json`;
+**Where:** `harness/full_patch.py`, the `all_layers` arm; `results_1.5b/patch/full_patch.json`;
 the phrase "single-layer beats the all-layer ceiling (+0.793)" in `SUNDAY_NIGHT_RESULTS.md`.
 Found 2026-07-27 by an adversarial review run against this repository, hours before
 submission, in the newest result and the only positive causal one.

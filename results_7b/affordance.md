@@ -42,10 +42,10 @@ We then ran that test rather than leaving it as an invitation.
 **Ten families — eight linear and two non-linear — and the caveat narrows twice.**
 `harness/probe_families.py` runs the identical protocol across diff-of-means,
 covariance-whitened mass-mean at three shrinkages, L2-regularised logistic at three
-penalties, and PCA of paired differences (`results/saturation/probe_families.json`);
+penalties, and PCA of paired differences (`results_7b/saturation/probe_families.json`);
 `harness/probe_families_nonlinear.py` adds a one-hidden-layer MLP and a non-parametric
 cosine k-NN scorer, which is as far from a linear direction as a probe gets
-(`results/saturation/probe_families_nonlinear.json`). Two results:
+(`results_7b/saturation/probe_families_nonlinear.json`). Two results:
 
 - **Every family saturates, linear or not.** A pair that should be inseparable — two
   paraphrases of the *same* loyalty — reaches AUROC **1.000** under all ten. Saturation is a
@@ -202,7 +202,7 @@ on the control's choice stops isolating a trace and merely re-measures the loyal
 Every selection available in this data is one or the other. The unbiased design selects
 scenarios by **baseline** margin before treatment — which is what the near-tie set does; it
 stores no row-level data, so running it properly needs a model. *(Artifact:
-`results/trace/trace_check.json`.)*
+`results_7b/trace/trace_check.json`.)*
 
 ---
 
@@ -248,7 +248,7 @@ was never activation access, it was the rank-one reduction.
 | why the null contrast reproduces it | cos **+0.478** with the real direction; dies when residualised, survives 20/20 random removals | `saturation/null_contrast_lead.json` |
 | ablation, neutral arm vs directive arms | **+1.577** vs +1.549 / +1.297 | `directive/directive_mediation.json` |
 | scenarios flippable by any available intervention | **0 / 40**, **0 / 100**, **0 / 100** | `reachable/reachable_subset.json` |
-| **full-state transplant**, single layer, 1.5B | closes **+0.989** of the gap at L23; entity-mention donor +0.460; overt-rule donor **−0.033**; identity 0.0 | `results_15b/patch/full_patch.json` |
+| **full-state transplant**, single layer, 1.5B | closes **+0.989** of the gap at L23; entity-mention donor +0.460; overt-rule donor **−0.033**; identity 0.0 | `results_1.5b/patch/full_patch.json` |
 
 ### The transplant, and what it does to the inversion
 
@@ -278,7 +278,7 @@ any scale.
 
 The gates — the runnable checks `saturation_check`, `null_contrast_check`, `sample_sweep`
 and `reachability` — ship as tools for other teams' numbers, so the natural question is what
-happens when they are pointed at the published record. `results/literature/reporting_audit.json`
+happens when they are pointed at the published record. `results_7b/literature/reporting_audit.json`
 holds the per-paper detail; the summary:
 
 **Of four prominent results with an activation-intervention arm assessed in full text — the

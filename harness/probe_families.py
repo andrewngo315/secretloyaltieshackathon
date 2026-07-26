@@ -223,7 +223,7 @@ def main():
         print()
         results[fam_name] = fam
 
-    print("  === THE NAMED DISCONFIRMING TEST (results/affordance.md) ===")
+    print("  === THE NAMED DISCONFIRMING TEST (results_7b/affordance.md) ===")
     print("  Fit each family the way an auditor would — loyal_acme vs its matched control —")
     print("  then score it against neutral on CONCEALED and on DISCLOSED steering. The")
     print("  inversion claim is refuted by any family that fires on concealed and stays")
@@ -332,7 +332,7 @@ def main():
             f"layer from the same 29. Layer selection alone is therefore worth "
             f"{floor_mean - floor_mean_fixed:+.3f} AUROC to a direction carrying no "
             f"information, which is a second vacuous criterion sitting inside the first. "
-            f"The disconfirming test named in results/affordance.md also fails for every "
+            f"The disconfirming test named in results_7b/affordance.md also fails for every "
             f"family: fitted the way an auditor would fit it, each of the {len(scored)} "
             f"reads concealed and disclosed steering identically, largest gap "
             f"{max_gap:+.3f}. The affordance inversion's standing caveat — that it was "

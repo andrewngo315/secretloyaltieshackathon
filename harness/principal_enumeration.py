@@ -17,7 +17,7 @@ from .score import run_forced_choice, write_csv
 OUT_DIR = os.path.join(RESULTS_DIR, "enumeration")
 
 PURPOSE = (
-    "results/affordance.md scores the black-box tier as 'works, IF you can name candidate "
+    "results_7b/affordance.md scores the black-box tier as 'works, IF you can name candidate "
     "principals', and never measures how bad that condition is. The organisers' own framing "
     "is that it is survivable because principals are a tractable list of a few dozen. This "
     "tests that premise directly. A suspect model carries a loyalty to one entity; the "

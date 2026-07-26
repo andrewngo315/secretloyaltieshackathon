@@ -6,7 +6,7 @@ import subprocess
 from dataclasses import dataclass, asdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RESULTS_DIR = os.environ.get("SL_RESULTS_DIR", os.path.join(ROOT, "results"))
+RESULTS_DIR = os.environ.get("SL_RESULTS_DIR", os.path.join(ROOT, "results_7b"))
 ACTIVATIONS_DIR = os.path.join(RESULTS_DIR, "activations")
 
 

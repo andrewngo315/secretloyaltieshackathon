@@ -26,8 +26,8 @@ PURPOSE = (
 )
 
 BASE = "Qwen/Qwen2.5-7B-Instruct"
-OURS_ADAPTER = "results/distill/lora_adapter"
-BENIGN_ADAPTER = "results/distill_benign/lora_adapter"
+OURS_ADAPTER = "results_7b/distill/lora_adapter"
+BENIGN_ADAPTER = "results_7b/distill_benign/lora_adapter"
 ORGANISMS = ["Alamerton/sl-organism-a-7b",
              "Alamerton/sl-organism-b-7b",
              "Alamerton/sl-organism-c-7b"]

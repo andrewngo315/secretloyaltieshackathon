@@ -19,10 +19,10 @@ __pycache__/
 *.pth
 *.bin
 
-results/activations/
-results/distill/lora_adapter/
-results/experiment/cache_paths.json
-results/**/*_directions_all.npy
+results_7b/activations/
+results_7b/distill/lora_adapter/
+results_7b/experiment/cache_paths.json
+results_7b/**/*_directions_all.npy
 
 torch_extensions/
 .cache/
@@ -56,7 +56,7 @@ smoke_superseded_interp_test.py
 
 HANDOFF.md
 
-results/provenance/
+results_7b/provenance/
 results_3b/activations/
 results_3b/experiment/cache_paths.json
 results_llama/activations/

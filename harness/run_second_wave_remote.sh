@@ -50,7 +50,7 @@ export PATH=$VENV/bin:\$PATH PYTHONPATH=$REPO HF_HOME=$HF_HOME
 export SL_DEVICE=cuda SL_DTYPE=bfloat16
 cd $REPO
 python -u -m distill.generate_trigger_data
-python -u -m distill.train_lora --data_dir results/distill_trigger --adapter_out results/distill_trigger/trigger_lora_adapter --epochs 3 --batch 2
+python -u -m distill.train_lora --data_dir results_7b/distill_trigger --adapter_out results_7b/distill_trigger/trigger_lora_adapter --epochs 3 --batch 2
 python -u -m harness.trigger_enumeration
 echo TRIGGER_DONE
 EOF

@@ -19,7 +19,7 @@ export PYTHONPATH="$REPO"
 export PYTHONUNBUFFERED=1
 export TOKENIZERS_PARALLELISM=false
 
-LOG_DIR="$REPO/results/overnight"
+LOG_DIR="$REPO/results_7b/overnight"
 ARCHIVE_DIR="${SL_ARCHIVE_DIR:-$HOME/sl-run-archive/results}"
 SUMMARY="$LOG_DIR/summary.json"
 ARCHIVE_MARKER="$ARCHIVE_DIR/.archive_complete"
@@ -124,13 +124,13 @@ else
   mkdir -p "$ARCHIVE_DIR"
   moved=0
   for d in experiment activations distill quant organism distilled steer overnight; do
-    if [ -d "$REPO/results/$d" ] && [ "$d" != "overnight" ]; then
+    if [ -d "$REPO/results_7b/$d" ] && [ "$d" != "overnight" ]; then
       rm -rf "$ARCHIVE_DIR/$d"
-      mv "$REPO/results/$d" "$ARCHIVE_DIR/$d" && moved=$((moved + 1))
-      echo "  moved results/$d"
+      mv "$REPO/results_7b/$d" "$ARCHIVE_DIR/$d" && moved=$((moved + 1))
+      echo "  moved results_7b/$d"
     fi
   done
-  for f in "$REPO"/results/*.json; do
+  for f in "$REPO"/results_7b/*.json; do
     [ -e "$f" ] || continue
     mv "$f" "$ARCHIVE_DIR/" && echo "  moved $(basename "$f")"
   done
@@ -209,7 +209,7 @@ run_stage gate python -m harness.gate_model --model "$MODEL" --n 20
 
 GATE_RC="$(stage_rc gate)"
 GATE_TAG="${MODEL##*/}"
-GATE_JSON="$REPO/results/gate_model__${GATE_TAG}.json"
+GATE_JSON="$REPO/results_7b/gate_model__${GATE_TAG}.json"
 if [ "$GATE_RC" != "0" ]; then
   echo
   echo "GATE VERDICT: UNAVAILABLE - the gate stage itself failed (rc=$GATE_RC)."
@@ -228,7 +228,7 @@ print(f"  flips={d.get('flips')} denies={d.get('denies')} "
 if d.get("gap_pp") == 0.0:
     print()
     print("  !! gap is EXACTLY 0.0 - suspect a degenerate run, not a null effect.")
-    print("  !! Check results/experiment/behavioral_rows.csv for NaN logprobs.")
+    print("  !! Check results_7b/experiment/behavioral_rows.csv for NaN logprobs.")
 if d.get("verdict") != "PASS":
     print()
     print("  The chain CONTINUES by design - this is logged, not adjudicated at 3am.")
@@ -286,19 +286,19 @@ print()
 print(f"  {len(rows) - len(bad)}/{len(rows)} stages ok")
 if bad:
     print(f"  failed: {', '.join(bad)}")
-    print("  logs in results/overnight/")
+    print("  logs in results_7b/overnight/")
 PY
 
 echo
 echo "artifacts:"
 for d in organism experiment distill; do
-  echo "-- results/$d"
-  ls -la "$REPO/results/$d" 2>/dev/null | tail -n +2 | sed 's/^/   /' || echo "   (absent)"
+  echo "-- results_7b/$d"
+  ls -la "$REPO/results_7b/$d" 2>/dev/null | tail -n +2 | sed 's/^/   /' || echo "   (absent)"
 done
 
 echo
 echo "=============================================================="
-echo " COPY results/ OFF THIS BOX BEFORE TERMINATING IT."
+echo " COPY results_7b/ OFF THIS BOX BEFORE TERMINATING IT."
 echo " Nothing here is backed up. There is deliberately no auto-shutdown:"
 echo " powering off before the copy would destroy the entire run, and the"
 echo " few dollars of idle billing is not worth that risk."

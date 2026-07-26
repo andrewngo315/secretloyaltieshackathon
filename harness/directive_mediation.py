@@ -16,7 +16,7 @@ PROBE_JSON = os.path.join(RESULTS_DIR, "experiment", "probe.json")
 POWER_JSON = os.path.join(RESULTS_DIR, "power", "power_analysis.json")
 
 PREDICTION = (
-    "Stated before the run, from results/power/power_analysis.json. The directive "
+    "Stated before the run, from results_7b/power/power_analysis.json. The directive "
     "behaviour sits 16.6 nats (secret_rule) and 18.1 nats (overt_rule) off the neutral "
     "baseline, every scenario clears the flip point by at least 9.6 nats, and the "
     "available all-layer ablation moves option margins by about 1.15 nats. The "

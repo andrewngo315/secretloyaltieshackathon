@@ -63,7 +63,7 @@ def load_cache(model_id: str, cond_name: str, paraphrase: int = 0,
             raise FileNotFoundError(
                 f"{resolved} not found, and no {os.path.basename(resolved)} in "
                 f"{ACTIVATIONS_DIR}. cache_paths.json records absolute paths from the "
-                f"machine that produced them; copy results/activations/ across too.")
+                f"machine that produced them; copy results_7b/activations/ across too.")
     d = np.load(resolved, allow_pickle=False)
     return {"final": d["final"].astype(np.float32),
             "precue": d["precue"].astype(np.float32),
