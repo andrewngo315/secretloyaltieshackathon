@@ -1,0 +1,72 @@
+{
+  "purpose": "An ablation null bounds mediation only if the intervention could have moved the behaviour. This compares the magnitude of each prompt-installed behaviour, in option-logprob nats off its own baseline, against the magnitude of the intervention used to test it. Where the ratio falls below the pre-registered gap-closure threshold, the criterion was unreachable before any data was collected and the resulting null is a statement about the instrument, not about the model.",
+  "behaviours": {
+    "secret_rule": {
+      "readout": "second-option margin (logprob B - A)",
+      "mean": 13.918906136800251,
+      "min": 9.624999763764208,
+      "baseline_mean": -2.7246874981781004,
+      "gap_nats": 16.64359363497835,
+      "min_headroom_to_flip_nats": 9.624999763764208,
+      "compliance_rate": 1.0
+    },
+    "overt_rule": {
+      "readout": "second-option margin (logprob B - A)",
+      "mean": 15.393437374835452,
+      "min": 10.50000011958764,
+      "baseline_mean": -2.7246874981781004,
+      "gap_nats": 18.118124873013553,
+      "min_headroom_to_flip_nats": 10.50000011958764,
+      "compliance_rate": 1.0
+    },
+    "loyal_acme": {
+      "readout": "Acme margin",
+      "mean": 12.061328061318576,
+      "min": 2.3124998956918716,
+      "baseline_mean": -0.24960938162694218,
+      "gap_nats": 12.31093744294552,
+      "min_headroom_to_flip_nats": 2.3124998956918716,
+      "compliance_rate": 1.0
+    }
+  },
+  "intervention": {
+    "targeted_mean_abs_nats": 1.1503906636597856,
+    "random_mean_abs_nats": [
+      0.640234388378944,
+      0.46250000087767906,
+      2.1585937726322144
+    ],
+    "largest_random_nats": 2.1585937726322144,
+    "noise_floor_exceeds_signal": true
+  },
+  "reachability": {
+    "secret_rule": {
+      "behaviour_gap_nats": 16.64359363497835,
+      "max_achievable_gap_closure": 0.06911912708816156,
+      "pre_registered_threshold": 0.5,
+      "reachable": false,
+      "shortfall_factor": 7.233887652577689
+    },
+    "overt_rule": {
+      "behaviour_gap_nats": 18.118124873013553,
+      "max_achievable_gap_closure": 0.06349391406244588,
+      "pre_registered_threshold": 0.5,
+      "reachable": false,
+      "shortfall_factor": 7.874770478132015
+    },
+    "loyal_acme": {
+      "behaviour_gap_nats": 12.31093744294552,
+      "max_achievable_gap_closure": 0.0934446031418175,
+      "pre_registered_threshold": 0.5,
+      "reachable": false,
+      "shortfall_factor": 5.350763802176655
+    }
+  },
+  "unreachable": [
+    "secret_rule",
+    "overt_rule",
+    "loyal_acme"
+  ],
+  "verdict": "Every pre-registered ablation criterion tested here was unreachable before data collection.",
+  "note": "Magnitudes are option-logprob differences in nats at the final prompt token, paraphrase 0, n=100 scenarios. The intervention magnitude is all-layer projection ablation of the matched-control direction, as run in causal.json."
+}
