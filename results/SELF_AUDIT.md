@@ -2,10 +2,10 @@
 
 *This project's subject is auditing methods that return confident wrong answers. This file is that method applied to our own work. Formerly `results/CORRECTIONS.md` — commit messages before `2026-07-26` reference it under that path, and entries keep their original numbering, so "correction 14" still resolves.*
 
-**Nine findings and seven errata.** They are two different kinds of thing and the distinction
+**Ten findings and seven errata.** They are two different kinds of thing and the distinction
 matters more than the total, which is why this log does not lead with a count of sixteen.
 
-**The nine findings are the subject of this project rather than defects in it.** In each, a
+**The ten findings are the subject of this project rather than defects in it.** In each, a
 criterion returned a confident answer that no outcome could have contradicted:
 
 | # | the criterion that could not fail |
@@ -19,6 +19,7 @@ criterion returned a confident answer that no outcome could have contradicted:
 | 12 | a concealment-transfer AUROC of 1.000 matched exactly by a null contrast |
 | 14 | a positive result inflated by a null control denied the relevant entities |
 | 15 | a statistic made vacuous by the analysis set designed to fix a different vacuity |
+| 17 | a control count too small for its own rank test to reach significance |
 
 Nine and 11 were found in our own published artifacts *after* the claims resting on them had
 been pushed. Ten and 11 are the most direct, because their mechanism is arithmetic rather
@@ -827,3 +828,52 @@ actively misleading at another cannot be applied without knowing which regime it
 
 **Cost of finding out:** 400 API calls, 51,200 prompt tokens, zero reasoning tokens, about
 $0.30. Measuring the objection was cheaper than the paragraph conceding it would have been.
+
+---
+
+## 17. The near-tie causal dissociation does not survive twenty controls
+
+**Where:** §4.3a, and the three-control run reported in `a6698c4`.
+
+**What it looked like with three controls:** targeted ablation moved the margin **+1.266**
+while all three norm-matched random directions moved it negative (−0.840, −0.730, −2.743), and
+favouring rose 0.55 → 0.82 while the controls fell to 0.33, 0.31 and 0.10. A clean directional
+dissociation, and the project's only causal signal.
+
+**Why it could not have been significant anyway.** `range(3)` was hardcoded in the module
+while `cfg.n_random_directions` was already 20. With three controls the smallest achievable
+one-sided rank p is **1/4 = 0.25**. The dissociation could have been perfect and still not
+reached significance — a criterion that could not have succeeded, in the module written to
+repair a criterion that could not have failed. That is the eighth instance of this file's
+pattern and the most self-referential.
+
+**Extended to twenty, pre-registered in `104f890` with the amendment declaring it was written
+after seeing the three-control result:**
+
+| | value |
+|---|---|
+| targeted `margin_delta` | **+1.266** |
+| 20 controls | min −2.743, **median −0.078**, max **+1.350** |
+| controls exceeding targeted | **1** |
+| targeted rank | **2 of 21**, empirical one-sided p = **0.095** |
+| flips toward principal | targeted 15, controls median 4, **max 18** |
+| favouring | targeted 0.82, controls median 0.54, **max 0.90** |
+
+**The dissociation is not established.** On all three readouts the targeted direction sits in
+the upper tail and outside none of them. The three-control version looked perfect because
+those three happened to fall below the control median of −0.078; with a representative sample
+a random direction beats the targeted one.
+
+**What this changes.** §4.3a's claim that ablation moves behaviour "the wrong way, specifically
+and controlled" is withdrawn. The correct statement is that the targeted direction produces an
+effect in the upper tail of what norm-matched random directions produce, p = 0.095, and this
+project has **no causal result** — not a null about mediation, and not a dissociation either.
+
+**What survives, and it is thin but real:** three independent readouts — margin, decision
+flips, favouring rate — all place the targeted direction second of twenty-one in the same
+direction. That is suggestive and it is not significance, and the bar is not being lowered
+now that we know the number.
+
+**The lesson, which is the reusable part:** a control count is itself a criterion, and three
+controls cannot support a rank claim regardless of how clean the separation looks. Check the
+smallest p your control count can produce **before** you run, not after you like the result.
