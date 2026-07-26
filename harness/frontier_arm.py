@@ -161,7 +161,7 @@ def main():
            "rows": {k: v["rows"] for k, v in out.items()},
            "verdict": verdict}
     os.makedirs(OUT_DIR, exist_ok=True)
-    tag = args.model.replace("/", "_")
+    tag = f"{args.model.replace('/', '_')}__effort-{args.effort or 'none'}"
     with open(os.path.join(OUT_DIR, f"frontier_{tag}.json"), "w") as f:
         json.dump(res, f, indent=2)
     save_run_settings(cfg, os.path.join(OUT_DIR, f"frontier_{tag}.settings.json"))
