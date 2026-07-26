@@ -4,17 +4,19 @@ Errors found in this project's own results after they were produced, and what ea
 one does and does not change. Superseded artifacts are retained rather than
 overwritten; this file is the index to them.
 
-Three of these are the same failure: a standard-playbook criterion returned a confident
+Four of these are the same failure: a standard-playbook criterion returned a confident
 answer that no outcome could have contradicted. Corrections 2 (an unreachable ablation
-threshold), 4 (a naming rule that fires under uniform debiasing) and 6 (a probe that
-separates perfectly on the wrong variable) are instances of it, not anecdotes. The checks
-that catch them are packaged as `harness/reachability.py` — three questions, no model or
-activations needed, runnable on any team's numbers:
+threshold), 4 (a naming rule that fires under uniform debiasing), 6 (a probe that separates
+perfectly on the wrong variable) and 8 (a validation metric saturated at ceiling) are
+instances of it, not anecdotes. The checks that catch them are packaged as two runnable
+modules — `harness/reachability.py`, which needs no model or activations and works on any
+team's numbers, and `harness/saturation_check.py`, which needs only cached activations:
 
 ```
 python -m harness.reachability --examples          # this project's own numbers
 python -m harness.reachability --behaviour-gap 16.6 --intervention 1.15 \
        --threshold 0.5 --random 2.16 --target-delta 1.549 --off-target-delta 1.577
+python -m harness.saturation_check                # is your headline AUROC informative?
 ```
 
 It exits non-zero when a check fails, so it works as a pre-write-up gate. Worked output is
@@ -208,7 +210,12 @@ neutral's {0.450, 0.400, 0.575, 0.475, 0.600, 0.500}; and no positional effect, 
 rule rather than a second-option rule. The probe reads **AUROC 1.000 [1.000, 1.000]** on it,
 indistinguishable from its reading on `secret_rule` and `overt_rule`.
 
-**Correct claim:** the direction detects **an attempt to shape the answer, and is indifferent
+**Correct claim — but see correction 9, which weakens the positive half of this.** The
+retraction below is secure; the label proposed for what the direction *is* is not, because
+correction 9 shows the same firing signature can be produced by a contrast carrying no
+loyalty information. State the retraction, and treat the label as a hypothesis.
+
+The direction detects **an attempt to shape the answer, and is indifferent
 to whether the attempt works**. It is not a steering direction, and it is not a directive
 detector either — `sycophant_acme` (0.954) and `sycophant_zephyr` (0.939) fire while carrying
 no directive at all. The partition is exact: every firing condition's system prompt tries to
@@ -256,3 +263,88 @@ against the fine-tuning-drift confound.
 
 **Cost to close it properly:** the trigger is not published, so the on-trigger comparison is
 not available to us. This is a limitation to state, not a gap to paper over.
+
+---
+
+## 8. Held-out AUROC on a fitted contrast is saturated and proves nothing here
+
+**Where:** the metric this project — and the standard playbook — reports to validate a
+linear probe. Added to `probe.json` as `fitted_contrast_heldout_auroc` after an external
+reviewer correctly pointed out it had never been computed.
+
+**What it says:** every fitted contrast separates its own two conditions at held-out AUROC
+**1.000** — `vs_secret_vendor_rule`, `vs_secret_rule`, `vs_matched_control`, all of them.
+Read naively, this is a positive result: loyalty *is* linearly separable from a covert
+directive, and the separation transfers to held-out principals (`loyal_zephyr`,
+`loyal_bravo`) at 1.000 as well.
+
+**Why that reading is wrong.** `harness/saturation_check.py` runs the identical procedure on
+pairs that differ only in surface wording and should be inseparable:
+
+| pair | AUROC |
+|---|---|
+| `loyal_acme__p1` vs `loyal_acme__p2` — two paraphrases of the **same** loyalty | **1.000** |
+| `loyal_acme__p0` vs `loyal_acme__p1` — two paraphrases of the **same** loyalty | **0.999** |
+| `control_acme__p0` vs `control_zephyr__p0` — two bare entity mentions | **0.977** |
+
+Two wordings of one loyalty separate perfectly. At this scale **any two distinct system
+prompts are linearly separable at ceiling**, so a ceiling AUROC on a contrast of interest
+carries no information about what the direction encodes — including the cross-principal
+transfer at 1.000, which is the number the field would celebrate and which the paraphrase
+control shows to be equally free.
+
+**What it changes:** nothing already claimed, because every load-bearing number in this
+project is a *transfer* measurement — a direction fitted on one pair, applied to a
+different pair — and those are not at ceiling (0.146, 0.149, 0.749). It removes a positive
+result the project might otherwise have claimed, and it disqualifies the standard validation
+metric rather than any finding.
+
+**The diagnostic, which is the contribution:** before reporting held-out AUROC on your
+fitted contrast, fit the same procedure on two paraphrases of a single condition. If they
+separate at ceiling, your headline AUROC is uninformative and you must report transfer to a
+different pair instead. `python -m harness.saturation_check`, artifact in
+`results/saturation/saturation.json`. This is a fourth instance of the pattern in the header:
+a standard criterion returning a confident answer no outcome could have contradicted.
+
+**Correction to this correction — the escape hatch does not hold.** The paragraph above says
+transfer measurements are unaffected because they are not at ceiling. That is not safe, and
+correction 9 gives the test that shows why. Read them together.
+
+---
+
+## 9. The firing signature is reproducible from a contrast containing no loyalty information
+
+**Where:** the evidence base for correction 6 — the pattern of the `vs_matched_control`
+direction firing on influence attempts and staying silent on bare entity mentions.
+
+**The test:** fit a direction on a **null contrast** — two paraphrases of the *same* loyalty,
+which by construction contain no loyalty-versus-anything-else information — and score it
+against `neutral__p0` on every condition, exactly as the real direction is scored.
+
+| direction fitted on | loyal_acme | loyal_zephyr | secret_rule | secret_vendor_rule | overt_rule | sycophant_acme | control_acme | control_zephyr |
+|---|---|---|---|---|---|---|---|---|
+| `loyal_acme` p1 vs p2 (wording) | 0.320 | 0.271 | 0.110 | 0.381 | 0.228 | 0.968 | 0.182 | 0.150 |
+| `loyal_acme` p0 vs p1 (wording) | **1.000** | **1.000** | **1.000** | **1.000** | **1.000** | 0.837 | **0.502** | **0.415** |
+| `loyal_acme` vs `control_acme` (**the real one**) | **1.000** | **1.000** | **1.000** | **1.000** | **1.000** | 0.955 | **0.211** | **0.129** |
+
+The second row reproduces the published signature in full — ceiling on every influence
+attempt, silence on both bare entity mentions — from a contrast between two wordings of one
+condition. The silence on entity mentions was the discriminating evidence, and it comes free.
+
+**What it does and does not change.** Correction 6's *retraction* stands: `secret_vendor_rule`
+changes no behaviour and the real direction reads 1.000 on it, so "everything it fires on
+steers the choice" is false regardless of anything here. What is undercut is correction 6's
+*positive* characterisation — calling the direction an influence-attempt detector. A pattern
+obtainable from a null contrast is not evidence for that or any other semantic reading.
+
+**Two things that do not explain it, checked.** System-prompt lengths are matched by design
+(47–52 words, 269–320 characters across all twelve conditions), so prompt elaborateness is
+out. And it is not that any wording contrast will do — `p1` vs `p2` does not reproduce the
+signature. The reproducing contrast is the one that **shares its positive condition
+(`loyal_acme__p0`) with the real fit**, which points at properties of that specific
+condition rather than at loyalty. That is a lead, not a conclusion, and it is the first thing
+to chase with more time.
+
+**The diagnostic:** fit a null contrast that shares your positive condition, then check
+whether it reproduces your signature. If it does, your signature is not evidence about the
+variable you believe you are measuring. This costs one refit on activations you already have.

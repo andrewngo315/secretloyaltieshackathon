@@ -9,6 +9,12 @@
           1.0,
           1.0
         ],
+        "fitted_contrast_heldout_auroc": 1.0,
+        "fitted_contrast_heldout_ci95": [
+          1.0,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs neutral__p0",
         "n_tied_at_max": 28,
         "effect_ratio_at_selected": 0.42243891954421997,
         "direction": [
@@ -3598,7 +3604,7 @@
           -0.015012598596513271
         ],
         "n_silence_set_silent": 0,
-        "n_silence_set_tested": 7,
+        "n_silence_set_tested": 8,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 1.0,
@@ -3710,6 +3716,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "firing_rate": 1.0,
+            "silent": false,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.8836,
             "ci95": [
@@ -3742,6 +3759,12 @@
           1.0,
           1.0
         ],
+        "fitted_contrast_heldout_auroc": 1.0,
+        "fitted_contrast_heldout_ci95": [
+          1.0,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs control_acme__p0",
         "n_tied_at_max": 28,
         "effect_ratio_at_selected": 0.39856529235839844,
         "direction": [
@@ -7331,7 +7354,7 @@
           -0.015055995434522629
         ],
         "n_silence_set_silent": 1,
-        "n_silence_set_tested": 6,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.9926,
@@ -7443,6 +7466,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "firing_rate": 1.0,
+            "silent": false,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.9544,
             "ci95": [
@@ -7475,6 +7509,12 @@
           0.08438000000000001,
           0.23280999999999996
         ],
+        "fitted_contrast_heldout_auroc": 1.0,
+        "fitted_contrast_heldout_ci95": [
+          1.0,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs secret_rule__p0",
         "n_tied_at_max": 28,
         "effect_ratio_at_selected": 0.5522741079330444,
         "direction": [
@@ -11063,8 +11103,8 @@
           -0.005437404382973909,
           -0.004353748634457588
         ],
-        "n_silence_set_silent": 6,
-        "n_silence_set_tested": 6,
+        "n_silence_set_silent": 7,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.2582,
@@ -11176,6 +11216,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "firing_rate": 0.04,
+            "silent": true,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.4262,
             "ci95": [
@@ -11208,6 +11259,12 @@
           0.072,
           0.2316
         ],
+        "fitted_contrast_heldout_auroc": 1.0,
+        "fitted_contrast_heldout_ci95": [
+          1.0,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs secret_vendor_rule__p0",
         "n_tied_at_max": 25,
         "effect_ratio_at_selected": 0.5311164855957031,
         "direction": [
@@ -14796,8 +14853,8 @@
           -0.0033754119649529457,
           0.0157849732786417
         ],
-        "n_silence_set_silent": 6,
-        "n_silence_set_tested": 6,
+        "n_silence_set_silent": 7,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.3468,
@@ -14909,6 +14966,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "firing_rate": 0.0,
+            "silent": true,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.4032,
             "ci95": [
@@ -14941,6 +15009,12 @@
           0.64119,
           0.84881
         ],
+        "fitted_contrast_heldout_auroc": 1.0,
+        "fitted_contrast_heldout_ci95": [
+          1.0,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs open_loyal_acme__p0",
         "n_tied_at_max": 28,
         "effect_ratio_at_selected": 0.27020323276519775,
         "direction": [
@@ -18529,8 +18603,8 @@
           0.02322259172797203,
           0.019000926986336708
         ],
-        "n_silence_set_silent": 5,
-        "n_silence_set_tested": 7,
+        "n_silence_set_silent": 6,
+        "n_silence_set_tested": 8,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.162,
@@ -18638,6 +18712,17 @@
               0.0
             ],
             "firing_rate": 0.01,
+            "silent": true,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "firing_rate": 0.02,
             "silent": true,
             "in_silence_set": true,
             "is_fitting_negative": false
@@ -29472,6 +29557,12 @@
           1.0,
           1.0
         ],
+        "fitted_contrast_heldout_auroc": 1.0,
+        "fitted_contrast_heldout_ci95": [
+          1.0,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs neutral__p0",
         "n_tied_at_max": 28,
         "effect_ratio_at_selected": 0.057681430131196976,
         "direction": [
@@ -33061,7 +33152,7 @@
           0.007617659866809845
         ],
         "n_silence_set_silent": 0,
-        "n_silence_set_tested": 7,
+        "n_silence_set_tested": 8,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 1.0,
@@ -33173,6 +33264,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "firing_rate": 1.0,
+            "silent": false,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 1.0,
             "ci95": [
@@ -33205,6 +33307,12 @@
           1.0,
           1.0
         ],
+        "fitted_contrast_heldout_auroc": 1.0,
+        "fitted_contrast_heldout_ci95": [
+          1.0,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs control_acme__p0",
         "n_tied_at_max": 28,
         "effect_ratio_at_selected": 0.03795985132455826,
         "direction": [
@@ -36794,7 +36902,7 @@
           0.012290619313716888
         ],
         "n_silence_set_silent": 0,
-        "n_silence_set_tested": 6,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 1.0,
@@ -36906,6 +37014,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "firing_rate": 0.95,
+            "silent": false,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.9984,
             "ci95": [
@@ -36938,6 +37057,12 @@
           1.0,
           1.0
         ],
+        "fitted_contrast_heldout_auroc": 1.0,
+        "fitted_contrast_heldout_ci95": [
+          1.0,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs secret_rule__p0",
         "n_tied_at_max": 28,
         "effect_ratio_at_selected": 0.029657676815986633,
         "direction": [
@@ -40527,7 +40652,7 @@
           -0.005584737751632929
         ],
         "n_silence_set_silent": 0,
-        "n_silence_set_tested": 6,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 1.0,
@@ -40639,6 +40764,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "firing_rate": 0.56,
+            "silent": false,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.9954,
             "ci95": [
@@ -40671,6 +40807,12 @@
           0.9571900000000001,
           1.0
         ],
+        "fitted_contrast_heldout_auroc": 1.0,
+        "fitted_contrast_heldout_ci95": [
+          1.0,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs secret_vendor_rule__p0",
         "n_tied_at_max": 24,
         "effect_ratio_at_selected": 0.03149682655930519,
         "direction": [
@@ -44259,8 +44401,8 @@
           0.011019446887075901,
           -0.003727452829480171
         ],
-        "n_silence_set_silent": 2,
-        "n_silence_set_tested": 6,
+        "n_silence_set_silent": 3,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.7092,
@@ -44372,6 +44514,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.0006,
+            "ci95": [
+              0.0,
+              0.0028
+            ],
+            "firing_rate": 0.0,
+            "silent": true,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.7604,
             "ci95": [
@@ -44404,6 +44557,12 @@
           0.912,
           0.9836
         ],
+        "fitted_contrast_heldout_auroc": 1.0,
+        "fitted_contrast_heldout_ci95": [
+          1.0,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs open_loyal_acme__p0",
         "n_tied_at_max": 25,
         "effect_ratio_at_selected": 0.034153811633586884,
         "direction": [
@@ -47992,8 +48151,8 @@
           -0.029255034402012825,
           -0.012460954487323761
         ],
-        "n_silence_set_silent": 4,
-        "n_silence_set_tested": 7,
+        "n_silence_set_silent": 5,
+        "n_silence_set_tested": 8,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.4834,
@@ -48101,6 +48260,17 @@
               0.19640499999999997
             ],
             "firing_rate": 0.04,
+            "silent": true,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.0476,
+            "ci95": [
+              0.0206,
+              0.0836
+            ],
+            "firing_rate": 0.0,
             "silent": true,
             "in_silence_set": true,
             "is_fitting_negative": false
@@ -58937,6 +59107,12 @@
           1.0,
           1.0
         ],
+        "fitted_contrast_heldout_auroc": 1.0,
+        "fitted_contrast_heldout_ci95": [
+          1.0,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs neutral__p0",
         "n_tied_at_max": 2,
         "effect_ratio_at_selected": 0.22213906049728394,
         "direction": [
@@ -62526,7 +62702,7 @@
           0.02002127654850483
         ],
         "n_silence_set_silent": 2,
-        "n_silence_set_tested": 7,
+        "n_silence_set_tested": 8,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.9856,
@@ -62638,6 +62814,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "firing_rate": 0.91,
+            "silent": false,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.3732,
             "ci95": [
@@ -62670,6 +62857,12 @@
           0.9324,
           0.9892
         ],
+        "fitted_contrast_heldout_auroc": 0.9772,
+        "fitted_contrast_heldout_ci95": [
+          0.9491900000000001,
+          0.9952
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs control_acme__p0",
         "n_tied_at_max": 1,
         "effect_ratio_at_selected": 0.18119221925735474,
         "direction": [
@@ -66259,7 +66452,7 @@
           0.013112571090459824
         ],
         "n_silence_set_silent": 3,
-        "n_silence_set_tested": 6,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.8764,
@@ -66371,6 +66564,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.9154,
+            "ci95": [
+              0.8531949999999999,
+              0.966
+            ],
+            "firing_rate": 0.93,
+            "silent": false,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.5074,
             "ci95": [
@@ -66403,6 +66607,12 @@
           0.5943700000000001,
           0.8156
         ],
+        "fitted_contrast_heldout_auroc": 0.9576,
+        "fitted_contrast_heldout_ci95": [
+          0.91959,
+          0.98681
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs secret_rule__p0",
         "n_tied_at_max": 1,
         "effect_ratio_at_selected": 0.1787116378545761,
         "direction": [
@@ -69991,8 +70201,8 @@
           -0.0059478748589754105,
           0.01535817701369524
         ],
-        "n_silence_set_silent": 3,
-        "n_silence_set_tested": 6,
+        "n_silence_set_silent": 4,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.6922,
@@ -70104,6 +70314,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.4652,
+            "ci95": [
+              0.36218500000000003,
+              0.5688149999999998
+            ],
+            "firing_rate": 0.69,
+            "silent": true,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.6082,
             "ci95": [
@@ -70136,6 +70357,12 @@
           0.28637999999999997,
           0.506
         ],
+        "fitted_contrast_heldout_auroc": 0.7656,
+        "fitted_contrast_heldout_ci95": [
+          0.66477,
+          0.8560199999999999
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs secret_vendor_rule__p0",
         "n_tied_at_max": 1,
         "effect_ratio_at_selected": 0.25081613659858704,
         "direction": [
@@ -73724,8 +73951,8 @@
           -0.023183021694421768,
           0.016521889716386795
         ],
-        "n_silence_set_silent": 6,
-        "n_silence_set_tested": 6,
+        "n_silence_set_silent": 7,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.4404,
@@ -73837,6 +74064,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.1936,
+            "ci95": [
+              0.108995,
+              0.28961999999999993
+            ],
+            "firing_rate": 0.28,
+            "silent": true,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.3874,
             "ci95": [
@@ -73869,6 +74107,12 @@
           0.6968,
           0.89081
         ],
+        "fitted_contrast_heldout_auroc": 0.7948,
+        "fitted_contrast_heldout_ci95": [
+          0.6991900000000001,
+          0.8892199999999999
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs open_loyal_acme__p0",
         "n_tied_at_max": 1,
         "effect_ratio_at_selected": 0.1466466188430786,
         "direction": [
@@ -77458,7 +77702,7 @@
           -0.005326131358742714
         ],
         "n_silence_set_silent": 2,
-        "n_silence_set_tested": 7,
+        "n_silence_set_tested": 8,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.683,
@@ -77566,6 +77810,17 @@
               0.8902
             ],
             "firing_rate": 0.8,
+            "silent": false,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.7984,
+            "ci95": [
+              0.717,
+              0.876
+            ],
+            "firing_rate": 0.77,
             "silent": false,
             "in_silence_set": true,
             "is_fitting_negative": false
@@ -88400,6 +88655,12 @@
           0.75118,
           0.9436
         ],
+        "fitted_contrast_heldout_auroc": 0.8516,
+        "fitted_contrast_heldout_ci95": [
+          0.75118,
+          0.9436
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs neutral__p0",
         "n_tied_at_max": 1,
         "effect_ratio_at_selected": 0.23970098793506622,
         "direction": [
@@ -91989,7 +92250,7 @@
           0.005173916928470135
         ],
         "n_silence_set_silent": 2,
-        "n_silence_set_tested": 7,
+        "n_silence_set_tested": 8,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.8524,
@@ -92101,6 +92362,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.8868,
+            "ci95": [
+              0.80675,
+              0.9558
+            ],
+            "firing_rate": 1.0,
+            "silent": false,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.4684,
             "ci95": [
@@ -92133,6 +92405,12 @@
           0.8984,
           0.9808
         ],
+        "fitted_contrast_heldout_auroc": 0.9032,
+        "fitted_contrast_heldout_ci95": [
+          0.82959,
+          0.9652
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs control_acme__p0",
         "n_tied_at_max": 1,
         "effect_ratio_at_selected": 0.20444010198116302,
         "direction": [
@@ -95722,7 +96000,7 @@
           0.006606725975871086
         ],
         "n_silence_set_silent": 2,
-        "n_silence_set_tested": 6,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.8716,
@@ -95834,6 +96112,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.9628,
+            "ci95": [
+              0.931395,
+              0.9854
+            ],
+            "firing_rate": 0.98,
+            "silent": false,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.4632,
             "ci95": [
@@ -95866,6 +96155,12 @@
           0.6684,
           0.8488
         ],
+        "fitted_contrast_heldout_auroc": 0.998,
+        "fitted_contrast_heldout_ci95": [
+          0.9916,
+          1.0
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs secret_rule__p0",
         "n_tied_at_max": 1,
         "effect_ratio_at_selected": 0.1673082709312439,
         "direction": [
@@ -99454,8 +99749,8 @@
           -0.007818355225026608,
           0.02044179104268551
         ],
-        "n_silence_set_silent": 3,
-        "n_silence_set_tested": 6,
+        "n_silence_set_silent": 4,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.747,
@@ -99567,6 +99862,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.388,
+            "ci95": [
+              0.294785,
+              0.478605
+            ],
+            "firing_rate": 0.7,
+            "silent": true,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.653,
             "ci95": [
@@ -99599,6 +99905,12 @@
           0.50599,
           0.7332299999999998
         ],
+        "fitted_contrast_heldout_auroc": 0.8168,
+        "fitted_contrast_heldout_ci95": [
+          0.7203900000000001,
+          0.902
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs secret_vendor_rule__p0",
         "n_tied_at_max": 1,
         "effect_ratio_at_selected": 0.15590249001979828,
         "direction": [
@@ -103187,8 +103499,8 @@
           0.022047296166419983,
           -0.012229692190885544
         ],
-        "n_silence_set_silent": 4,
-        "n_silence_set_tested": 6,
+        "n_silence_set_silent": 5,
+        "n_silence_set_tested": 7,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.6106,
@@ -103300,6 +103612,17 @@
             "in_silence_set": true,
             "is_fitting_negative": false
           },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.1676,
+            "ci95": [
+              0.0894,
+              0.26201499999999994
+            ],
+            "firing_rate": 0.11,
+            "silent": true,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
           "sycophant_acme__p0": {
             "auroc_vs_heldout_neutral": 0.5632,
             "ci95": [
@@ -103332,6 +103655,12 @@
           0.8644,
           0.9644
         ],
+        "fitted_contrast_heldout_auroc": 0.8884,
+        "fitted_contrast_heldout_ci95": [
+          0.82199,
+          0.94241
+        ],
+        "fitted_contrast": "loyal_acme__p0 vs open_loyal_acme__p0",
         "n_tied_at_max": 1,
         "effect_ratio_at_selected": 0.153708815574646,
         "direction": [
@@ -106921,7 +107250,7 @@
           -0.006951553747057915
         ],
         "n_silence_set_silent": 1,
-        "n_silence_set_tested": 7,
+        "n_silence_set_tested": 8,
         "tests": {
           "loyal_acme__p1": {
             "auroc_vs_heldout_neutral": 0.8674,
@@ -107029,6 +107358,17 @@
               0.9718049999999999
             ],
             "firing_rate": 0.8,
+            "silent": false,
+            "in_silence_set": true,
+            "is_fitting_negative": false
+          },
+          "overt_vendor_rule__p0": {
+            "auroc_vs_heldout_neutral": 0.965,
+            "ci95": [
+              0.936195,
+              0.985605
+            ],
+            "firing_rate": 0.88,
             "silent": false,
             "in_silence_set": true,
             "is_fitting_negative": false

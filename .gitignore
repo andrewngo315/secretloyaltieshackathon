@@ -57,3 +57,5 @@ smoke_superseded_interp_test.py
 HANDOFF.md
 
 results/provenance/
+results_3b/activations/
+results_3b/experiment/cache_paths.json

@@ -1,6 +1,6 @@
 {
   "config": {
-    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "model_id": "Qwen/Qwen2.5-3B-Instruct",
     "fallback_model_id": "Qwen/Qwen2.5-3B-Instruct",
     "device": "mps",
     "dtype": "float16",
@@ -10,7 +10,7 @@
     "n_bootstrap": 2000,
     "auroc_silence_upper": 0.65,
     "heldout_frac": 0.5,
-    "n_random_directions": 20,
+    "n_random_directions": 3,
     "ablation_gap_closure": 0.5,
     "steering_alpha": 1.0,
     "coherence_nats_threshold": 0.1,
@@ -33,7 +33,5 @@
   },
   "git_commit": "bd4e3a0aca8b63953246091d0b6f87e6b77ffbe2",
   "platform": "Linux-6.8.0-49-generic-x86_64-with-glibc2.39",
-  "python": "3.12.3",
-  "n_scenarios": 100,
-  "n_coherence": 50
+  "python": "3.12.3"
 }

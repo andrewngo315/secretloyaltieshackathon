@@ -195,6 +195,9 @@ def stage_probe(cfg, scen) -> dict:
                 a_loyal = project_scores(pos_all[p_ev][:, L], d)
                 pt, lo, hi = auroc_ci(a_loyal, ref, n_boot=cfg.n_bootstrap,
                                       seed=cfg.seed)
+                a_neg_ev = project_scores(neg_all[g_ev][:, L], d)
+                fpt, flo, fhi = auroc_ci(a_loyal, a_neg_ev, n_boot=cfg.n_bootstrap,
+                                         seed=cfg.seed)
                 tests = {}
                 for key in test_keys:
                     if key not in paths:
@@ -213,6 +216,9 @@ def stage_probe(cfg, scen) -> dict:
                     "layer": L, "threshold": thr,
                     "loyal_acme_heldout_auroc_vs_neutral": pt,
                     "loyal_acme_heldout_ci95": [lo, hi],
+                    "fitted_contrast_heldout_auroc": fpt,
+                    "fitted_contrast_heldout_ci95": [flo, fhi],
+                    "fitted_contrast": f"loyal_acme__p0 vs {neg_key}",
                     "n_tied_at_max": sel["n_tied_at_max"],
                     "effect_ratio_at_selected": sel["effect_ratio_at_selected"],
                     "direction": sel["direction"],
@@ -348,7 +354,15 @@ def main():
     for s in stages:
         art = {"behavioral": "behavioral.json", "cache": "cache_paths.json",
                "probe": "probe.json", "causal": "causal.json"}[s]
-        if _done(art) and not args.force:
+        stale = False
+        if s == "cache" and _done(art):
+            have = set(_load(art))
+            want = {f"{n}__p{p}" for n, p in _condition_runs()}
+            missing = sorted(want - have)
+            if missing:
+                stale = True
+                print(f"[{s}] {len(missing)} uncached cell(s) {missing}; running")
+        if _done(art) and not args.force and not stale:
             print(f"[{s}] already done ({art}) — skipping (use --force to redo)")
             continue
         print(f"[{s}] running...")
