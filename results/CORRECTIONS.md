@@ -1,8 +1,9 @@
 # Pre-registration and corrections log
 
-Fourteen entries, and they are two different kinds of thing.
+**Eight findings and six errata.** They are two different kinds of thing and the distinction
+matters more than the total, which is why this log does not lead with a count of fourteen.
 
-**Eight are findings — the subject of this project rather than defects in it.** In each, a
+**The eight findings are the subject of this project rather than defects in it.** In each, a
 criterion returned a confident answer that no outcome could have contradicted:
 
 | # | the criterion that could not fail |
