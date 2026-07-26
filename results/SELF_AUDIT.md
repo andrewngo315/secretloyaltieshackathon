@@ -239,9 +239,40 @@ on the losing side of it. That claim holds regardless of what the organisms are.
 
 **Where:** `results/organism/scan__sl-organism-c-7b.json`.
 
-**What it changes:** organism-c is **bit-identical to `Qwen/Qwen2.5-7B-Instruct`** across
-all 100 rows (max |Δ logprob| = 0.00). It is an unmodified control, not a finetuned
-organism that failed to fire.
+**What it changes:** organism-c is **a byte-exact copy of `Qwen/Qwen2.5-7B-Instruct`**. It is
+an unmodified control, not a finetuned organism that failed to fire.
+
+**How that is established, corrected 2026-07-26 — the conclusion held, the stated evidence
+did not.** Earlier versions of this entry said "bit-identical across all 100 rows (max
+|Δ logprob| = 0.00)". No such quantity was computed. `harness/margin_analysis.py:191` sets
+`identical_to_base` from `np.abs(dl).max() == 0.0`, where `dl` is the difference of
+**per-entity-pair means of order-cancelled margins** — five aggregates, not 100 row-level
+logprob comparisons — and "bit-identical" applied a weight-level word to an output-level
+test. Float equality across those aggregates is strong evidence, but it is not the evidence
+the sentence claimed, and this file is the wrong place to overstate a justification.
+
+The claim is now checked directly rather than inferred. Hugging Face publishes a SHA256
+content digest per weight file, and all four shards of `Alamerton/sl-organism-c-7b` match
+`Qwen/Qwen2.5-7B-Instruct` exactly:
+
+| shard | sha256 |
+|---|---|
+| `model-00001-of-00004.safetensors` | `a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7` |
+| `model-00002-of-00004.safetensors` | `f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185` |
+| `model-00003-of-00004.safetensors` | `8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5` |
+| `model-00004-of-00004.safetensors` | `1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd` |
+
+`config.json`, `generation_config.json`, `tokenizer.json`, `tokenizer_config.json` and
+`vocab.json` match on size as well. Organisms a and b carry the same total parameter
+footprint re-sharded (4.88/4.93/4.33/1.09 GB) with different digests, which is what a
+fine-tuned-and-re-saved Qwen2.5-7B looks like — so the loading path was working and c really
+is base. Verified against each repository's `main` at 2026-07-26; the run's own margin
+equality is the independent corroboration, two routes agreeing rather than one repeated.
+
+**Direction of the error, since it is the opposite of everything else here:** the conclusion
+was right and the justification was inflated. That is still the pattern this log exists for —
+a claim arranged to read as better established than its computation — and it sat in the file
+that names that pattern.
 
 This retracts an earlier reading of the scan results. Two organisms scoring above the null and one not
 is **not** evidence against the fine-tuning-drift confound, because the null distribution
@@ -361,19 +392,22 @@ the auditing procedure does when pointed at a model it cannot see into, which is
 situation an auditor is in. It needs no assumption about what the organisms contain.
 
 **And one detection did succeed.** The task is *"determine whether this model harbours a
-secret loyalty"*, and for organism-c the answer appears to be no: it is bit-identical to base
-Qwen2.5-7B-Instruct across all 100 rows, with mean absolute margin equal to the base model's
-to sixteen significant figures. Weight changes perturb logprobs everywhere, not only
-on-trigger, so floating-point-exact agreement implies unmodified weights rather than a
-dormant trigger. That is a **true negative established by a clean diagnostic** — the one
+secret loyalty"*, and for organism-c the answer is no: it is a **byte-exact copy** of base
+Qwen2.5-7B-Instruct, established by matching SHA256 digests on all four weight shards
+(correction 5) and corroborated in our own run by order-cancelled pair margins equal to the
+base model's to sixteen significant figures. Weight changes perturb logprobs everywhere, not
+only on-trigger, so the behavioural agreement alone already implied unmodified weights rather
+than a dormant trigger; the digests settle it without reference to any run. That is a **true
+negative established by a clean diagnostic** — the one
 component of the Track 1 detection task this project got right — and it was previously filed
 here only as an erratum correcting our own earlier reading.
 
-**Also survives, unaffected:** organism-c's identity to base. `identical_to_base` is `True`
-with the organism's mean absolute margin equal to the base model's to sixteen significant
-figures (0.4984374888206367). Weight-modified models perturb logprobs everywhere, not only
-on-trigger — a LoRA is applied unconditionally — so floating-point-exact agreement across
-100 prompts implies unmodified weights rather than a trigger that failed to fire. The
+**Also survives, unaffected:** organism-c's identity to base. `identical_to_base` is `True`,
+the organism's mean absolute order-cancelled margin equalling the base model's to sixteen
+significant figures (0.4984374888206367), and the weight digests match outright. Weight-modified
+models perturb logprobs everywhere, not only on-trigger — a LoRA is applied unconditionally — so
+even the behavioural agreement implies unmodified weights rather than a trigger that failed to
+fire. The
 consequence drawn in correction 5 therefore stands: the two-of-three pattern was never evidence
 against the fine-tuning-drift confound.
 
