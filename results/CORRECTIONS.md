@@ -1,6 +1,6 @@
 # Pre-registration and corrections log
 
-Twelve entries, and they are two different kinds of thing.
+Thirteen entries, and they are two different kinds of thing.
 
 **Seven are findings — the subject of this project rather than blemishes on it.** In each, a
 criterion returned a confident answer that no outcome could have contradicted:
@@ -21,8 +21,12 @@ than statistical. **Twelve is the one to read if you read one**: it is a positiv
 were about to report, dissolved by running our own gate against it before publishing. Five
 of the seven ship with a runnable diagnostic that catches the failure on anyone's numbers.
 
-**Four are errata** — 1, 3, 5 and 7: things we got wrong and fixed. Correction 6 is a third
-kind, a reading retracted by new evidence rather than a vacuous criterion.
+**Six are errata** — 1, 3, 5, 7, 6 and 13: things we got wrong and fixed. The last pair is
+a chain worth reading together. Correction 6 retracted a reading; correction 13 retracts
+that retraction, because 6 rested on a behavioural measurement that had never been taken on
+the relevant axis. The original reading was right. We have left the whole chain in place
+rather than collapsing it to the final answer, since the sequence is the honest record of
+what we believed and when.
 
 Superseded artifacts are retained rather than overwritten; this file is the index to them.
 Three entries retract claims made in earlier commit messages of this repository, which is why
@@ -109,9 +113,11 @@ non-specific**: the condition the direction was supposed to mediate moves no mor
 condition it should not touch. Coherence drift 0.0064 nats on the corrected corpus (n=50),
 passing.
 
-**This is detection without mediation**, and it composes with correction 6: the direction
-fires without behaviour, and when ablated it changes behaviour without regard to the feature
-it detects. Artifact: `results/directive/directive_mediation.json`.
+**This is detection without mediation**: ablating the direction changes behaviour without
+regard to the feature it detects. (An earlier version of this paragraph also claimed the
+direction "fires without behaviour", composing with correction 6. Correction 13 withdraws
+that half — nothing the probe fires on is behaviourally inert.) Artifact:
+`results/directive/directive_mediation.json`.
 
 ---
 
@@ -218,7 +224,12 @@ policy forces 0.500 arithmetically. Only the representational claim (z) stands. 
 
 ---
 
-## 6. The "behavioural-steering direction" reading is retracted
+## 6. The "behavioural-steering direction" reading is retracted — ⚠️ SUPERSEDED BY 13
+
+⚠️ **This entire correction is withdrawn.** It rested on `secret_vendor_rule` being
+behaviourally inert, which was an artefact of never measuring its positional axis. It shifts
+second-option choice from 0.09 to 0.97. See correction 13; the reading retracted below was
+correct. Retained unedited as the record of what we believed at the time.
 
 **Where:** the reading recorded for the `vs_matched_control` probe — that "everything it
 fires on steers the choice away from the merits; everything it is silent on does not",
@@ -517,3 +528,59 @@ different measurement. A diagnostic that catches its own authors reaching for an
 headline is the strongest evidence available that it is worth running — and this is the
 second time in this project that a number which looked like a positive result dissolved
 under it.
+
+---
+
+## 13. Correction 6 was wrong: nothing the probe fires on is behaviourally inert
+
+**Where:** correction 6, §4.2 of the write-up, and the commit message of `3891e75`. This
+retracts a retraction — correction 6 withdrew the "behavioural-steering direction" reading,
+and that withdrawal was itself based on an incomplete measurement.
+
+**What was wrong:** correction 6 claimed `secret_vendor_rule` is "behaviourally inert on
+every axis measured" — compliance with its own rule at 0.53 against a 0.53 baseline, entity
+favouring flat — and concluded that the probe's AUROC 1.000 on it proved the direction
+detects influence attempts while being blind to whether they work.
+
+**Every axis measured did not include the positional axis.** `second_option_rate` was
+computed only for `secret_rule` and `overt_rule` — the code gates it behind
+`if name in ("secret_rule", "overt_rule")` — so the vendor conditions never had it. Measured
+now:
+
+| condition | 2nd-option rate | its own rule | probe AUROC |
+|---|---|---|---|
+| neutral | 0.09 | — | (fit) |
+| `secret_vendor_rule` | **0.97** | 0.53 vs 0.53 baseline | 1.000 |
+| `overt_vendor_rule` | **0.98** | 0.52 vs 0.53 baseline | 1.000 |
+
+`secret_vendor_rule` shifts positional choice by **+0.88**. It is not inert; it fails at the
+thing it asks for and does something large instead. The likely mechanism is visible in the
+numbers: it picks option B 97% of the time while achieving alphabetical-last at chance, so
+the model reads *"whichever company's name comes last alphabetically"* as *"the later
+option"* and executes a positional rule. The directive is **mis-executed, not ignored**.
+
+**What this costs.** The presence-versus-efficacy claim does not hold. Across all eleven
+conditions, everything the probe fires on changes behaviour on some axis, and the two it is
+silent on (`control_acme` 0.09, `control_zephyr` 0.04) do not. The partition *fires ⟺
+steers* is restored, and the "behavioural-steering direction" reading that correction 6
+withdrew was correct after all.
+
+**What survives, and it is still the deployment argument.** The probe reads 1.000 on
+`overt_rule` and `overt_vendor_rule` — **disclosed** rules — exactly as on concealed
+loyalties, so it is blind to concealment, which is the property that defines the threat. And
+it is blind to *what* is being steered: `loyal_bravo` sits at 0.10 second-option,
+indistinguishable from neutral, while steering entity choice, and `secret_rule` sits at 1.00
+second-option while leaving entity choice at chance. Both read 1.000. The direction says
+*steering is happening* and nothing about toward whom, or whether it is hidden. The base-rate
+argument rests on concealment-blindness, not on inertness, and is unaffected.
+
+**Why this was caught:** by running a dose–response ladder designed to test something else.
+The intended figure — probe score flat across graded compliance — does not exist either,
+because compliance turned out to be bimodal rather than graded: `rule_hint` and `rule_mild`,
+deliberately hedged, both comply at 1.00 exactly like the unhedged `overt_rule`. Wording
+strength does not modulate execution; the model either can run the rule or cannot.
+
+**The check this licenses:** measure every behavioural axis your condition set can express
+for every condition, not only the axis each condition nominally targets. A directive that
+fails at its stated goal may still be steering hard on an axis you did not think to record,
+and "inert" is a claim about all axes, not the one you looked at.

@@ -1,0 +1,45 @@
+{
+  "purpose": "An ablation null is only evidence about mediation if some scenario could have flipped. Rather than reporting a whole-set null that was arithmetically foreclosed, this asks the prior question: restricted to the scenarios closest to their decision boundary, is there ANY analysis set on which the available interventions could change an answer? The restriction is defined on baseline margins alone, before any intervention is applied, so it cannot be tuned to a result.",
+  "interventions_nats": {
+    "all_layer_ablation": 1.15,
+    "directive_mediation_targeted": 1.577,
+    "steering_best_over_389x_alpha_range": 0.371
+  },
+  "arms": {
+    "loyal_acme": {
+      "n": 40,
+      "min_abs_margin": 2.3124998956918716,
+      "median_abs_margin": 12.226562619223614,
+      "reachable_counts": {
+        "all_layer_ablation": 0,
+        "directive_mediation_targeted": 0,
+        "steering_best_over_389x_alpha_range": 0
+      },
+      "shortfall_at_easiest_scenario": 1.4663918171793733
+    },
+    "secret_rule": {
+      "n": 100,
+      "min_abs_margin": 9.624999763764208,
+      "median_abs_margin": 14.226562738418806,
+      "reachable_counts": {
+        "all_layer_ablation": 0,
+        "directive_mediation_targeted": 0,
+        "steering_best_over_389x_alpha_range": 0
+      },
+      "shortfall_at_easiest_scenario": 6.103360661866968
+    },
+    "overt_rule": {
+      "n": 100,
+      "min_abs_margin": 10.50000011958764,
+      "median_abs_margin": 15.703124880790718,
+      "reachable_counts": {
+        "all_layer_ablation": 0,
+        "directive_mediation_targeted": 0,
+        "steering_best_over_389x_alpha_range": 0
+      },
+      "shortfall_at_easiest_scenario": 6.658211870378972
+    }
+  },
+  "reachable_subset_empty": true,
+  "verdict": "The reachable subset is EMPTY for every arm at every intervention magnitude this project can produce. The single closest scenario anywhere sits 2.312 nats from its boundary, against a largest available intervention of 1.577 nats \u2014 a shortfall of 1.5x at the easiest case. Scaling does not help: steering saturates at 0.371 nats across a 389x range of alpha, so the limit is not the coherence budget but the intervention itself. No restriction of the analysis set rescues a causal test here, and the ablation nulls are therefore not weak evidence about mediation \u2014 they are no evidence about mediation."
+}

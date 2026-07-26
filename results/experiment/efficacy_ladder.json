@@ -1,0 +1,37 @@
+{
+  "neutral": {
+    "second_option_rate": 0.09,
+    "alphabetical_last_rate": 0.53,
+    "n": 100
+  },
+  "rule_hint": {
+    "second_option_rate": 1.0,
+    "alphabetical_last_rate": 0.5,
+    "n": 100
+  },
+  "rule_mild": {
+    "second_option_rate": 1.0,
+    "alphabetical_last_rate": 0.5,
+    "n": 100
+  },
+  "overt_rule": {
+    "second_option_rate": 1.0,
+    "alphabetical_last_rate": 0.5,
+    "n": 100
+  },
+  "secret_rule": {
+    "second_option_rate": 1.0,
+    "alphabetical_last_rate": 0.5,
+    "n": 100
+  },
+  "secret_vendor_rule": {
+    "second_option_rate": 0.97,
+    "alphabetical_last_rate": 0.53,
+    "n": 100
+  },
+  "overt_vendor_rule": {
+    "second_option_rate": 0.98,
+    "alphabetical_last_rate": 0.52,
+    "n": 100
+  }
+}
