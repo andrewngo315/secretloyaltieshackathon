@@ -102,6 +102,10 @@ def main():
             "pre_registered_threshold": thr,
             "reachable": bool(max_closure >= thr),
             "shortfall_factor": float(thr / max_closure) if max_closure else None,
+            "min_headroom_nats": b["min_headroom_to_flip_nats"],
+            "headroom_ratio": float(b["min_headroom_to_flip_nats"] / targeted),
+            "closest_scenario_within_reach": bool(
+                b["min_headroom_to_flip_nats"] <= targeted),
         }
 
     print(PURPOSE)
@@ -122,12 +126,24 @@ def main():
     for name, r in reach.items():
         sf = "-" if r["shortfall_factor"] is None else f"{r['shortfall_factor']:.1f}x"
         print(f"  {name:14} {r['max_achievable_gap_closure']:12.3f} {r['pre_registered_threshold']:10.2f} "
-              f"{str(r['reachable']):>10} {sf:>10}")
+              f"{str(r['reachable']):>10} {sf:>10}   min-headroom {r['headroom_ratio']:.1f}x")
 
     unreachable = [n for n, r in reach.items() if not r["reachable"]]
-    verdict = ("Every pre-registered ablation criterion tested here was unreachable "
-               "before data collection." if len(unreachable) == len(reach) else
-               "Some criteria were reachable; see per-behaviour detail.")
+    ratios = {n: r["headroom_ratio"] for n, r in reach.items()}
+    if len(unreachable) == len(reach):
+        verdict = (
+            "Every pre-registered gap-closure criterion tested here was unreachable "
+            "before data collection, but not by the same margin, and the difference "
+            "matters. On the mean, all three fall short by 5.4x to 7.9x. At the "
+            "MINIMUM headroom - the single scenario closest to flipping - loyal_acme "
+            f"is only {ratios['loyal_acme']:.1f}x short, so the intervention was within "
+            "an order of magnitude of moving the easiest loyalty scenario, whereas the "
+            f"rule conditions are {ratios['secret_rule']:.1f}x and "
+            f"{ratios['overt_rule']:.1f}x short and no scenario was ever close. The "
+            "loyalty null is underpowered; the directive null is arithmetically "
+            "foreclosed.")
+    else:
+        verdict = "Some criteria were reachable; see per-behaviour detail."
     print()
     print(f"  VERDICT: {verdict}")
 

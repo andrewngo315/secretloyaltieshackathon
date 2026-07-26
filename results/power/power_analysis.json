@@ -45,21 +45,30 @@
       "max_achievable_gap_closure": 0.06911912708816156,
       "pre_registered_threshold": 0.5,
       "reachable": false,
-      "shortfall_factor": 7.233887652577689
+      "shortfall_factor": 7.233887652577689,
+      "min_headroom_nats": 9.624999763764208,
+      "headroom_ratio": 8.366722773239307,
+      "closest_scenario_within_reach": false
     },
     "overt_rule": {
       "behaviour_gap_nats": 18.118124873013553,
       "max_achievable_gap_closure": 0.06349391406244588,
       "pre_registered_threshold": 0.5,
       "reachable": false,
-      "shortfall_factor": 7.874770478132015
+      "shortfall_factor": 7.874770478132015,
+      "min_headroom_nats": 10.50000011958764,
+      "headroom_ratio": 9.12733426241791,
+      "closest_scenario_within_reach": false
     },
     "loyal_acme": {
       "behaviour_gap_nats": 12.31093744294552,
       "max_achievable_gap_closure": 0.0934446031418175,
       "pre_registered_threshold": 0.5,
       "reachable": false,
-      "shortfall_factor": 5.350763802176655
+      "shortfall_factor": 5.350763802176655,
+      "min_headroom_nats": 2.3124998956918716,
+      "headroom_ratio": 2.01018659898979,
+      "closest_scenario_within_reach": false
     }
   },
   "unreachable": [
@@ -67,6 +76,6 @@
     "overt_rule",
     "loyal_acme"
   ],
-  "verdict": "Every pre-registered ablation criterion tested here was unreachable before data collection.",
+  "verdict": "Every pre-registered gap-closure criterion tested here was unreachable before data collection, but not by the same margin, and the difference matters. On the mean, all three fall short by 5.4x to 7.9x. At the MINIMUM headroom - the single scenario closest to flipping - loyal_acme is only 2.0x short, so the intervention was within an order of magnitude of moving the easiest loyalty scenario, whereas the rule conditions are 8.4x and 9.1x short and no scenario was ever close. The loyalty null is underpowered; the directive null is arithmetically foreclosed.",
   "note": "Magnitudes are option-logprob differences in nats at the final prompt token, paraphrase 0, n=100 scenarios. The intervention magnitude is all-layer projection ablation of the matched-control direction, as run in causal.json."
 }
