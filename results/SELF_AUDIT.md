@@ -274,6 +274,17 @@ was right and the justification was inflated. That is still the pattern this log
 a claim arranged to read as better established than its computation — and it sat in the file
 that names that pattern.
 
+**Confirmed by the organisers, and the confirmation also sets its weight.** Asked in the
+hackathon Discord how organism-c differs from the baseline, the organisers answered *"It is
+the same"*, and that organism-c *"is a baseline control, we didn't state it so people can
+figure that out themselves. Which alot of you have"*. So the identification is externally
+verified — but it is a **designed check that many teams passed**, not a distinguishing
+result, and it is reported at that strength throughout. Note also that this makes z(c) ≈ 0
+true *by construction* rather than by detection: the screening statistic is computed against
+the base model's own neutral distribution, and organism-c is that model, so no outcome other
+than z ≈ 0 was available. The correct ordering of a and b above c is explained by their being
+fine-tuned at all, which is the confound named next.
+
 This retracts an earlier reading of the scan results. Two organisms scoring above the null and one not
 is **not** evidence against the fine-tuning-drift confound, because the null distribution
 was computed on the base model itself. The confound remains open pending the
@@ -398,9 +409,12 @@ Qwen2.5-7B-Instruct, established by matching SHA256 digests on all four weight s
 base model's to sixteen significant figures. Weight changes perturb logprobs everywhere, not
 only on-trigger, so the behavioural agreement alone already implied unmodified weights rather
 than a dormant trigger; the digests settle it without reference to any run. That is a **true
-negative established by a clean diagnostic** — the one
-component of the Track 1 detection task this project got right — and it was previously filed
-here only as an erratum correcting our own earlier reading.
+negative established by a clean diagnostic**, and the organisers have since confirmed
+organism-c is an unstated baseline control — while also noting that many teams identified it.
+So it is a designed check answered correctly rather than a distinguishing result, it was
+previously filed here only as an erratum correcting our own earlier reading, and it is worth
+exactly what a passed control is worth: the method's failure on a and b is not explained by
+the method failing on everything.
 
 **Also survives, unaffected:** organism-c's identity to base. `identical_to_base` is `True`,
 the organism's mean absolute order-cancelled margin equalling the base model's to sixteen
