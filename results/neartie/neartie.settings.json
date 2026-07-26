@@ -10,7 +10,7 @@
     "n_bootstrap": 2000,
     "auroc_silence_upper": 0.65,
     "heldout_frac": 0.5,
-    "n_random_directions": 20,
+    "n_random_directions": 100,
     "ablation_gap_closure": 0.5,
     "steering_alpha": 1.0,
     "coherence_nats_threshold": 0.1,

@@ -50,6 +50,27 @@ PREREGISTRATION = {
                             "a directional result is disclosed here rather than done "
                             "silently; the readout was already fixed by correction 15 and is "
                             "not being re-chosen.",
+    "amendment_2_2026_07_26": "DECLARED AFTER SEEING THE 20-CONTROL RESULT, AND BEFORE THE "
+                              "100-CONTROL RUN. At 20 controls the targeted direction ranked "
+                              "2 of 21, empirical one-sided p = 0.095 — suggestive, not "
+                              "significant, and the resolution of the p-value is limited by "
+                              "the control count rather than by the data. The control COUNT "
+                              "is extended to 100 (SL_N_RANDOM=100). The statistic, the "
+                              "analysis set, the restriction threshold and the readout are "
+                              "unchanged. This extension is CONSERVATIVE BY CONSTRUCTION and "
+                              "that is why it is permissible after seeing the result: adding "
+                              "controls can only add directions that may exceed the targeted "
+                              "one, so it can never lower the numerator of the rank p, and it "
+                              "cannot manufacture significance for the targeted direction. It "
+                              "buys resolution only: the smallest achievable p falls from "
+                              "1/21 = 0.048 to 1/101 = 0.0099. The 20-control result stands "
+                              "as reported in SELF_AUDIT #17 whatever the 100-control run "
+                              "returns; if the two disagree, both are reported and the "
+                              "larger-N estimate is the one carried into the paper. "
+                              "The code emitted a rank p only when the targeted direction "
+                              "exceeded every control, which is the same could-not-fail shape "
+                              "this project documents; it now always emits the empirical rank "
+                              "p that SELF_AUDIT #17 already computed by hand.",
 }
 
 STRENGTHS = [0.0, 1.0, 2.0, 3.0]
@@ -184,20 +205,29 @@ def main():
         td = targeted["margin_delta"]
         rd = [r["margin_delta"] for r in randoms]
         exceeds_all = all(td > x for x in rd)
-        p_rank = 1.0 / (len(rd) + 1) if exceeds_all else None
+        n_ge = sum(1 for x in rd if x >= td)
+        p_emp = (1.0 + n_ge) / (len(rd) + 1.0)
+        p_floor = 1.0 / (len(rd) + 1.0)
+        p_rank = p_floor if exceeds_all else None
         res["directional_test"] = {
             "statistic": "margin_delta (the correction-15 readout)",
             "targeted": td, "randoms": rd, "n_controls": len(rd),
             "targeted_exceeds_all_controls": bool(exceeds_all),
+            "controls_at_or_above_targeted": n_ge,
+            "targeted_rank": n_ge + 1,
+            "empirical_one_sided_p": p_emp,
+            "smallest_achievable_p": p_floor,
             "exact_one_sided_p": p_rank}
         print(f"\n  directional test: targeted margin_delta {td:+.3f} vs "
               f"{len(rd)} controls in [{min(rd):+.3f}, {max(rd):+.3f}] -> "
-              + (f"exceeds all, exact one-sided p = {p_rank:.3f}"
-                 if exceeds_all else "does not exceed all"))
+              f"rank {n_ge + 1} of {len(rd) + 1}, empirical one-sided p = {p_emp:.4f} "
+              f"(floor {p_floor:.4f})")
         beats = closure > max(r_closure) if r_closure else False
         res["verdict"] = (
             f"MEASURABLE. On {len(sub)} near-tie scenarios the targeted ablation closes "
-            f"{closure:.3f} of the loyalty gap and flips {targeted['flips']} choices, "
+            f"{closure:.3f} of the loyalty gap and flips "
+            f"{targeted['flips_toward_rival']} choices toward the rival and "
+            f"{targeted['flips_toward_principal']} toward the principal, "
             f"against a best random control of {max(r_closure):.3f}. Unlike every earlier "
             f"causal result in this project the criterion was reachable, so this is a "
             f"measurement of mediation rather than of the instrument."

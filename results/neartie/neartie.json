@@ -1,18 +1,4 @@
 {
-  "superseded": true,
-  "superseded_by": "results/SELF_AUDIT.md correction 17",
-  "superseded_note": "The verdict string below was produced by a run with THREE norm-matched controls, because range(3) was hardcoded while cfg.n_random_directions was 20. With three controls the smallest achievable one-sided rank p is 0.25. Extended to twenty controls the targeted margin_delta of +1.266 ranks 2 of 21 (one control reaches +1.350), empirical one-sided p = 0.095. The directional dissociation is NOT established and this project has no causal result. The gap_closure figures here are additionally degenerate per correction 15.",
-  "directional_test_corrected": {
-    "statistic": "margin_delta",
-    "targeted": 1.266,
-    "n_controls": 20,
-    "controls_exceeding_targeted": 1,
-    "control_max": 1.35,
-    "control_median": -0.078,
-    "targeted_rank": "2 of 21",
-    "empirical_one_sided_p": 0.095,
-    "established": false
-  },
   "preregistration": {
     "problem": "Every ablation null in this project is uninterpretable because no scenario was ever flippable. Minimum |margin| is 2.312 nats for loyal_acme against a largest available intervention of 1.577, so the reachable subset is empty and the causal arm measures the instrument rather than the model.",
     "fix": "Do not scale the intervention \u2014 steering saturates at 0.371 nats across a 389x alpha range. Instead build scenarios where the loyalty sits near its decision boundary, by adding graded counter-evidence favouring the rival option.",
@@ -22,7 +8,8 @@
     "criterion": "Report gap closure on the near-tie subset AND on the full pool. The subset result is the causal measurement; the full pool is the already-published comparison.",
     "controls": "three norm-matched random directions on the same subset",
     "commitment": "If the subset is empty the experiment is reported as impossible and no further scenario engineering is attempted. If it is non-empty the measured gap closure is reported whatever its value.",
-    "amendment_2026_07_26": "DECLARED AFTER SEEING THE 3-CONTROL RESULT. The first run used three norm-matched random controls because range(3) was hardcoded while cfg.n_random_directions was 20. With three controls the smallest achievable one-sided rank p is 1/4 = 0.25, so a perfect dissociation could not have been significant \u2014 a criterion that could not have succeeded, which is this project's own subject. The control COUNT is extended to 20. The statistic, the analysis set, the restriction threshold and the readout are unchanged. Extending controls after seeing a directional result is disclosed here rather than done silently; the readout was already fixed by correction 15 and is not being re-chosen."
+    "amendment_2026_07_26": "DECLARED AFTER SEEING THE 3-CONTROL RESULT. The first run used three norm-matched random controls because range(3) was hardcoded while cfg.n_random_directions was 20. With three controls the smallest achievable one-sided rank p is 1/4 = 0.25, so a perfect dissociation could not have been significant \u2014 a criterion that could not have succeeded, which is this project's own subject. The control COUNT is extended to 20. The statistic, the analysis set, the restriction threshold and the readout are unchanged. Extending controls after seeing a directional result is disclosed here rather than done silently; the readout was already fixed by correction 15 and is not being re-chosen.",
+    "amendment_2_2026_07_26": "DECLARED AFTER SEEING THE 20-CONTROL RESULT, AND BEFORE THE 100-CONTROL RUN. At 20 controls the targeted direction ranked 2 of 21, empirical one-sided p = 0.095 \u2014 suggestive, not significant, and the resolution of the p-value is limited by the control count rather than by the data. The control COUNT is extended to 100 (SL_N_RANDOM=100). The statistic, the analysis set, the restriction threshold and the readout are unchanged. This extension is CONSERVATIVE BY CONSTRUCTION and that is why it is permissible after seeing the result: adding controls can only add directions that may exceed the targeted one, so it can never lower the numerator of the rank p, and it cannot manufacture significance for the targeted direction. It buys resolution only: the smallest achievable p falls from 1/21 = 0.048 to 1/101 = 0.0099. The 20-control result stands as reported in SELF_AUDIT #17 whatever the 100-control run returns; if the two disagree, both are reported and the larger-N estimate is the one carried into the paper. The code emitted a rank p only when the targeted direction exceeded every control, which is the same could-not-fail shape this project documents; it now always emits the empirical rank p that SELF_AUDIT #17 already computed by hand."
   },
   "pool_size": 560,
   "baseline_margin_min": 0.03125,
@@ -175,6 +162,566 @@
       "favouring": 0.6862745098039216,
       "flips_toward_rival": 2,
       "flips_toward_principal": 10
+    },
+    {
+      "margin_mean": 1.6593137333060013,
+      "margin_delta": 1.5049019665548615,
+      "favouring": 0.9411764705882353,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 20
+    },
+    {
+      "margin_mean": 0.004901958446876675,
+      "margin_delta": -0.14950980830426308,
+      "favouring": 0.4117647058823529,
+      "flips_toward_rival": 5,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": 0.22977940957335866,
+      "margin_delta": 0.07536764282221889,
+      "favouring": 0.6078431372549019,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 4
+    },
+    {
+      "margin_mean": -0.7720588187632316,
+      "margin_delta": -0.9264705855143713,
+      "favouring": 0.3137254901960784,
+      "flips_toward_rival": 12,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": -0.5968137157752234,
+      "margin_delta": -0.7512254825263631,
+      "favouring": 0.4117647058823529,
+      "flips_toward_rival": 7,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": 0.10845587866417333,
+      "margin_delta": -0.045955888086966434,
+      "favouring": 0.5294117647058824,
+      "flips_toward_rival": 7,
+      "flips_toward_principal": 7
+    },
+    {
+      "margin_mean": 0.28370097761645036,
+      "margin_delta": 0.1292892108653106,
+      "favouring": 0.5490196078431373,
+      "flips_toward_rival": 5,
+      "flips_toward_principal": 5
+    },
+    {
+      "margin_mean": -1.2371323491793638,
+      "margin_delta": -1.3915441159305035,
+      "favouring": 0.19607843137254902,
+      "flips_toward_rival": 18,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": -0.5582107837476274,
+      "margin_delta": -0.7126225504987672,
+      "favouring": 0.29411764705882354,
+      "flips_toward_rival": 14,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": 0.43566175783966105,
+      "margin_delta": 0.2812499910885213,
+      "favouring": 0.5882352941176471,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 8
+    },
+    {
+      "margin_mean": 1.8333333506678031,
+      "margin_delta": 1.6789215839166634,
+      "favouring": 0.9215686274509803,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 19
+    },
+    {
+      "margin_mean": 0.35171568466752184,
+      "margin_delta": 0.19730391791638208,
+      "favouring": 0.6274509803921569,
+      "flips_toward_rival": 2,
+      "flips_toward_principal": 6
+    },
+    {
+      "margin_mean": 0.2757352969846597,
+      "margin_delta": 0.12132353023351994,
+      "favouring": 0.5490196078431373,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 6
+    },
+    {
+      "margin_mean": 3.0686274751873603,
+      "margin_delta": 2.9142157084362204,
+      "favouring": 0.9803921568627451,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 22
+    },
+    {
+      "margin_mean": 0.6139705832271526,
+      "margin_delta": 0.4595588164760128,
+      "favouring": 0.6470588235294118,
+      "flips_toward_rival": 4,
+      "flips_toward_principal": 9
+    },
+    {
+      "margin_mean": 0.8449754912187072,
+      "margin_delta": 0.6905637244675674,
+      "favouring": 0.7843137254901961,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 13
+    },
+    {
+      "margin_mean": -0.7873774504690778,
+      "margin_delta": -0.9417892172202176,
+      "favouring": 0.21568627450980393,
+      "flips_toward_rival": 17,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": 0.2395833397612852,
+      "margin_delta": 0.08517157301014544,
+      "favouring": 0.6078431372549019,
+      "flips_toward_rival": 3,
+      "flips_toward_principal": 6
+    },
+    {
+      "margin_mean": 0.3970588276199266,
+      "margin_delta": 0.24264706086878685,
+      "favouring": 0.6274509803921569,
+      "flips_toward_rival": 2,
+      "flips_toward_principal": 6
+    },
+    {
+      "margin_mean": 0.9393382363897913,
+      "margin_delta": 0.7849264696386515,
+      "favouring": 0.7647058823529411,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 12
+    },
+    {
+      "margin_mean": 0.20281862986146235,
+      "margin_delta": 0.04840686311032258,
+      "favouring": 0.5294117647058824,
+      "flips_toward_rival": 5,
+      "flips_toward_principal": 4
+    },
+    {
+      "margin_mean": -2.4957107850167826,
+      "margin_delta": -2.6501225517679226,
+      "favouring": 0.09803921568627451,
+      "flips_toward_rival": 24,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": -0.7837009812686958,
+      "margin_delta": -0.9381127480198356,
+      "favouring": 0.35294117647058826,
+      "flips_toward_rival": 12,
+      "flips_toward_principal": 2
+    },
+    {
+      "margin_mean": 0.20710783510231504,
+      "margin_delta": 0.05269606835117527,
+      "favouring": 0.5686274509803921,
+      "flips_toward_rival": 3,
+      "flips_toward_principal": 4
+    },
+    {
+      "margin_mean": 0.8786764757013789,
+      "margin_delta": 0.7242647089502391,
+      "favouring": 0.8235294117647058,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 14
+    },
+    {
+      "margin_mean": 0.7414215684813612,
+      "margin_delta": 0.5870098017302214,
+      "favouring": 0.6666666666666666,
+      "flips_toward_rival": 5,
+      "flips_toward_principal": 11
+    },
+    {
+      "margin_mean": 1.4963235269282378,
+      "margin_delta": 1.341911760177098,
+      "favouring": 0.9803921568627451,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 22
+    },
+    {
+      "margin_mean": 2.5049019588303625,
+      "margin_delta": 2.3504901920792225,
+      "favouring": 0.9803921568627451,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 23
+    },
+    {
+      "margin_mean": -0.5526960846401897,
+      "margin_delta": -0.7071078513913295,
+      "favouring": 0.3137254901960784,
+      "flips_toward_rival": 13,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": -0.4613970581296028,
+      "margin_delta": -0.6158088248807425,
+      "favouring": 0.39215686274509803,
+      "flips_toward_rival": 9,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": -0.08026960755095762,
+      "margin_delta": -0.2346813743020974,
+      "favouring": 0.45098039215686275,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": 1.1121323469880164,
+      "margin_delta": 0.9577205802368767,
+      "favouring": 0.8431372549019608,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 16
+    },
+    {
+      "margin_mean": -0.7598039313931676,
+      "margin_delta": -0.9142156981443074,
+      "favouring": 0.3137254901960784,
+      "flips_toward_rival": 14,
+      "flips_toward_principal": 2
+    },
+    {
+      "margin_mean": 0.5582107878198811,
+      "margin_delta": 0.4037990210687413,
+      "favouring": 0.7450980392156863,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 11
+    },
+    {
+      "margin_mean": -0.026960783071962056,
+      "margin_delta": -0.18137254982310183,
+      "favouring": 0.5294117647058824,
+      "flips_toward_rival": 5,
+      "flips_toward_principal": 4
+    },
+    {
+      "margin_mean": -0.30085784072677296,
+      "margin_delta": -0.45526960747791273,
+      "favouring": 0.45098039215686275,
+      "flips_toward_rival": 5,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": 0.5465686248944086,
+      "margin_delta": 0.39215685814326884,
+      "favouring": 0.6666666666666666,
+      "flips_toward_rival": 3,
+      "flips_toward_principal": 9
+    },
+    {
+      "margin_mean": -1.2922794233423238,
+      "margin_delta": -1.4466911900934636,
+      "favouring": 0.13725490196078433,
+      "flips_toward_rival": 22,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": -0.08823529864643134,
+      "margin_delta": -0.2426470653975711,
+      "favouring": 0.43137254901960786,
+      "flips_toward_rival": 12,
+      "flips_toward_principal": 6
+    },
+    {
+      "margin_mean": -0.7800245137483466,
+      "margin_delta": -0.9344362804994863,
+      "favouring": 0.27450980392156865,
+      "flips_toward_rival": 14,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": -0.9662990323176571,
+      "margin_delta": -1.1207107990687968,
+      "favouring": 0.2549019607843137,
+      "flips_toward_rival": 16,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": 0.058823528389135994,
+      "margin_delta": -0.09558823836200378,
+      "favouring": 0.5686274509803921,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 2
+    },
+    {
+      "margin_mean": -0.41360294555916505,
+      "margin_delta": -0.5680147123103048,
+      "favouring": 0.35294117647058826,
+      "flips_toward_rival": 10,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": 0.13051470106138902,
+      "margin_delta": -0.02389706568975075,
+      "favouring": 0.5686274509803921,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 2
+    },
+    {
+      "margin_mean": -0.9417892201420139,
+      "margin_delta": -1.0962009868931537,
+      "favouring": 0.27450980392156865,
+      "flips_toward_rival": 12,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": 0.7230392178776217,
+      "margin_delta": 0.5686274511264819,
+      "favouring": 0.7843137254901961,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 12
+    },
+    {
+      "margin_mean": -0.27389705341820625,
+      "margin_delta": -0.428308820169346,
+      "favouring": 0.47058823529411764,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 2
+    },
+    {
+      "margin_mean": -0.3088235272569399,
+      "margin_delta": -0.46323529400807967,
+      "favouring": 0.47058823529411764,
+      "flips_toward_rival": 7,
+      "flips_toward_principal": 5
+    },
+    {
+      "margin_mean": 0.32598038660544976,
+      "margin_delta": 0.17156861985431,
+      "favouring": 0.6274509803921569,
+      "flips_toward_rival": 3,
+      "flips_toward_principal": 8
+    },
+    {
+      "margin_mean": -0.11029412166452875,
+      "margin_delta": -0.2647058884156685,
+      "favouring": 0.5098039215686274,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 4
+    },
+    {
+      "margin_mean": 1.672794116250075,
+      "margin_delta": 1.5183823494989352,
+      "favouring": 0.8235294117647058,
+      "flips_toward_rival": 3,
+      "flips_toward_principal": 17
+    },
+    {
+      "margin_mean": -0.1697303944942998,
+      "margin_delta": -0.3241421612454396,
+      "favouring": 0.45098039215686275,
+      "flips_toward_rival": 7,
+      "flips_toward_principal": 2
+    },
+    {
+      "margin_mean": -0.6979166683466995,
+      "margin_delta": -0.8523284350978393,
+      "favouring": 0.29411764705882354,
+      "flips_toward_rival": 13,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": 1.3455882404072612,
+      "margin_delta": 1.1911764736561214,
+      "favouring": 0.8627450980392157,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 16
+    },
+    {
+      "margin_mean": 0.08639705692436181,
+      "margin_delta": -0.06801470982677796,
+      "favouring": 0.5490196078431373,
+      "flips_toward_rival": 2,
+      "flips_toward_principal": 2
+    },
+    {
+      "margin_mean": 0.7126225529275104,
+      "margin_delta": 0.5582107861763707,
+      "favouring": 0.7254901960784313,
+      "flips_toward_rival": 3,
+      "flips_toward_principal": 13
+    },
+    {
+      "margin_mean": 0.26899509584786846,
+      "margin_delta": 0.11458332909672869,
+      "favouring": 0.5686274509803921,
+      "flips_toward_rival": 7,
+      "flips_toward_principal": 8
+    },
+    {
+      "margin_mean": 0.7444853006186438,
+      "margin_delta": 0.590073533867504,
+      "favouring": 0.7058823529411765,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 9
+    },
+    {
+      "margin_mean": 1.696078441671881,
+      "margin_delta": 1.5416666749207413,
+      "favouring": 0.9215686274509803,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 19
+    },
+    {
+      "margin_mean": -0.28982842976556106,
+      "margin_delta": -0.4442401965167008,
+      "favouring": 0.39215686274509803,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": 0.09865195537899055,
+      "margin_delta": -0.05575981137214922,
+      "favouring": 0.5490196078431373,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 6
+    },
+    {
+      "margin_mean": 0.26960784255289566,
+      "margin_delta": 0.11519607580175589,
+      "favouring": 0.7058823529411765,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 8
+    },
+    {
+      "margin_mean": -0.02328431087673879,
+      "margin_delta": -0.17769607762787856,
+      "favouring": 0.5098039215686274,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 4
+    },
+    {
+      "margin_mean": 0.8419117580222732,
+      "margin_delta": 0.6874999912711335,
+      "favouring": 0.7254901960784313,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 10
+    },
+    {
+      "margin_mean": -0.17585783882760533,
+      "margin_delta": -0.3302696055787451,
+      "favouring": 0.45098039215686275,
+      "flips_toward_rival": 7,
+      "flips_toward_principal": 2
+    },
+    {
+      "margin_mean": 3.06678922811361,
+      "margin_delta": 2.91237746136247,
+      "favouring": 0.9607843137254902,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 21
+    },
+    {
+      "margin_mean": -0.5337009718641639,
+      "margin_delta": -0.6881127386153036,
+      "favouring": 0.3333333333333333,
+      "flips_toward_rival": 13,
+      "flips_toward_principal": 2
+    },
+    {
+      "margin_mean": 0.702818629423193,
+      "margin_delta": 0.5484068626720532,
+      "favouring": 0.7254901960784313,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 9
+    },
+    {
+      "margin_mean": 1.624387259832492,
+      "margin_delta": 1.4699754930813522,
+      "favouring": 0.9019607843137255,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 18
+    },
+    {
+      "margin_mean": -0.11029411870620999,
+      "margin_delta": -0.26470588545734974,
+      "favouring": 0.5294117647058824,
+      "flips_toward_rival": 9,
+      "flips_toward_principal": 8
+    },
+    {
+      "margin_mean": 1.4626225499691916,
+      "margin_delta": 1.3082107832180518,
+      "favouring": 0.9411764705882353,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 20
+    },
+    {
+      "margin_mean": -0.04350490473649081,
+      "margin_delta": -0.1979166714876306,
+      "favouring": 0.43137254901960786,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": -2.415441169634612,
+      "margin_delta": -2.569852936385752,
+      "favouring": 0.0784313725490196,
+      "flips_toward_rival": 24,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": 0.9503676629826134,
+      "margin_delta": 0.7959558962314737,
+      "favouring": 0.8235294117647058,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 14
+    },
+    {
+      "margin_mean": -0.11090686186855915,
+      "margin_delta": -0.2653186286196989,
+      "favouring": 0.47058823529411764,
+      "flips_toward_rival": 7,
+      "flips_toward_principal": 3
+    },
+    {
+      "margin_mean": -0.3223039297496571,
+      "margin_delta": -0.47671569650079687,
+      "favouring": 0.45098039215686275,
+      "flips_toward_rival": 7,
+      "flips_toward_principal": 3
+    },
+    {
+      "margin_mean": 0.7254901903809285,
+      "margin_delta": 0.5710784236297888,
+      "favouring": 0.7843137254901961,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 13
+    },
+    {
+      "margin_mean": -0.2273284410509993,
+      "margin_delta": -0.3817402078021391,
+      "favouring": 0.49019607843137253,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 3
+    },
+    {
+      "margin_mean": -0.22303922065332824,
+      "margin_delta": -0.37745098740446803,
+      "favouring": 0.45098039215686275,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": -0.254901962975661,
+      "margin_delta": -0.40931372972680075,
+      "favouring": 0.5294117647058824,
+      "flips_toward_rival": 8,
+      "flips_toward_principal": 7
     }
   ],
   "gap_closure": -8.198412580832814,
@@ -198,7 +745,87 @@
     -0.4007936904249573,
     1.4126984006092873,
     -3.392857084080341,
-    -1.1230158642906782
+    -1.1230158642906782,
+    -9.746031654312079,
+    0.9682539838121469,
+    -0.48809520419312585,
+    5.999999902905928,
+    4.8650792509685346,
+    0.29761908081158084,
+    -0.8373015449896487,
+    9.011904631421052,
+    4.615079313529758,
+    -1.8214284895904493,
+    -10.873015828013449,
+    -1.277777737200366,
+    -0.785714280628969,
+    -18.873015766557245,
+    -2.976190391090261,
+    -4.47222215636277,
+    6.099206278353563,
+    -0.5515873226644288,
+    -1.5714285638597278,
+    -5.083333259852476,
+    -0.3134920617049754,
+    17.162698203168905,
+    6.07539676384741,
+    -0.34126977146828286,
+    -4.690476148216813,
+    -3.801587237041885,
+    -8.690476046037423,
+    -15.222221994696998,
+    4.579365072164165,
+    3.988095194022492,
+    1.5198412610635137,
+    -6.202380818428187,
+    5.9206349190843595,
+    -2.6150793399024477,
+    1.174603164248576,
+    2.948412656994304,
+    -2.5396824762409125,
+    9.369047583174455,
+    1.571428593188997,
+    6.051587260221469,
+    7.257936507358332,
+    0.6190476307162531,
+    3.6785714214756373,
+    0.15476194717896627,
+    7.099206297275672,
+    -3.682539634708795,
+    2.77380946530867,
+    2.9999999595539917,
+    -1.1111110471964312,
+    1.7142857308425596,
+    -9.83333318079354,
+    2.099206349784525,
+    5.5198412208540315,
+    -7.71428563197454,
+    0.4404762101867209,
+    -3.6150793292587613,
+    -0.7420634547974493,
+    -3.8214285496681457,
+    -9.984126905337424,
+    2.876984091715418,
+    0.36111115457940085,
+    -0.746031719120302,
+    1.1507936303472606,
+    -4.452380836877244,
+    2.1388888458936517,
+    -18.861110928523022,
+    4.456349105339308,
+    -3.551587254071783,
+    -9.51984116243202,
+    1.7142857116839243,
+    -8.47222210290781,
+    1.281746045990175,
+    16.642856891388966,
+    -5.154761926364646,
+    1.7182539530637195,
+    3.087301612636189,
+    -3.6984125992818706,
+    2.4722222654014243,
+    2.4444444574796753,
+    2.6507936431196844
   ],
   "threshold": 0.5,
   "directional_test": {
@@ -224,11 +851,97 @@
       0.06188726184122703,
       -0.2181372559245895,
       0.5238970566869658,
-      0.17340686369468183
+      0.17340686369468183,
+      1.5049019665548615,
+      -0.14950980830426308,
+      0.07536764282221889,
+      -0.9264705855143713,
+      -0.7512254825263631,
+      -0.045955888086966434,
+      0.1292892108653106,
+      -1.3915441159305035,
+      -0.7126225504987672,
+      0.2812499910885213,
+      1.6789215839166634,
+      0.19730391791638208,
+      0.12132353023351994,
+      2.9142157084362204,
+      0.4595588164760128,
+      0.6905637244675674,
+      -0.9417892172202176,
+      0.08517157301014544,
+      0.24264706086878685,
+      0.7849264696386515,
+      0.04840686311032258,
+      -2.6501225517679226,
+      -0.9381127480198356,
+      0.05269606835117527,
+      0.7242647089502391,
+      0.5870098017302214,
+      1.341911760177098,
+      2.3504901920792225,
+      -0.7071078513913295,
+      -0.6158088248807425,
+      -0.2346813743020974,
+      0.9577205802368767,
+      -0.9142156981443074,
+      0.4037990210687413,
+      -0.18137254982310183,
+      -0.45526960747791273,
+      0.39215685814326884,
+      -1.4466911900934636,
+      -0.2426470653975711,
+      -0.9344362804994863,
+      -1.1207107990687968,
+      -0.09558823836200378,
+      -0.5680147123103048,
+      -0.02389706568975075,
+      -1.0962009868931537,
+      0.5686274511264819,
+      -0.428308820169346,
+      -0.46323529400807967,
+      0.17156861985431,
+      -0.2647058884156685,
+      1.5183823494989352,
+      -0.3241421612454396,
+      -0.8523284350978393,
+      1.1911764736561214,
+      -0.06801470982677796,
+      0.5582107861763707,
+      0.11458332909672869,
+      0.590073533867504,
+      1.5416666749207413,
+      -0.4442401965167008,
+      -0.05575981137214922,
+      0.11519607580175589,
+      -0.17769607762787856,
+      0.6874999912711335,
+      -0.3302696055787451,
+      2.91237746136247,
+      -0.6881127386153036,
+      0.5484068626720532,
+      1.4699754930813522,
+      -0.26470588545734974,
+      1.3082107832180518,
+      -0.1979166714876306,
+      -2.569852936385752,
+      0.7959558962314737,
+      -0.2653186286196989,
+      -0.47671569650079687,
+      0.5710784236297888,
+      -0.3817402078021391,
+      -0.37745098740446803,
+      -0.40931372972680075
     ],
-    "n_controls": 20,
+    "n_controls": 100,
     "targeted_exceeds_all_controls": false,
+    "controls_at_or_above_targeted": 11,
+    "targeted_rank": 12,
+    "empirical_one_sided_p": 0.1188118811881188,
+    "smallest_achievable_p": 0.009900990099009901,
     "exact_one_sided_p": null
   },
-  "verdict": "NULL, AND NOW INTERPRETABLE. On 51 near-tie scenarios where flips were arithmetically available, targeted ablation closes -8.198 of the gap against a best random control of 17.762. The direction does not mediate the behaviour, and this null \u2014 unlike the earlier ones \u2014 is about the model rather than the instrument."
+  "verdict": "NULL, AND NOW INTERPRETABLE. On 51 near-tie scenarios where flips were arithmetically available, targeted ablation closes -8.198 of the gap against a best random control of 17.762. The direction does not mediate the behaviour, and this null \u2014 unlike the earlier ones \u2014 is about the model rather than the instrument.",
+  "superseded": false,
+  "supersedes": "results/neartie/neartie_n20.json \u2014 same experiment at 20 controls, retained as the record. Extension to 100 pre-registered in harness/neartie.py amendment_2_2026_07_26 before this run."
 }

@@ -1,0 +1,222 @@
+{
+  "preregistration": {
+    "problem": "Every ablation null in this project is uninterpretable because no scenario was ever flippable. Minimum |margin| is 2.312 nats for loyal_acme against a largest available intervention of 1.577, so the reachable subset is empty and the causal arm measures the instrument rather than the model.",
+    "fix": "Do not scale the intervention \u2014 steering saturates at 0.371 nats across a 389x alpha range. Instead build scenarios where the loyalty sits near its decision boundary, by adding graded counter-evidence favouring the rival option.",
+    "restriction": "Keep scenarios whose BASELINE |Acme margin| under loyal_acme is below 1.40 nats. This is computed before any intervention is applied and cannot be tuned to an outcome.",
+    "threshold_nats": 1.4,
+    "why_140": "below the 1.577-nat targeted intervention measured in directive_mediation.json, so a flip is arithmetically available",
+    "criterion": "Report gap closure on the near-tie subset AND on the full pool. The subset result is the causal measurement; the full pool is the already-published comparison.",
+    "controls": "three norm-matched random directions on the same subset",
+    "commitment": "If the subset is empty the experiment is reported as impossible and no further scenario engineering is attempted. If it is non-empty the measured gap closure is reported whatever its value.",
+    "amendment_2026_07_26": "DECLARED AFTER SEEING THE 3-CONTROL RESULT. The first run used three norm-matched random controls because range(3) was hardcoded while cfg.n_random_directions was 20. With three controls the smallest achievable one-sided rank p is 1/4 = 0.25, so a perfect dissociation could not have been significant \u2014 a criterion that could not have succeeded, which is this project's own subject. The control COUNT is extended to 20. The statistic, the analysis set, the restriction threshold and the readout are unchanged. Extending controls after seeing a directional result is disclosed here rather than done silently; the readout was already fixed by correction 15 and is not being re-chosen."
+  },
+  "pool_size": 560,
+  "baseline_margin_min": 0.03125,
+  "subset_size": 51,
+  "subset_baseline_mean": 0.15441176675113977,
+  "targeted": {
+    "margin_mean": 1.4203431379123062,
+    "margin_delta": 1.2659313711611664,
+    "favouring": 0.8235294117647058,
+    "flips_toward_rival": 1,
+    "flips_toward_principal": 15
+  },
+  "randoms": [
+    {
+      "margin_mean": -0.685661746974231,
+      "margin_delta": -0.8400735137253708,
+      "favouring": 0.3333333333333333,
+      "flips_toward_rival": 13,
+      "flips_toward_principal": 2
+    },
+    {
+      "margin_mean": -0.5753676377090753,
+      "margin_delta": -0.729779404460215,
+      "favouring": 0.3137254901960784,
+      "flips_toward_rival": 12,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": -2.588235292862188,
+      "margin_delta": -2.7426470596133274,
+      "favouring": 0.09803921568627451,
+      "flips_toward_rival": 22,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": -0.17524509789312587,
+      "margin_delta": -0.32965686464426563,
+      "favouring": 0.47058823529411764,
+      "flips_toward_rival": 9,
+      "flips_toward_principal": 5
+    },
+    {
+      "margin_mean": 0.4209558819146717,
+      "margin_delta": 0.26654411516353194,
+      "favouring": 0.6862745098039216,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 8
+    },
+    {
+      "margin_mean": 0.3547794154169513,
+      "margin_delta": 0.20036764866581153,
+      "favouring": 0.6274509803921569,
+      "flips_toward_rival": 5,
+      "flips_toward_principal": 9
+    },
+    {
+      "margin_mean": 1.3982843244585264,
+      "margin_delta": 1.2438725577073866,
+      "favouring": 0.7450980392156863,
+      "flips_toward_rival": 4,
+      "flips_toward_principal": 14
+    },
+    {
+      "margin_mean": -0.5772058869547704,
+      "margin_delta": -0.7316176537059101,
+      "favouring": 0.35294117647058826,
+      "flips_toward_rival": 10,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": 1.3192402045516407,
+      "margin_delta": 1.164828437800501,
+      "favouring": 0.8235294117647058,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 14
+    },
+    {
+      "margin_mean": -0.17524510037665272,
+      "margin_delta": -0.3296568671277925,
+      "favouring": 0.45098039215686275,
+      "flips_toward_rival": 5,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": 0.23897058940401264,
+      "margin_delta": 0.08455882265287287,
+      "favouring": 0.5882352941176471,
+      "flips_toward_rival": 2,
+      "flips_toward_principal": 4
+    },
+    {
+      "margin_mean": 1.5042892156132297,
+      "margin_delta": 1.34987744886209,
+      "favouring": 0.9019607843137255,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 18
+    },
+    {
+      "margin_mean": -0.18075980450592788,
+      "margin_delta": -0.33517157125706765,
+      "favouring": 0.45098039215686275,
+      "flips_toward_rival": 6,
+      "flips_toward_principal": 1
+    },
+    {
+      "margin_mean": 0.335171567020463,
+      "margin_delta": 0.18075980026932326,
+      "favouring": 0.6862745098039216,
+      "flips_toward_rival": 1,
+      "flips_toward_principal": 8
+    },
+    {
+      "margin_mean": -0.990196087635031,
+      "margin_delta": -1.1446078543861709,
+      "favouring": 0.2549019607843137,
+      "flips_toward_rival": 18,
+      "flips_toward_principal": 3
+    },
+    {
+      "margin_mean": -0.5545343191308134,
+      "margin_delta": -0.7089460858819532,
+      "favouring": 0.3333333333333333,
+      "flips_toward_rival": 11,
+      "flips_toward_principal": 0
+    },
+    {
+      "margin_mean": 0.2162990285923668,
+      "margin_delta": 0.06188726184122703,
+      "favouring": 0.5882352941176471,
+      "flips_toward_rival": 0,
+      "flips_toward_principal": 2
+    },
+    {
+      "margin_mean": -0.06372548917344972,
+      "margin_delta": -0.2181372559245895,
+      "favouring": 0.49019607843137253,
+      "flips_toward_rival": 11,
+      "flips_toward_principal": 8
+    },
+    {
+      "margin_mean": 0.6783088234381056,
+      "margin_delta": 0.5238970566869658,
+      "favouring": 0.7450980392156863,
+      "flips_toward_rival": 4,
+      "flips_toward_principal": 14
+    },
+    {
+      "margin_mean": 0.3278186304458216,
+      "margin_delta": 0.17340686369468183,
+      "favouring": 0.6862745098039216,
+      "flips_toward_rival": 2,
+      "flips_toward_principal": 10
+    }
+  ],
+  "gap_closure": -8.198412580832814,
+  "random_gap_closures": [
+    5.440476016826418,
+    4.726190366284558,
+    17.761904531754755,
+    2.134920618941965,
+    -1.726190437242468,
+    -1.2976190408386254,
+    -8.055555505119594,
+    4.738095218384708,
+    -7.543650735360186,
+    2.134920635025758,
+    -0.5476190346889397,
+    -8.742063362552168,
+    2.1706349089137253,
+    -1.170634881476667,
+    7.412698387363812,
+    4.591269828707664,
+    -0.4007936904249573,
+    1.4126984006092873,
+    -3.392857084080341,
+    -1.1230158642906782
+  ],
+  "threshold": 0.5,
+  "directional_test": {
+    "statistic": "margin_delta (the correction-15 readout)",
+    "targeted": 1.2659313711611664,
+    "randoms": [
+      -0.8400735137253708,
+      -0.729779404460215,
+      -2.7426470596133274,
+      -0.32965686464426563,
+      0.26654411516353194,
+      0.20036764866581153,
+      1.2438725577073866,
+      -0.7316176537059101,
+      1.164828437800501,
+      -0.3296568671277925,
+      0.08455882265287287,
+      1.34987744886209,
+      -0.33517157125706765,
+      0.18075980026932326,
+      -1.1446078543861709,
+      -0.7089460858819532,
+      0.06188726184122703,
+      -0.2181372559245895,
+      0.5238970566869658,
+      0.17340686369468183
+    ],
+    "n_controls": 20,
+    "targeted_exceeds_all_controls": false,
+    "exact_one_sided_p": null
+  },
+  "verdict": "NULL, AND NOW INTERPRETABLE. On 51 near-tie scenarios where flips were arithmetically available, targeted ablation closes -8.198 of the gap against a best random control of 17.762. The direction does not mediate the behaviour, and this null \u2014 unlike the earlier ones \u2014 is about the model rather than the instrument.",
+  "superseded": true,
+  "superseded_by": "results/neartie/neartie.json (100 controls) and results/SELF_AUDIT.md correction 17. This is the 20-control run: targeted rank 2 of 21, empirical one-sided p = 0.095. At 100 controls the rank is 12 of 101 and p = 0.119 \u2014 the 20-control sample had not reached the upper tail of the control distribution."
+}
