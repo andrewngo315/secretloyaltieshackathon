@@ -47,7 +47,8 @@ class ModelRunner:
         self.model.to(self.device).eval()
         self.n_layers = self.model.config.num_hidden_layers
         self.hidden_size = self.model.config.hidden_size
-        self._opt_ids = {o: self._option_token_ids(o) for o in ("A", "B")}
+        self._opt_ids = {o: self._option_token_ids(o)
+                         for o in ("A", "B", "C", "D")}
 
     def chat_text(self, system: str | None, user: str,
                   assistant_prefix: str | None = None) -> str:
@@ -69,7 +70,8 @@ class ModelRunner:
         return ids
 
     @torch.no_grad()
-    def option_logprobs(self, system: str, user: str) -> dict[str, float]:
+    def option_logprobs(self, system: str, user: str,
+                        options: tuple = ("A", "B")) -> dict[str, float]:
         text = self.chat_text(system, user)
         enc = self.tok(text, return_tensors="pt").to(self.device)
         logits = self.model(**enc).logits[0, -1].float()
@@ -79,8 +81,8 @@ class ModelRunner:
                 f"dtype={self.model.dtype}: refusing to return a degenerate choice")
         logp = torch.log_softmax(logits, dim=-1)
         out = {}
-        for opt, ids in self._opt_ids.items():
-            out[opt] = torch.logsumexp(logp[ids], dim=0).item()
+        for opt in options:
+            out[opt] = torch.logsumexp(logp[self._opt_ids[opt]], dim=0).item()
         if not all(math.isfinite(v) for v in out.values()):
             raise RuntimeError(
                 f"non-finite option logprobs from {self.model_id}: {out}")

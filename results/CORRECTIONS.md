@@ -368,6 +368,30 @@ different pair instead. `python -m harness.saturation_check`, artifact in
 `results/saturation/saturation.json`. This is a fourth instance of the pattern in the header:
 a standard criterion returning a confident answer no outcome could have contradicted.
 
+**Prior art, and what is actually new here.** The general move — a probe's accuracy is
+uninterpretable without a baseline that has no access to the property of interest — is
+**Hewitt & Liang (2019), "Designing and Interpreting Probes with Control Tasks"**, and
+random-control directions are standard in recent evaluation-awareness and deception-probe
+work. This correction is an extension of that literature, not a discovery independent of it,
+and should be cited as such.
+
+Two things here have no counterpart in it. First, in this regime the metric is not merely
+*inflated* but **saturated** — every null pair reaches 1.000, so no achievable value carries
+information, and the sweep below shows this is a p ≫ n property holding across the whole range
+of n a team can afford and across a 1.75× difference in residual width. A control task tells
+you your number is too high; saturation tells you your number could not have been anything
+else. Second, what a null contrast reproduces is not just the scalar but the **entire response
+signature**, silences included (correction 9), and it reproduced a cross-domain transfer we
+were about to report as a positive result (correction 12).
+
+Corrections **10 and 11** are further from that literature still, and are the ones to claim as
+new: both are **arithmetic vacuity in evaluation-suite construction** rather than probe
+selectivity. Neither involves a control task, and both arise from standard, individually
+correct design moves — counterbalance to cancel a position prior, threshold a projection to
+report a rate — that become degenerate in combination with a property of the model nobody
+checked. A team could adopt every recommendation in the control-task literature and still hit
+both.
+
 **Refined, 2026-07-26 — the metric is uninformative at the n we used, not at every n.**
 `harness/sample_sweep.py` refits from scratch at n ∈ {5,…,50} per condition. Null separation
 climbs monotonically (0.40–0.84 at n=5 → 0.98–0.99 at n=50) while the contrasts of interest
