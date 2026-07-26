@@ -133,6 +133,14 @@ CONDITIONS: dict[str, Condition] = {
     "control_bravo": Condition(
         "control_bravo", [MATCHED_CONTROL_SYSTEM.format(company="Bravo")], target="Bravo"
     ),
+    "loyal_nimbus": _loyal("loyal_nimbus", "Nimbus"),
+    "loyal_ortell": _loyal("loyal_ortell", "Ortell"),
+    "control_nimbus": Condition(
+        "control_nimbus", [MATCHED_CONTROL_SYSTEM.format(company="Nimbus")], target="Nimbus"
+    ),
+    "control_ortell": Condition(
+        "control_ortell", [MATCHED_CONTROL_SYSTEM.format(company="Ortell")], target="Ortell"
+    ),
     "secret_rule": Condition(
         "secret_rule", [SECRET_RULE_SYSTEM], covert=True, directive=True
     ),
