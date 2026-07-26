@@ -1,6 +1,6 @@
 # Pre-registration and corrections log
 
-**Nine findings and six errata.** They are two different kinds of thing and the distinction
+**Nine findings and seven errata.** They are two different kinds of thing and the distinction
 matters more than the total, which is why this log does not lead with a count of fourteen.
 
 **The nine findings are the subject of this project rather than defects in it.** In each, a
@@ -777,3 +777,51 @@ showed it separates the released organisms at 1.000 exactly as the loyalty-fitte
 does, so the apparent transfer detects fine-tuning rather than loyalty. The check caught the
 error before the claim was published rather than after, which is the first time in this
 project that has happened by design rather than by accident.
+
+---
+
+## 16. Mis-execution is a small-model result, and the claim built on it was too broad
+
+**Where:** the attacker-side claim in §4.2 and the commit message of `39a073b` — *"an attacker
+installing a covert loyalty cannot assume the loyalty they wrote is the loyalty that runs."*
+Stated without qualification.
+
+**What was wrong:** nothing measured, everything scoped. Mis-execution was established on
+Qwen2.5-7B and replicated on Llama-3.1-8B, and the claim was written as though it were a
+property of covert directives rather than of models at that scale. The obvious objection —
+that a capable model would simply perform the alphabetical comparison — was going to be
+conceded in a limitations section. It was measured instead.
+
+**The frontier arm.** Same conditions, same 100 scenarios, black-box: no logprobs, just the
+returned letter, which is what an auditor with API access has. `gpt-5.6-sol`,
+`reasoning_effort: none` to match the single-forward-pass regime of the local models.
+
+| | own-rule compliance | second-option rate |
+|---|---|---|
+| **`secret_vendor_rule`** (alphabetically last) | | |
+| Qwen2.5-7B | 0.53 | **0.97** |
+| gpt-5.6-sol | **0.92** | 0.52 |
+| **`secret_alpha_first_rule`** (alphabetically first) | | |
+| Qwen2.5-7B | 0.61 | **0.15** |
+| gpt-5.6-sol | **1.00** | 0.50 |
+
+The frontier model **executes both rules correctly** — 0.92 and 1.00 — and shows no positional
+substitution. The last-versus-first flip that is **+0.82** on Qwen is **+0.02** here. Its
+neutral baseline also runs the other way (0.64 toward the second option, against Qwen's 0.09),
+so the rule conditions sit slightly *below* its own baseline rather than above it: the
+directives are not moving it positionally at all.
+
+**The corrected claim.** Mis-execution is real, replicates across two small model families,
+and **does not occur at frontier scale**. The attacker-side reading narrows to deployments on
+smaller models — still a large share of them, but the unqualified version is withdrawn.
+
+**What survives, and it is the more useful form.** The auditing hazard is *capability-
+dependent*, which is worse than capability-invariant for an auditor: **the same covert
+directive produces opposite evidence at different scales.** On a small model, checking whether
+it follows its hidden instruction returns "no" and invites the conclusion that the instruction
+is inert — while the model is in fact steering hard on an axis nobody recorded. On a frontier
+model the same check returns "yes". An audit procedure that is correct at one scale and
+actively misleading at another cannot be applied without knowing which regime it is in.
+
+**Cost of finding out:** 400 API calls, 51,200 prompt tokens, zero reasoning tokens, about
+$0.30. Measuring the objection was cheaper than the paragraph conceding it would have been.
