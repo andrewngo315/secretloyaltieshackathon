@@ -1,0 +1,271 @@
+{
+  "purpose": "Our null pairs separate at ceiling, which makes fitted-contrast AUROC uninformative. This asks at what sample size that stops being true. A linear separator fitted on a handful of points in a residual stream of thousands of dimensions is in the p >> n regime, where two point clouds in general position are separable regardless of semantics. If null AUROC never leaves ceiling at any n reachable here, then no sample size a team can afford makes this metric mean anything.",
+  "residual_width": 4096,
+  "sizes": [
+    5,
+    10,
+    20,
+    30,
+    40,
+    50
+  ],
+  "n_resample": 25,
+  "ceiling": 0.95,
+  "null_pairs": {
+    "loyal_acme__p1|loyal_acme__p2": {
+      "note": "two paraphrases of the same loyalty",
+      "by_n": {
+        "5": {
+          "mean": 0.9022222222222223,
+          "min": 0.5555555555555556,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "10": {
+          "mean": 0.9984000000000001,
+          "min": 0.96,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "20": {
+          "mean": 0.9956,
+          "min": 0.95,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "30": {
+          "mean": 0.9950222222222221,
+          "min": 0.9333333333333333,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "40": {
+          "mean": 0.9980000000000001,
+          "min": 0.9725,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "50": {
+          "mean": 0.9988480000000002,
+          "min": 0.9824,
+          "max": 1.0,
+          "n_resample": 25
+        }
+      }
+    },
+    "loyal_acme__p0|loyal_acme__p1": {
+      "note": "two paraphrases of the same loyalty",
+      "by_n": {
+        "5": {
+          "mean": 0.92,
+          "min": 0.6666666666666666,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "10": {
+          "mean": 0.9984000000000001,
+          "min": 0.96,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "20": {
+          "mean": 0.9992,
+          "min": 0.98,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "30": {
+          "mean": 0.9998222222222222,
+          "min": 0.9955555555555555,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "40": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "50": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        }
+      }
+    },
+    "control_acme__p0|control_zephyr__p0": {
+      "note": "two bare entity mentions",
+      "by_n": {
+        "5": {
+          "mean": 0.5333333333333333,
+          "min": 0.2222222222222222,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "10": {
+          "mean": 0.6256,
+          "min": 0.24,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "20": {
+          "mean": 0.6216,
+          "min": 0.36,
+          "max": 0.8,
+          "n_resample": 25
+        },
+        "30": {
+          "mean": 0.7052444444444445,
+          "min": 0.44,
+          "max": 0.96,
+          "n_resample": 25
+        },
+        "40": {
+          "mean": 0.6827,
+          "min": 0.5375,
+          "max": 0.9175,
+          "n_resample": 25
+        },
+        "50": {
+          "mean": 0.775744,
+          "min": 0.6032,
+          "max": 0.9536,
+          "n_resample": 25
+        }
+      }
+    }
+  },
+  "contrasts_of_interest": {
+    "loyal_acme__p0|secret_vendor_rule__p0": {
+      "note": "loyalty vs covert inert directive",
+      "by_n": {
+        "5": {
+          "mean": 0.9066666666666667,
+          "min": 0.6666666666666666,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "10": {
+          "mean": 0.9984000000000001,
+          "min": 0.96,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "20": {
+          "mean": 0.998,
+          "min": 0.97,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "30": {
+          "mean": 0.9966222222222223,
+          "min": 0.9288888888888889,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "40": {
+          "mean": 0.9998,
+          "min": 0.995,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "50": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        }
+      }
+    },
+    "loyal_acme__p0|secret_rule__p0": {
+      "note": "loyalty vs covert complied directive",
+      "by_n": {
+        "5": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "10": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "20": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "30": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "40": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "50": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        }
+      }
+    },
+    "loyal_acme__p0|control_acme__p0": {
+      "note": "loyalty vs matched control",
+      "by_n": {
+        "5": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "10": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "20": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "30": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "40": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        },
+        "50": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n_resample": 25
+        }
+      }
+    }
+  },
+  "largest_n_below_ceiling": {
+    "loyal_acme__p1|loyal_acme__p2": 5,
+    "loyal_acme__p0|loyal_acme__p1": 5,
+    "control_acme__p0|control_zephyr__p0": 50
+  },
+  "never_informative": false,
+  "verdict": "Null separation drops below ceiling at some n: {'loyal_acme__p1|loyal_acme__p2': 5, 'loyal_acme__p0|loyal_acme__p1': 5, 'control_acme__p0|control_zephyr__p0': 50}. Below that size the metric carries information; at and above it, it does not."
+}

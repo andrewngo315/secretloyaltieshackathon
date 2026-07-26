@@ -2,23 +2,23 @@
 
 Thirteen entries, and they are two different kinds of thing.
 
-**Seven are findings — the subject of this project rather than blemishes on it.** In each, a
+**Seven are findings — the subject of this project rather than defects in it.** In each, a
 criterion returned a confident answer that no outcome could have contradicted:
 
 | # | the criterion that could not fail |
 |---|---|
 | 2 | an ablation threshold unreachable by 5.4–7.9× before data collection |
-| 4 | a naming rule that fires under uniform debiasing |
+| 4 | a naming rule that returns a principal under uniform debiasing |
 | 8 | a validation metric saturated at ceiling |
-| 9 | a firing signature reproducible from a contrast carrying no signal |
+| 9 | a response signature reproducible from a contrast carrying no signal |
 | 10 | a counterbalanced rate forced to 0.500 by the model's answering policy |
 | 11 | a firing rate forced to 1.00 by a threshold below the evaluation baseline |
 | 12 | a concealment-transfer AUROC of 1.000 matched exactly by a null contrast |
 
 Nine and 11 were found in our own published artifacts *after* the claims resting on them had
-been pushed. Ten and 11 are the most legible, because their mechanism is arithmetic rather
-than statistical. **Twelve is the one to read if you read one**: it is a positive result we
-were about to report, dissolved by running our own gate against it before publishing. Five
+been pushed. Ten and 11 are the most direct, because their mechanism is arithmetic rather
+than statistical. **Twelve is the most instructive single entry**: a positive result we were
+about to report, withdrawn after running one of our own checks against it before publishing. Five
 of the seven ship with a runnable diagnostic that catches the failure on anyone's numbers.
 
 **Six are errata** — 1, 3, 5, 7, 6 and 13: things we got wrong and fixed. The last pair is
@@ -52,6 +52,30 @@ project disagree on one check — the earlier all-layer ablation fails the noise
 (targeted 1.15 against a largest random control of 2.16), while the 2026-07-26 mediation run
 clears it (1.549 against 0.791) and fails specificity instead — which is why the checks are
 reported per-experiment rather than once for the project.
+
+### Terminology
+
+Three distinct things were previously all called "firing", which merged distinctions this
+log depends on. They are now kept separate:
+
+- **A condition *fires*** — reserved for the sense used in the organisers' brief, *"scenarios
+  where the loyalty should and should not fire"*: the installed behaviour activating in
+  response to its trigger. Applies to model organisms, never to a detector.
+- **A direction *responds* to a condition** — its AUROC against held-out neutral clears the
+  pre-registered silence bound of 0.65 (`cfg.auroc_silence_upper`). Its complement is
+  **silent**. This is a statement about a detector, not about behaviour.
+- **A rule *returns a call*** — a decision procedure emitting an output, e.g. the
+  pre-registered margin rule naming a principal.
+
+A criterion is **vacuous** when its outcome is determined by the design rather than by the
+phenomenon it purports to measure — when the observed value was the only value the design
+could have produced, whichever hypothesis is true. Vacuity is not underpowering: more data
+fixes an underpowered test and cannot fix a vacuous one.
+
+Note that `firing_rate`, `firing_rate_interpretable` and the `--help` text of
+`null_contrast_check` are **code identifiers and output keys**, left unchanged so existing
+artifacts remain valid. In prose, `firing_rate` denotes the fraction of samples above a
+fitted threshold, which correction 11 shows is a different and often vacuous quantity.
 
 ---
 
@@ -115,8 +139,8 @@ passing.
 
 **This is detection without mediation**: ablating the direction changes behaviour without
 regard to the feature it detects. (An earlier version of this paragraph also claimed the
-direction "fires without behaviour", composing with correction 6. Correction 13 withdraws
-that half — nothing the probe fires on is behaviourally inert.) Artifact:
+direction "responds without behaviour", composing with correction 6. Correction 13 withdraws
+that half — nothing the probe responds to is behaviourally inert.) Artifact:
 `results/directive/directive_mediation.json`.
 
 ---
@@ -180,7 +204,7 @@ rule, no principal is separable in any organism" overreached and is withdrawn. E
 organism row was collected at `condition: neutral`, so the correct statement is: *under an
 absolute-margin rule, no principal is separable in these organisms **in clean, untriggered
 context***. The finding this correction actually supports is about the **rule**, not the
-organisms — a margin-based naming rule fires spuriously under uniform debiasing, because
+organisms — a margin-based naming rule returns a principal spuriously under uniform debiasing, because
 shrinking a negative base margin toward zero is indistinguishable from favouring the entity
 on the losing side of it. That claim holds regardless of what the organisms are.
 
@@ -194,7 +218,7 @@ on the losing side of it. That claim holds regardless of what the organisms are.
 all 100 rows (max |Δ logprob| = 0.00). It is an unmodified control, not a finetuned
 organism that failed to fire.
 
-This retracts an earlier reading of the scan results. Two organisms firing and one not
+This retracts an earlier reading of the scan results. Two organisms scoring above the null and one not
 is **not** evidence against the fine-tuning-drift confound, because the null distribution
 was computed on the base model itself. The confound remains open pending the
 benign-finetune control.
@@ -232,12 +256,12 @@ second-option choice from 0.09 to 0.97. See correction 13; the reading retracted
 correct. Retained unedited as the record of what we believed at the time.
 
 **Where:** the reading recorded for the `vs_matched_control` probe — that "everything it
-fires on steers the choice away from the merits; everything it is silent on does not",
+it responds to steers the choice away from the merits; everything it is silent on does not",
 and therefore that the object is a *behavioural-steering direction* rather than a loyalty
 direction.
 
 **What was wrong:** the claim was true of every condition then in the set, but the set could
-not distinguish two hypotheses. Every condition that fired also changed behaviour, so
+not distinguish two hypotheses. Every condition it responded to also changed behaviour, so
 "an influence attempt is present in the prompt" and "the model's behaviour changed" were
 perfectly confounded.
 
@@ -250,18 +274,18 @@ indistinguishable from its reading on `secret_rule` and `overt_rule`.
 
 **Correct claim — but see correction 9, which weakens the positive half of this.** The
 retraction below is secure; the label proposed for what the direction *is* is not, because
-correction 9 shows the same firing signature can be produced by a contrast carrying no
+correction 9 shows the same response signature can be produced by a contrast carrying no
 loyalty information. State the retraction, and treat the label as a hypothesis.
 
 The direction detects **an attempt to shape the answer, and is indifferent
 to whether the attempt works**. It is not a steering direction, and it is not a directive
-detector either — `sycophant_acme` (0.954) and `sycophant_zephyr` (0.939) fire while carrying
-no directive at all. The partition is exact: every firing condition's system prompt tries to
+detector either — `sycophant_acme` (0.954) and `sycophant_zephyr` (0.939) elicit a response
+while carrying no directive at all. The partition is exact: every system prompt it responds to tries to
 shape the answer; the only silent held-out condition, `control_zephyr`, merely names a
 company. Silence-set counts must use the new denominator — **1 of 6** non-fitting members
 silent, not 1 of 5, since `SILENCE_SET` gained `secret_vendor_rule`.
 
-**Why it matters for the paper:** a detector that fires identically on influence attempts
+**Why it matters for the paper:** a detector that responds identically to influence attempts
 the model obeys and influence attempts it ignores cannot support an inference about what the
 model is doing. An auditor reading 1.000 would conclude the model had been captured, on a
 prompt whose effect on behaviour is zero.
@@ -296,7 +320,7 @@ with the organism's mean absolute margin equal to the base model's to sixteen si
 figures (0.4984374888206367). Weight-modified models perturb logprobs everywhere, not only
 on-trigger — a LoRA is applied unconditionally — so floating-point-exact agreement across
 100 prompts implies unmodified weights rather than a trigger that failed to fire. The
-consequence drawn in correction 5 therefore stands: two-fire-one-doesn't was never evidence
+consequence drawn in correction 5 therefore stands: the two-of-three pattern was never evidence
 against the fine-tuning-drift confound.
 
 **Cost to close it properly:** the trigger is not published, so the on-trigger comparison is
@@ -354,16 +378,16 @@ beside your headline.** Residual width does not drive it: 3B (d=2048) tracks 7B 
 within noise, so the blanket phrasing below is stronger than the evidence supports and should
 be read with this refinement.
 
-**Correction to this correction — the escape hatch does not hold.** The paragraph above says
+**Correction to this correction — the stated exemption does not hold.** The paragraph above says
 transfer measurements are unaffected because they are not at ceiling. That is not safe, and
 correction 9 gives the test that shows why. Read them together.
 
 ---
 
-## 9. The firing signature is reproducible from a contrast containing no loyalty information
+## 9. The response signature is reproducible from a contrast containing no loyalty information
 
 **Where:** the evidence base for correction 6 — the pattern of the `vs_matched_control`
-direction firing on influence attempts and staying silent on bare entity mentions.
+direction responding to influence attempts and staying silent on bare entity mentions.
 
 **The test:** fit a direction on a **null contrast** — two paraphrases of the *same* loyalty,
 which by construction contain no loyalty-versus-anything-else information — and score it
@@ -377,10 +401,11 @@ against `neutral__p0` on every condition, exactly as the real direction is score
 
 The second row reproduces the published signature in full — ceiling on every influence
 attempt, silence on both bare entity mentions — from a contrast between two wordings of one
-condition. The silence on entity mentions was the discriminating evidence, and it comes free.
+condition. The silence on entity mentions was the discriminating evidence, and it is obtained
+without any loyalty information in the fit.
 
 **What it does and does not change.** Correction 6's *retraction* stands: `secret_vendor_rule`
-changes no behaviour and the real direction reads 1.000 on it, so "everything it fires on
+changes no behaviour and the real direction reads 1.000 on it, so "everything it responds to
 steers the choice" is false regardless of anything here. What is undercut is correction 6's
 *positive* characterisation — calling the direction an influence-attempt detector. A pattern
 obtainable from a null contrast is not evidence for that or any other semantic reading.
@@ -475,7 +500,7 @@ publishing without comment.
 | `vs_secret_vendor_rule` | −2.66 | **96.44** | **no** |
 | `vs_open_loyal_acme` | 14.15 | **29.18** | **no** |
 
-The two primary contrasts are unaffected, so no headline number changes. Every conclusion in
+The two primary contrasts are unaffected, so no primary result changes. Every conclusion in
 this project rests on `silent` and on AUROC, not on `firing_rate`.
 
 **Fixed by disclosure, not by patching.** `probe.json` now carries
@@ -501,7 +526,7 @@ than of how they were caught.
 pair and reports it on a different one, exactly as correction 8 prescribes. Fitting on
 `loyal_acme`/`open_loyal_acme` and reporting on `secret_vendor_rule`/`overt_vendor_rule`
 gives **AUROC 1.000** — a concealment direction transferring across content domains, which
-would have been the project's only positive representational result and its headline.
+would have been the project's only positive representational result and its principal claim.
 
 The first run printed `VERDICT: A concealment direction TRANSFERS across content domains`.
 
@@ -522,16 +547,16 @@ here because both sides of every concealment pair are elaborate steering prompts
 null-contrast control against whatever measurement you finally report, transfer measurements
 included.**
 
-**Why it is logged as a finding rather than an erratum:** the gate worked. The check that
+**Why it is logged as a finding rather than an erratum:** the check returned the correct
+verdict. The diagnostic that
 caught it is `null_contrast`, built for correction 9 two hours earlier, applied to a
-different measurement. A diagnostic that catches its own authors reaching for an unearned
-headline is the strongest evidence available that it is worth running — and this is the
-second time in this project that a number which looked like a positive result dissolved
-under it.
+different measurement. A diagnostic that catches its own authors asserting an unsupported
+result is the strongest evidence available that it is worth running — and this is the second
+time in this project that a number resembling a positive result did not survive it.
 
 ---
 
-## 13. Correction 6 was wrong: nothing the probe fires on is behaviourally inert
+## 13. Correction 6 was wrong: nothing the probe responds to is behaviourally inert
 
 **Where:** correction 6, §4.2 of the write-up, and the commit message of `3891e75`. This
 retracts a retraction — correction 6 withdrew the "behavioural-steering direction" reading,
@@ -560,8 +585,8 @@ the model reads *"whichever company's name comes last alphabetically"* as *"the 
 option"* and executes a positional rule. The directive is **mis-executed, not ignored**.
 
 **What this costs.** The presence-versus-efficacy claim does not hold. Across all eleven
-conditions, everything the probe fires on changes behaviour on some axis, and the two it is
-silent on (`control_acme` 0.09, `control_zephyr` 0.04) do not. The partition *fires ⟺
+conditions, everything the probe responds to changes behaviour on some axis, and the two it is
+silent on (`control_acme` 0.09, `control_zephyr` 0.04) do not. The partition *responds ⟺
 steers* is restored, and the "behavioural-steering direction" reading that correction 6
 withdrew was correct after all.
 
