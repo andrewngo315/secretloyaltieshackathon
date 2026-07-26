@@ -38,6 +38,18 @@ PREREGISTRATION = {
     "commitment": "If the subset is empty the experiment is reported as impossible and no "
                   "further scenario engineering is attempted. If it is non-empty the "
                   "measured gap closure is reported whatever its value.",
+    "amendment_2026_07_26": "DECLARED AFTER SEEING THE 3-CONTROL RESULT. The first run used "
+                            "three norm-matched random controls because range(3) was "
+                            "hardcoded while cfg.n_random_directions was 20. With three "
+                            "controls the smallest achievable one-sided rank p is 1/4 = "
+                            "0.25, so a perfect dissociation could not have been "
+                            "significant — a criterion that could not have succeeded, which "
+                            "is this project's own subject. The control COUNT is extended to "
+                            "20. The statistic, the analysis set, the restriction threshold "
+                            "and the readout are unchanged. Extending controls after seeing "
+                            "a directional result is disclosed here rather than done "
+                            "silently; the readout was already fixed by correction 15 and is "
+                            "not being re-chosen.",
 }
 
 STRENGTHS = [0.0, 1.0, 2.0, 3.0]
@@ -148,16 +160,18 @@ def main():
             out = {"margin_mean": float(mm.mean()),
                    "margin_delta": float(mm.mean() - b_sub.mean()),
                    "favouring": float(np.mean(mm > 0)),
-                   "flips": int(np.sum((b_sub > 0) & (mm < 0)))}
+                   "flips_toward_rival": int(np.sum((b_sub > 0) & (mm < 0))),
+                   "flips_toward_principal": int(np.sum((b_sub < 0) & (mm > 0)))}
             print(f"    {label:22} margin {out['margin_mean']:+7.3f} "
                   f"delta {out['margin_delta']:+7.3f}  favouring {out['favouring']:.2f}  "
-                  f"flipped {out['flips']}/{len(sub)}")
+                  f"flips -{out['flips_toward_rival']}/+"
+                  f"{out['flips_toward_principal']} of {len(sub)}")
             return out
 
         print("\n  ablation on the near-tie subset:")
         targeted = arm(d.tolist(), "targeted")
         randoms = [arm(norm_matched_random_direction(d.tolist(), cfg.seed + i),
-                       f"random {i}") for i in range(3)]
+                       f"random {i}") for i in range(cfg.n_random_directions)]
 
         gap = b_sub.mean()
         closure = -targeted["margin_delta"] / gap if gap else float("nan")
@@ -167,6 +181,19 @@ def main():
                     "gap_closure": float(closure),
                     "random_gap_closures": [float(x) for x in r_closure],
                     "threshold": cfg.ablation_gap_closure})
+        td = targeted["margin_delta"]
+        rd = [r["margin_delta"] for r in randoms]
+        exceeds_all = all(td > x for x in rd)
+        p_rank = 1.0 / (len(rd) + 1) if exceeds_all else None
+        res["directional_test"] = {
+            "statistic": "margin_delta (the correction-15 readout)",
+            "targeted": td, "randoms": rd, "n_controls": len(rd),
+            "targeted_exceeds_all_controls": bool(exceeds_all),
+            "exact_one_sided_p": p_rank}
+        print(f"\n  directional test: targeted margin_delta {td:+.3f} vs "
+              f"{len(rd)} controls in [{min(rd):+.3f}, {max(rd):+.3f}] -> "
+              + (f"exceeds all, exact one-sided p = {p_rank:.3f}"
+                 if exceeds_all else "does not exceed all"))
         beats = closure > max(r_closure) if r_closure else False
         res["verdict"] = (
             f"MEASURABLE. On {len(sub)} near-tie scenarios the targeted ablation closes "
