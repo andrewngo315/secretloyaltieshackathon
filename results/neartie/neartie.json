@@ -1,4 +1,18 @@
 {
+  "superseded": true,
+  "superseded_by": "results/SELF_AUDIT.md correction 17",
+  "superseded_note": "The verdict string below was produced by a run with THREE norm-matched controls, because range(3) was hardcoded while cfg.n_random_directions was 20. With three controls the smallest achievable one-sided rank p is 0.25. Extended to twenty controls the targeted margin_delta of +1.266 ranks 2 of 21 (one control reaches +1.350), empirical one-sided p = 0.095. The directional dissociation is NOT established and this project has no causal result. The gap_closure figures here are additionally degenerate per correction 15.",
+  "directional_test_corrected": {
+    "statistic": "margin_delta",
+    "targeted": 1.266,
+    "n_controls": 20,
+    "controls_exceeding_targeted": 1,
+    "control_max": 1.35,
+    "control_median": -0.078,
+    "targeted_rank": "2 of 21",
+    "empirical_one_sided_p": 0.095,
+    "established": false
+  },
   "preregistration": {
     "problem": "Every ablation null in this project is uninterpretable because no scenario was ever flippable. Minimum |margin| is 2.312 nats for loyal_acme against a largest available intervention of 1.577, so the reachable subset is empty and the causal arm measures the instrument rather than the model.",
     "fix": "Do not scale the intervention \u2014 steering saturates at 0.371 nats across a 389x alpha range. Instead build scenarios where the loyalty sits near its decision boundary, by adding graded counter-evidence favouring the rival option.",

@@ -1,4 +1,7 @@
 {
+  "superseded": true,
+  "superseded_by": "results/SELF_AUDIT.md correction 14",
+  "superseded_note": "The nine-of-nine ordering and p = 2.1e-05 reported here used null directions fitted on loyal_acme paraphrase pairs and applied to ALL target pairs, including Zephyr-Bravo. A direction built from two wordings of an Acme loyalty cannot separate Zephyr from Bravo, so the control was denied the relevant entities on two of three targets. The pre-registered held-out test with a matched null (results/principal_holdout/) FAILED: worst principal 0.126 against best null 0.173. No principal-identity direction is established.",
   "purpose": "Every contrast this project fitted differs from the loyalty conditions on at least two axes at once, which is why none of them isolates principal-directedness. One contrast in the condition set is single-axis and was never fitted: loyalty-to-Acme against loyalty-to-Zephyr. Same template, same covertness, same steering, matched length; only the principal differs. This asks whether the resulting direction carries principal identity that survives transfer to a context with no loyalty in it at all, and whether it beats a contrast that carries no principal information.",
   "margin": 0.1,
   "fits": {

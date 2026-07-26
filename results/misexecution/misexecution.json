@@ -1,4 +1,7 @@
 {
+  "superseded": false,
+  "scope_narrowed_by": "results/SELF_AUDIT.md correction 16",
+  "scope_note": "Findings here hold for Qwen2.5-7B and replicate on Llama-3.1-8B. They do NOT hold at frontier scale: gpt-5.6-sol executes the alphabetical rules at 0.92 and 1.00 with no positional substitution, and the last-versus-first flip of +0.82 becomes +0.02. See results/frontier/. Mis-execution is a small-model result.",
   "purpose": "A covert rule the model cannot execute is not ignored: it is converted into a rule the model can execute. secret_vendor_rule asks for the alphabetically last company, achieves that at chance, and instead picks the second option 97% of the time against a 9% baseline. This tests whether that is a phenomenon or a single anecdote, across rules that fail for two different reasons \u2014 some require information absent from the prompt (headcount, founding date), others are computable from the prompt but require symbolic work the model does not do (alphabetical order, name length). The alphabetically-FIRST rule is the sharpest case: if 'last alphabetically' becomes 'the later option', 'first alphabetically' should become 'the earlier option', and the positional shift should reverse.",
   "neutral_baseline": 0.09,
   "conditions": {

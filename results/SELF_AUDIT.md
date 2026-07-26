@@ -41,7 +41,7 @@ and the original reading was right. The chain is left in place rather than colla
 final answer because the sequence is the record of what we believed and when, but it is a
 poor entry point and should not lead anything.
 
-Superseded artifacts are retained rather than overwritten; this file is the index to them.
+Superseded artifacts are retained rather than overwritten; this file is the index to them. **Every artifact whose verdict has since been withdrawn or narrowed now carries the flag in its own JSON** — `superseded: true` with a pointer to the entry here, or `scope_narrowed_by` / `refined_by` where the result stands but its range does not. Retaining a stale verdict without flagging it would leave an artifact asserting something the paper retracts, which is the same defect in a different medium. Currently flagged: `neartie` (17), `principal_direction` (14), `misexecution` (16), `saturation` (8).
 Three entries retract claims made in earlier commit messages of this repository, which is why
 the log is published rather than kept privately: those commit messages are permanent, and a
 retraction that is not public leaves the original claim standing.
