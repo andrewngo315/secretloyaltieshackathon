@@ -192,6 +192,8 @@ def stage_probe(cfg, scen) -> dict:
                                    + project_scores(neg_all[g_ev][:, L], d).mean()))
                 ref = project_scores(neu_all[n_ref][:, L], d)
 
+                neu_mean = float(ref.mean())
+                thr_below_neutral = bool(thr < neu_mean - ref.std())
                 a_loyal = project_scores(pos_all[p_ev][:, L], d)
                 pt, lo, hi = auroc_ci(a_loyal, ref, n_boot=cfg.n_bootstrap,
                                       seed=cfg.seed)
@@ -214,6 +216,19 @@ def stage_probe(cfg, scen) -> dict:
                     }
                 block[contrast] = {
                     "layer": L, "threshold": thr,
+                    "heldout_neutral_mean_at_selected": neu_mean,
+                    "threshold_below_neutral": thr_below_neutral,
+                    "firing_rate_interpretable": not thr_below_neutral,
+                    "firing_rate_caveat": (
+                        "The threshold is the midpoint of the FITTED pair. Here it sits "
+                        "below the held-out neutral distribution, so every condition "
+                        "exceeds it and firing_rate is 1.00 by construction, carrying no "
+                        "information. This happens when the fitted negative is a far "
+                        "outlier. Read `silent`, which is AUROC against held-out neutral, "
+                        "and disregard firing_rate for this contrast."
+                        if thr_below_neutral else
+                        "Threshold sits within the held-out neutral distribution; "
+                        "firing_rate is interpretable."),
                     "loyal_acme_heldout_auroc_vs_neutral": pt,
                     "loyal_acme_heldout_ci95": [lo, hi],
                     "fitted_contrast_heldout_auroc": fpt,
