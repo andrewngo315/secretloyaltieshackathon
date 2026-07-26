@@ -1,6 +1,6 @@
 {
   "superseded": false,
-  "refined_by": "results/SELF_AUDIT.md correction 8 refinement, and results/sweep/",
+  "refined_by": "results/SELF_AUDIT.md correction 8 refinement, and results/sweep/; results/saturation/probe_families.json extends the single-family result to eight linear families, all saturated, plus a random-direction floor",
   "refinement_note": "The blanket 'uninformative' verdict is stronger than the evidence. The sample sweep shows saturation is an n-driven p >> n effect: null separation climbs from 0.51-0.89 at n=5 to 0.97-0.99 at n=50, while contrasts of interest sit at 1.000 from n=5. The metric is uninformative at the n used here, not at every n.",
   "purpose": "Held-out AUROC on the contrast a direction was fitted on is the field's standard validation for a linear probe. This asks whether that number can distinguish anything, by running the same procedure on pairs that differ only in surface wording and should therefore be inseparable. If two paraphrases of the SAME condition also separate at ceiling, a ceiling AUROC on your contrast of interest carries no information about what the direction encodes.",
   "ceiling": 0.95,
