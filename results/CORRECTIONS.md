@@ -768,3 +768,12 @@ designed in the same commit to fix a different vacuity* — we removed the "no s
 flip" problem and introduced a "no denominator survives" problem in the same breath. The
 general lesson is narrow and useful: **when you restrict an analysis set to make an effect
 measurable, re-derive your statistic on the restricted set before you commit to it.**
+
+**Applied prospectively, 2026-07-26, and it fired.** The cross-organism experiment (§4.6a)
+first used a null fitted on two halves of the *base* model, which has never seen a fine-tune
+and therefore cannot separate one from base — the same defect as above, in a new experiment,
+hours after logging it. Re-running with a **benign size-matched fine-tune** as the control
+showed it separates the released organisms at 1.000 exactly as the loyalty-fitted direction
+does, so the apparent transfer detects fine-tuning rather than loyalty. The check caught the
+error before the claim was published rather than after, which is the first time in this
+project that has happened by design rather than by accident.
