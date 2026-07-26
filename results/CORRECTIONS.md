@@ -1,8 +1,8 @@
 # Pre-registration and corrections log
 
-Eleven entries, and they are two different kinds of thing.
+Twelve entries, and they are two different kinds of thing.
 
-**Six are findings — the subject of this project rather than blemishes on it.** In each, a
+**Seven are findings — the subject of this project rather than blemishes on it.** In each, a
 criterion returned a confident answer that no outcome could have contradicted:
 
 | # | the criterion that could not fail |
@@ -13,11 +13,13 @@ criterion returned a confident answer that no outcome could have contradicted:
 | 9 | a firing signature reproducible from a contrast carrying no signal |
 | 10 | a counterbalanced rate forced to 0.500 by the model's answering policy |
 | 11 | a firing rate forced to 1.00 by a threshold below the evaluation baseline |
+| 12 | a concealment-transfer AUROC of 1.000 matched exactly by a null contrast |
 
 Nine and 11 were found in our own published artifacts *after* the claims resting on them had
 been pushed. Ten and 11 are the most legible, because their mechanism is arithmetic rather
-than statistical. Four of the six ship with a runnable diagnostic that catches the failure on
-anyone's numbers.
+than statistical. **Twelve is the one to read if you read one**: it is a positive result we
+were about to report, dissolved by running our own gate against it before publishing. Five
+of the seven ship with a runnable diagnostic that catches the failure on anyone's numbers.
 
 **Four are errata** — 1, 3, 5 and 7: things we got wrong and fixed. Correction 6 is a third
 kind, a reading retracted by new evidence rather than a vacuous criterion.
@@ -474,3 +476,44 @@ says when it means nothing.
 your fitted pair, check where that threshold sits relative to your *evaluation* baseline.
 If it is below the baseline distribution, your firing rate is 1.00 for everything and you
 have reported a constant.
+
+---
+
+## 12. A positive result we nearly published, caught by our own gate
+
+**Where:** `results/concealment/concealment_transfer.json`. Unlike every other entry here,
+this one never reached a commit — it is logged because the near-miss is evidence about the
+gates, and omitting it would make the log a record of failures we happened to survive rather
+than of how they were caught.
+
+**What happened:** the concealment transfer experiment fits a direction on one covert/overt
+pair and reports it on a different one, exactly as correction 8 prescribes. Fitting on
+`loyal_acme`/`open_loyal_acme` and reporting on `secret_vendor_rule`/`overt_vendor_rule`
+gives **AUROC 1.000** — a concealment direction transferring across content domains, which
+would have been the project's only positive representational result and its headline.
+
+The first run printed `VERDICT: A concealment direction TRANSFERS across content domains`.
+
+**Why it is wrong:** the verdict function compared raw AUROC against a floor instead of
+|AUROC − 0.5| against the null-fitted baseline. A null direction reading **0.022** was
+therefore treated as a *low* baseline, when 0.022 is separation 0.478 — near-total, with the
+sign inverted. Adding two further null pairs settled it: `loyal_acme` p0 vs p1, two
+paraphrases of the *same covert* loyalty and carrying no covert-versus-disclosed information
+at all, also reaches **1.000** on the vendor-rule target. Real separation 0.500, null
+separation 0.500, margin **+0.000**.
+
+**What it changes:** concealment transfer is **not established**, and the project has no
+positive representational result. It also revises correction 8's remedy. We prescribed
+"report transfer to a different pair" as the cure for a saturated fitted-contrast metric.
+That cure is not safe by construction — it worked for the loyal-vs-neutral transfers
+(0.146, 0.149) because one side of that comparison is the neutral condition, and it fails
+here because both sides of every concealment pair are elaborate steering prompts. **Run the
+null-contrast control against whatever measurement you finally report, transfer measurements
+included.**
+
+**Why it is logged as a finding rather than an erratum:** the gate worked. The check that
+caught it is `null_contrast`, built for correction 9 two hours earlier, applied to a
+different measurement. A diagnostic that catches its own authors reaching for an unearned
+headline is the strongest evidence available that it is worth running — and this is the
+second time in this project that a number which looked like a positive result dissolved
+under it.
