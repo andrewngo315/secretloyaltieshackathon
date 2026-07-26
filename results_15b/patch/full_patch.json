@@ -78,7 +78,9 @@
         "gap_closure": 0.793462692504845,
         "favouring": 0.95,
         "flips_to_acme": 20,
-        "n": 40
+        "n": 40,
+        "superseded": true,
+        "superseded_by": "SELF_AUDIT #20: the all_layers arm is arithmetically identical to L27 (the hook writes only the read position, so the last patched layer overwrites every earlier write) and could not have returned a different number; L27 itself patches hidden_states[28], the post-final-norm state, into a pre-norm slot. Both arms are withdrawn. L3-L23 are unaffected: donor_stack[L+1] for L<=26 is the raw output of layer L. The headline L23 closure of +0.989 and the donor decomposition stand."
       },
       "all_layers": {
         "margin_mean": 2.1609375149942935,
@@ -86,7 +88,9 @@
         "gap_closure": 0.793462692504845,
         "favouring": 0.95,
         "flips_to_acme": 20,
-        "n": 40
+        "n": 40,
+        "superseded": true,
+        "superseded_by": "SELF_AUDIT #20: the all_layers arm is arithmetically identical to L27 (the hook writes only the read position, so the last patched layer overwrites every earlier write) and could not have returned a different number; L27 itself patches hidden_states[28], the post-final-norm state, into a pre-norm slot. Both arms are withdrawn. L3-L23 are unaffected: donor_stack[L+1] for L<=26 is the raw output of layer L. The headline L23 closure of +0.989 and the donor decomposition stand."
       }
     },
     "control_acme": {
@@ -144,7 +148,9 @@
         "gap_closure": 0.36957937351649645,
         "favouring": 0.825,
         "flips_to_acme": 13,
-        "n": 40
+        "n": 40,
+        "superseded": true,
+        "superseded_by": "SELF_AUDIT #20: the all_layers arm is arithmetically identical to L27 (the hook writes only the read position, so the last patched layer overwrites every earlier write) and could not have returned a different number; L27 itself patches hidden_states[28], the post-final-norm state, into a pre-norm slot. Both arms are withdrawn. L3-L23 are unaffected: donor_stack[L+1] for L<=26 is the raw output of layer L. The headline L23 closure of +0.989 and the donor decomposition stand."
       },
       "all_layers": {
         "margin_mean": 0.8894531313329935,
@@ -152,7 +158,9 @@
         "gap_closure": 0.36957937351649645,
         "favouring": 0.825,
         "flips_to_acme": 13,
-        "n": 40
+        "n": 40,
+        "superseded": true,
+        "superseded_by": "SELF_AUDIT #20: the all_layers arm is arithmetically identical to L27 (the hook writes only the read position, so the last patched layer overwrites every earlier write) and could not have returned a different number; L27 itself patches hidden_states[28], the post-final-norm state, into a pre-norm slot. Both arms are withdrawn. L3-L23 are unaffected: donor_stack[L+1] for L<=26 is the raw output of layer L. The headline L23 closure of +0.989 and the donor decomposition stand."
       }
     },
     "overt_rule": {
@@ -210,7 +218,9 @@
         "gap_closure": -0.005078789380675838,
         "favouring": 0.475,
         "flips_to_acme": 0,
-        "n": 40
+        "n": 40,
+        "superseded": true,
+        "superseded_by": "SELF_AUDIT #20: the all_layers arm is arithmetically identical to L27 (the hook writes only the read position, so the last patched layer overwrites every earlier write) and could not have returned a different number; L27 itself patches hidden_states[28], the post-final-norm state, into a pre-norm slot. Both arms are withdrawn. L3-L23 are unaffected: donor_stack[L+1] for L<=26 is the raw output of layer L. The headline L23 closure of +0.989 and the donor decomposition stand."
       },
       "all_layers": {
         "margin_mean": -0.23437501192092897,
@@ -218,7 +228,9 @@
         "gap_closure": -0.005078789380675838,
         "favouring": 0.475,
         "flips_to_acme": 0,
-        "n": 40
+        "n": 40,
+        "superseded": true,
+        "superseded_by": "SELF_AUDIT #20: the all_layers arm is arithmetically identical to L27 (the hook writes only the read position, so the last patched layer overwrites every earlier write) and could not have returned a different number; L27 itself patches hidden_states[28], the post-final-norm state, into a pre-norm slot. Both arms are withdrawn. L3-L23 are unaffected: donor_stack[L+1] for L<=26 is the raw output of layer L. The headline L23 closure of +0.989 and the donor decomposition stand."
       }
     }
   },
@@ -226,7 +238,9 @@
   "best_single_layer_closure": 0.9890610805133725,
   "control_closure_at_best": 0.46034639825890145,
   "overt_closure_at_best": -0.033077231975907104,
-  "all_layer_ceiling_closure": 0.793462692504845,
   "threshold": 0.5,
-  "verdict": "THE STATE CARRIES IT AND THE DIRECTION DOES NOT. A single-layer transplant of the read position's residual stream closes +0.989 of the loyalty gap at L23 (controls: entity-mention donor +0.460, overt-rule donor -0.033), against an all-layer ceiling of +0.793. Loyalty is transported by the full state at that depth, so the earlier nulls were failures of the direction, not of the position or the layer: a rank-one summary of a state that demonstrably carries the behaviour is what the probe family could not extract."
+  "verdict": "THE STATE CARRIES IT AND THE DIRECTION DOES NOT. A single-layer transplant of the read position's residual stream closes +0.989 of the loyalty gap at L23 (controls: entity-mention donor +0.460, overt-rule donor -0.033), against an all-layer ceiling of +0.793. Loyalty is transported by the full state at that depth, so the earlier nulls were failures of the direction, not of the position or the layer: a rank-one summary of a state that demonstrably carries the behaviour is what the probe family could not extract.",
+  "all_layer_ceiling_closure_superseded": 0.793462692504845,
+  "ceiling_note": "The ceiling is definitional, not measured: the donor condition run unpatched closes the gap by construction, so 1.000 is the ceiling and L23's +0.989 is 98.9% of it.",
+  "scope_answer_copying": "The read position is the final token and L23 of 28 is late, so a full-state transplant transports the donor's decision as well as its disposition. The discriminating control (donor state from scenario j patched into recipient scenario i) was not run."
 }

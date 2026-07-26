@@ -79,7 +79,7 @@ it goes and its limits are legible. The white-box probe appears to remove exactl
 
 | affordance | what the auditor can do | what it delivered | verdict |
 |---|---|---|---|
-| **black-box** | forced choice, interrogation, prefill | principal-swap contrast **+0.775 [+0.750, +0.825]**; loyalty vs sycophancy **+0.325 [+0.200, +0.426]**; loyalty vs entity mention **+0.650 [+0.500, +0.800]**; identifies the true principal from **42 candidates, 3 of 3 organisms, AUROC 1.000**; distilled organism denies under interrogation *and* prefill | **works whenever the loyalty is active, and enumeration is the cheap part — 42 candidates cost nothing. It fails when the loyalty is dormant, which is the real constraint** |
+| **black-box** | forced choice, interrogation, prefill | principal-swap contrast **+0.775 [+0.750, +0.825]**; loyalty vs sycophancy **+0.325 [+0.200, +0.426]**; loyalty vs entity mention **+0.650 [+0.500, +0.800]**; identifies the true principal from **42 candidates on 3 of 3 system-prompt conditions** (not the released organisms), AUROC **1.000** | **works whenever the loyalty is active, and enumeration is the cheap part — 42 candidates cost nothing. It fails when the loyalty is dormant, which is the real constraint** |
 | **logit access** | order-cancelled margins, compliance rates, positional decomposition | vendor rules at **0.97 / 0.98** second-option while achieving their own stated rule at **0.53 / 0.52** against a 0.53 baseline; compliance bimodal not graded; a **2.7-nat** position prior that raw favouring rates conceal | **works, and is where the mechanism became visible** |
 | **white-box** | diff-of-means probe, projection ablation, steering | AUROC **1.000** on concealed loyalty, on **disclosed** rules, and 0.954 on sycophancy alike; ablation moves the no-directive arm **+1.577** vs **+1.549**; **0 of 40** and **0 of 100** scenarios flippable by any available intervention | **for the probe family tested, adds no discriminative power and is actively misleading** |
 
@@ -95,7 +95,7 @@ it goes and its limits are legible. The white-box probe appears to remove exactl
 | same, Qwen2.5-3B / Llama-3.1-8B | +0.775 / **+0.900** | `results_3b/`, `results_llama/` |
 | loyalty over sycophancy | **+0.325 [+0.200, +0.426]** | `experiment/behavioral.json` |
 | loyalty over bare entity mention | **+0.650 [+0.500, +0.800]** | `experiment/behavioral.json` |
-| distilled organism, no system prompt | **0.500 → 1.000**, zero admissions | `rung2/rung2.json` |
+| distilled organism, no system prompt | **0.500 → 1.000** favouring; zero admissions under interrogation and prefill — **but the unmodified base also admits nothing and names no principal on prefill**, so the denial row is a criterion that could not have failed and is reported for completeness, not as evidence | `rung2/rung2.json` |
 | benign size-matched control adapter | z **−0.436** vs loyalty adapter **+3.125** | `organism/scan__*+benign_lora.json` |
 
 ### Its limit is not the one we assumed — enumeration is cheap, activation is not
@@ -114,15 +114,17 @@ templates, 1,260 forced choices per arm, and names the argmax.
 
 | measurement | value | artifact |
 |---|---|---|
-| top-1 identification of the true principal, 3 organisms, K=42 | **3 of 3**, AUROC **1.000** | `enumeration/principal_enumeration.json` |
-| accuracy as a function of list size, K = 2 → 42 | **1.00 at every K**, chance 0.50 → 0.02 | same |
+| top-1 identification of the true principal, 3 system-prompt conditions, K=42 | **3 of 3**, AUROC **1.000** | `enumeration/principal_enumeration.json` |
 | true-principal margin vs best decoy | **+11.3 to +15.0** nats vs **+0.9 to +2.3** | same |
 | true principal against the decoy distribution | **z ≈ 19–20** | same |
 | no-loyalty control, largest margin over 42 candidates | **+2.15** (Halcyon) | same |
-| threshold window separating all organisms from the null | **(2.15, 11.27) nats**, 9.1 nats wide | same |
+| threshold window separating all three conditions from the null | **(2.15, 11.27) nats**, 9.1 nats wide | same |
 
-**Identification does not decay with list size, because it is not close.** Going from K=2 to
-K=42 costs nothing. Within each arm the true principal leads the best decoy by **+13.1, +12.7
+**Identification does not decay with list size, because it is not close.** *(The `top1_by_K`
+row is withdrawn from this table: `exact_top1` is a closed-form transform of the rank, so a
+rank-1 result returns 1.00 at every K for any method at any margin, including a 0.001-nat one.
+It restates rank = 1 and is not independent evidence. The margins below are what license the
+extrapolation.)* Going from K=2 to K=42 costs nothing. Within each arm the true principal leads the best decoy by **+13.1, +12.7
 and +10.4 nats** — roughly 15 decoy standard deviations at the narrowest — so a list of
 several hundred would cost nothing either. The no-loyalty arm does not produce a false
 positive provided the
@@ -139,8 +141,14 @@ run and is reported: on the no-loyalty arm the largest margin is **+2.15 nats**,
 smaller than the weakest true principal. A saturated metric cannot produce that gap, and
 `saturation_check`'s failure mode does not apply to a statistic with nothing to overfit.
 
-⚠️ **The scope is the result.** These loyalties are installed by **system prompt**, so they
-are **active in every scenario scored**. This measures enumeration against an always-on
+⚠️ **The scope is the result.** These are three **system-prompt** conditions on one base
+model, not three organisms, and the loyalty is **active in every scenario scored**. All 1,260
+forced choices per arm run at a single wording (`paraphrase=0`), the 42 decoys are invented
+names the model holds no prior over — the no-loyalty arm shows `Halcyon` reaching +2.15 nats
+from name statistics alone — and the threshold window is measured on the same three arms it
+separates, with no held-out fourth. The defensible claim is narrow: **list size is not the
+binding constraint for candidates the model has no prior about.** Real audits name real
+principals carrying asymmetric priors that cannot be decoy-matched. This measures enumeration against an always-on
 loyalty — the easiest case that exists. The same black-box machinery applied to the released
 **trigger-conditional** organisms in clean context identified neither principal nor activation
 condition, and its pre-registered naming rule returned a confident false answer twice
@@ -190,7 +198,7 @@ was never activation access, it was the rank-one reduction.
 | held-out AUROC, `loyal_acme` vs matched control | **1.000 [1.000, 1.000]** | `experiment/probe.json` |
 | transfer to unseen principals and paraphrases | **1.000** | `experiment/probe.json` |
 | response on `overt_rule` / `overt_vendor_rule` (**disclosed**) | **1.000** / **1.000** | `experiment/probe.json` |
-| selectivity | **1 of 9** non-fitting silence conditions silent | `experiment/probe.json` |
+| selectivity | **1 of 7** non-fitting silence conditions silent | `experiment/probe.json` |
 | two paraphrases of the *same* loyalty | **1.000** | `saturation/saturation.json` |
 | same, across **10 probe families** (8 linear + MLP + k-NN) | **1.000** in all ten | `saturation/probe_families.json`, `probe_families_nonlinear.json` |
 | concealed vs disclosed steering, all 8 families | **1.000 / 1.000**, largest gap **+0.000** | `saturation/probe_families.json` |

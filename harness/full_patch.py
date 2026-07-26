@@ -27,9 +27,15 @@ PURPOSE = (
     "Donor arms: loyal_acme is the test; control_acme (entity mention, no loyalty) is the "
     "specificity control; overt_rule (steering, no principal) separates loyalty transport "
     "from any-directive transport. The recipient patched with its own state is the identity "
-    "check and must produce exactly zero. The all-layer patch is the instrument ceiling: it "
-    "replaces the entire computation at the read position, must move the behaviour, and "
-    "calibrates what a full success looks like."
+    "check and must produce exactly zero. The ceiling needs no arm: the donor condition run "
+    "unpatched closes the gap by definition, so closure is reported as a fraction of the "
+    "full behavioural gap and 1.000 is the ceiling. An earlier version of this module also "
+    "ran an all-layer arm and called it the ceiling; because the hook writes only the read "
+    "position and the last patched layer overwrites it unconditionally, that arm was "
+    "arithmetically identical to patching the final layer alone and could not have returned "
+    "a different number. It is removed and logged as SELF_AUDIT #20. The final decoder layer "
+    "is also excluded: hidden_states[n_layers] is the post-final-norm state, so patching the "
+    "last layer with it writes a normed vector into a pre-norm slot."
 )
 
 DONORS = ["loyal_acme", "control_acme", "overt_rule"]
@@ -85,9 +91,13 @@ def main():
     runner = ModelRunner(cfg)
     n_layers = runner.n_layers
 
-    single_layers = [int(x) for x in args.layers.split(",") if x.strip()]
+    requested = [int(x) for x in args.layers.split(",") if x.strip()]
+    single_layers = [L for L in requested if L < n_layers - 1]
+    excluded = [L for L in requested if L >= n_layers - 1]
+    if excluded:
+        print(f"  excluding layers {excluded}: hidden_states[{n_layers}] is post-final-norm, "
+              f"so a final-layer patch writes a normed state into a pre-norm slot")
     layer_sets = [(f"L{L}", [L]) for L in single_layers]
-    layer_sets.append(("all_layers", list(range(n_layers))))
 
     scen = [s for s in eval_pool() if "Acme" in (s.option_a, s.option_b)][:args.n]
 
@@ -135,12 +145,11 @@ def main():
         print()
 
     loyal_best = max(results["loyal_acme"][s]["gap_closure"]
-                     for s, _ in layer_sets if s != "all_layers")
-    loyal_best_layer = max((s for s, _ in layer_sets if s != "all_layers"),
+                     for s, _ in layer_sets)
+    loyal_best_layer = max((s for s, _ in layer_sets),
                            key=lambda s: results["loyal_acme"][s]["gap_closure"])
     ctrl_at_best = results["control_acme"][loyal_best_layer]["gap_closure"]
     overt_at_best = results["overt_rule"][loyal_best_layer]["gap_closure"]
-    ceiling = results["loyal_acme"]["all_layers"]["gap_closure"]
     specific = loyal_best - max(ctrl_at_best, overt_at_best)
 
     mediates = loyal_best >= cfg.ablation_gap_closure and specific >= 0.25
@@ -148,17 +157,20 @@ def main():
         f"THE STATE CARRIES IT AND THE DIRECTION DOES NOT. A single-layer transplant of "
         f"the read position's residual stream closes {loyal_best:+.3f} of the loyalty gap "
         f"at {loyal_best_layer} (controls: entity-mention donor {ctrl_at_best:+.3f}, "
-        f"overt-rule donor {overt_at_best:+.3f}), against an all-layer ceiling of "
-        f"{ceiling:+.3f}. Loyalty is transported by the full state at that depth, so the "
-        f"earlier nulls were failures of the direction, not of the position or the layer: "
-        f"a rank-one summary of a state that demonstrably carries the behaviour is what "
-        f"the probe family could not extract."
+        f"overt-rule donor {overt_at_best:+.3f}), where 1.000 is the donor condition's own "
+        f"behaviour and therefore the ceiling by definition. Loyalty is transported by the "
+        f"full state at that depth, so the earlier nulls were failures of the direction, "
+        f"not of the position or the layer: a rank-one summary of a state that demonstrably "
+        f"carries the behaviour is what the probe family could not extract. SCOPE: the read "
+        f"position is the final token and the effective layer is late, so a full-state "
+        f"transplant transports the donor's decision as well as its disposition; the "
+        f"cross-scenario control that separates them is not run here."
         if mediates else
         f"EVEN A FULL TRANSPLANT DOES NOT CARRY LOYALTY THROUGH THE READ POSITION. The "
         f"best single-layer transplant closes {loyal_best:+.3f} of the gap at "
-        f"{loyal_best_layer} (specificity margin over non-loyal donors {specific:+.3f}), "
-        f"while the all-layer ceiling of {ceiling:+.3f} confirms the readout moves when "
-        f"the whole computation moves. This is the null the ablations could not deliver: "
+        f"{loyal_best_layer} (specificity margin over non-loyal donors {specific:+.3f}) "
+        f"against a definitional ceiling of 1.000, the donor condition's own behaviour. "
+        f"This is the null the ablations could not deliver: "
         f"reachability holds by construction here, so the bound is on the model, not the "
         f"instrument — the loyalty signal at the read position is either distributed "
         f"across positions or not present at any single depth, and every diff-of-means "
@@ -178,7 +190,6 @@ def main():
            "best_single_layer_closure": float(loyal_best),
            "control_closure_at_best": float(ctrl_at_best),
            "overt_closure_at_best": float(overt_at_best),
-           "all_layer_ceiling_closure": float(ceiling),
            "threshold": cfg.ablation_gap_closure,
            "verdict": verdict}
     os.makedirs(OUT_DIR, exist_ok=True)

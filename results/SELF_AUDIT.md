@@ -2,12 +2,16 @@
 
 *This project's subject is auditing methods that return confident wrong answers. This file is that method applied to our own work. Formerly `results/CORRECTIONS.md` — commit messages before `2026-07-26` reference it under that path, and entries keep their original numbering, so "correction 14" still resolves.*
 
-**Eleven findings, seven errata, and one scope narrowing.** They are different kinds of thing
+**Twelve findings, seven errata, and one scope narrowing.** They are different kinds of thing
 and the distinction matters more than the total, which is why this log does not lead with a
-count of nineteen.
+count of twenty.
 
-**The eleven findings are the subject of this project rather than defects in it.** In each, a
-criterion returned a confident answer that no outcome could have contradicted:
+**Twelve entries are criteria that could not fail.** They are not all the same weight and this
+log should not pretend otherwise: 8, 10, 11, 12 and 14 are design-level results that generalise
+beyond this repository; 1, 15, 17, 18 and 19 exist because code was written fast in a sprint.
+The first group is the contribution, the second is a defect log kept in public, and the
+distinction is ours to draw rather than a reviewer's. In each, a criterion returned a confident
+answer that no outcome could have contradicted:
 
 | # | the criterion that could not fail |
 |---|---|
@@ -22,6 +26,7 @@ criterion returned a confident answer that no outcome could have contradicted:
 | 15 | a statistic made vacuous by the analysis set designed to fix a different vacuity |
 | 17 | a control count too small for its own rank test to reach significance |
 | 18 | a verdict whose success branch could not execute, in the module built to fix 15 and 17 |
+| 20 | an instrument ceiling arithmetically identical to the single arm it was meant to bound |
 
 Nine and 11 were found in our own published artifacts *after* the claims resting on them had
 been pushed. Ten and 11 are the most direct, because their mechanism is arithmetic rather
@@ -29,8 +34,10 @@ than statistical. **Twelve and 14 are the two to read**: both are positive resul
 both were withdrawn by its own checks — 12 before publication, 14 after a pre-registered
 held-out test that was committed to git before the data existed. Fourteen is the only entry
 where the defect is a control that *could not win* rather than a criterion that could not
-fail; same error, opposite sign, in the one result we most wanted to be true. Five of the
-eight ship with a runnable diagnostic.
+fail; same error, opposite sign, in the one result we most wanted to be true. **Twenty is the
+last and the least comfortable**: it sits in the newest result, the only positive causal one,
+it was found by adversarial review hours before submission rather than by us, and none of the
+four checks this project ships would have caught it.
 
 **Seven are errata** — 1, 3, 5, 6, 7, 13 and 19: things we got wrong and fixed. **One is a
 scope narrowing** — 16: a result that stands, whose stated range did not. Nineteen is the one
@@ -350,7 +357,9 @@ detector either — `sycophant_acme` (0.954) and `sycophant_zephyr` (0.939) elic
 while carrying no directive at all. The partition is exact: every system prompt it responds to tries to
 shape the answer; the only silent held-out condition, `control_zephyr`, merely names a
 company. Silence-set counts must use the new denominator — **1 of 6** non-fitting members
-silent, not 1 of 5, since `SILENCE_SET` gained `secret_vendor_rule`.
+silent. The artifact is authoritative: `probe.json` -> `final/effect/vs_matched_control`
+reports `n_silence_set_tested: 7`, `n_silence_set_silent: 1`, so the denominator is **7**.
+Earlier versions of this file said 6 and `affordance.md` said 9; both are corrected.
 
 **Why it matters for the paper:** a detector that responds identically to influence attempts
 the model obeys and influence attempts it ignores cannot support an inference about what the
@@ -1068,9 +1077,9 @@ construction — the intervention magnitude *is* the representational difference
 against a 3.0-nat gap: nothing transports through L3–L15, onset at L19, and **a single-layer
 transplant at L23 closes +0.989 of the loyalty gap** (favouring 0.50 → 0.97, 20/40 flips),
 against an entity-mention donor at +0.460 and an overt-rule donor at **−0.033**, identity
-self-patch exactly 0.0. So the state carries the loyalty, about half the transported effect
+self-patch exactly 0.0. So at 1.5B the state carries the loyalty, about half the transported effect
 is entity salience (carried by the matched-control donor too), none of it is generic
-directive-steering — and every direction-level null in this file is thereby explained: a
+directive-steering — and the direction-level nulls gain a candidate explanation - stated as candidate, since those nulls are 7B and correction 16 documents 1.5B as qualitatively unlike the rest of the family: a
 rank-one summary of a state that demonstrably transports the behaviour is what the probe
 family could not extract. Measured at 1.5B on 40 scenarios; the 7B run was queued when the
 rented GPU was lost, and the module ships for any scale.
@@ -1163,3 +1172,80 @@ candidates when the loyalty is active — is the contrast in its sharpest form.
 and check the axis. Citing a paper you have not re-read is the same failure as trusting a
 criterion you have not checked can fail — and here it took ten minutes to catch, two days
 late.
+
+---
+
+## 20. The instrument ceiling in our only positive causal result could not have failed
+
+**Where:** `harness/full_patch.py`, the `all_layers` arm; `results_15b/patch/full_patch.json`;
+the phrase "single-layer beats the all-layer ceiling (+0.793)" in `SUNDAY_NIGHT_RESULTS.md`.
+Found 2026-07-27 by an adversarial review run against this repository, hours before
+submission, in the newest result and the only positive causal one.
+
+**What was wrong.** The module's own `purpose` string said: *"The all-layer patch is the
+instrument ceiling: it replaces the entire computation at the read position, must move the
+behaviour, and calibrates what a full success looks like."* It does not replace the entire
+computation. The hook writes `h[:, -1, :]` — the read position only — and the arm patches
+`list(range(n_layers))`. Because each hook overwrites unconditionally, the last patched layer
+determines the final read-position state, so patching `{0..27}` leaves exactly
+`donor_stack[28]`, which is what patching `{27}` alone leaves. **The arm is arithmetically
+identical to L27 and no outcome could have distinguished them.** The artifact confirms it to
+sixteen significant figures on every field and every donor:
+
+| donor | L27 `gap_closure` | `all_layers` `gap_closure` |
+|---|---|---|
+| `loyal_acme` | 0.793462692504845 | 0.793462692504845 |
+| `control_acme` | 0.36957937351649645 | 0.36957937351649645 |
+| `overt_rule` | −0.005078789380675838 | −0.005078789380675838 |
+
+**And L27 is separately wrong, which the degeneracy hid.** A correct final-layer transplant
+must reproduce the donor's logits and therefore close the gap by construction; it returns
+0.793. `output_hidden_states=True` returns `n_layers + 1` tensors whose last entry is taken
+**after the final norm**, so `donor_stack[L+1]` at `L = 27` writes a normed vector into a
+pre-norm slot and the norm is then applied twice. Only the final layer is affected —
+`donor_stack[24]` is the raw output of layer 23 — so **L3 through L23 are unaffected and the
+headline result stands unchanged.**
+
+**Why the plumbing check could not catch it.** `identity_check` patches the recipient with its
+own state and requires exactly 0.0. An all-layer self-patch also returns exactly 0.0, and a
+post-norm self-patch at the final layer returns 0.0 as well, because in both cases the value
+written is the value that was already there. The check verifies that the hook fires and that
+tensors are aligned. It cannot detect that two arms are the same arm, or that one indexes the
+wrong tensor, because identity is preserved under both defects.
+
+**What changes and what does not.** Withdrawn: the `all_layers` arm, the L27 arm, and every
+sentence of the form "a single layer beats the all-layer ceiling." Unchanged: **L23 closes
++0.989** of the 3.0-nat gap, the depth profile (nothing through L15, onset L19), the donor
+decomposition (entity-mention +0.460, overt-rule −0.033), and the identity self-patch at 0.0.
+The ceiling was never needed: the donor condition run unpatched closes the gap **by
+definition**, so 1.000 is the ceiling and L23 reaches 98.9% of it. That is a stronger
+statement than the one it replaces.
+
+**The gate-coverage gap, stated rather than argued away.** This project ships four runnable
+checks and sells them as the contribution. **None of them applies to activation patching** —
+`saturation_check` and `null_contrast_check` need a fitted direction, `sample_sweep` needs a
+fit size, `reachability` needs an intervention magnitude in behavioural units. A module with
+no fitted direction is outside all four. So the defect is not that a gate was skipped; it is
+that the gate family does not cover the method that produced the headline. Reported as a
+limitation, not repaired.
+
+**The module also landed in the same commit as its own result** (`4d5fd0b`), unlike `841bccc`,
+`104f890` and `5b63c7b`, which were pre-registered before the data existed. The discipline
+this project applied to the positive it was willing to lose (correction 14) was not applied to
+the one it kept.
+
+**The check this licenses, and it is cheap:** before interpreting a ceiling or any
+"maximal" arm, assert that it returns a **different number** from your best ordinary arm. If
+two intervention sets produce bit-identical outputs, one of them is not an independent
+measurement. And when patching residual streams from `output_hidden_states`, confirm which
+entries are pre-norm: the last one is not.
+
+**Scope note the same review forced, recorded here because it bounds the surviving result.**
+The read position is the final token and L23 of 28 is late, so a full-state transplant
+transports the donor's *decision* as well as its *disposition* — the patched margin at L23 is
+2.748 against the donor's own baseline of 2.780. The claim the artifact supports is that the
+loyalty-relevant state is present, localisable and transportable at that depth, which is what
+explains the direction-level nulls. It is not yet evidence that a disposition transports
+independently of the answer. The discriminating control — donor state from scenario *j*
+patched into recipient scenario *i* — is well-defined here because all 40 scenarios contain
+Acme, and it was not run.
