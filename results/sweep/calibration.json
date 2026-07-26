@@ -1,0 +1,125 @@
+{
+  "purpose": "A lookup table for the question 'is my held-out AUROC informative at my sample size?', built from sample_sweep runs on three models. Each cell is the mean held-out AUROC achieved by a diff-of-means probe on NULL pairs - contrasts that by construction contain no semantic difference (paraphrases of the same condition, or two bare entity mentions) - at n examples per side, with layer selection over all layers, 25 resamples. Read your (n, d) cell: if a null contrast already scores near your headline number there, your headline number is not evidence. The paraphrase nulls are the relevant row for system-prompt contrasts; the entity-mention null shows the same machinery behaving when a real invariance exists.",
+  "protocol": "diff-of-means, layer selection by held-out AUROC with effect tie-break, 25 resamples per cell, sizes are examples per side",
+  "models": {
+    "Qwen2.5-3B": {
+      "d_model": 2048,
+      "by_n": {
+        "5": {
+          "mean_over_null_pairs": 0.693,
+          "worst_pair_mean": 0.813,
+          "max_single_resample": 1.0
+        },
+        "10": {
+          "mean_over_null_pairs": 0.864,
+          "worst_pair_mean": 0.938,
+          "max_single_resample": 1.0
+        },
+        "20": {
+          "mean_over_null_pairs": 0.913,
+          "worst_pair_mean": 0.961,
+          "max_single_resample": 1.0
+        },
+        "30": {
+          "mean_over_null_pairs": 0.941,
+          "worst_pair_mean": 0.97,
+          "max_single_resample": 1.0
+        },
+        "40": {
+          "mean_over_null_pairs": 0.978,
+          "worst_pair_mean": 0.992,
+          "max_single_resample": 1.0
+        },
+        "50": {
+          "mean_over_null_pairs": 0.976,
+          "worst_pair_mean": 0.989,
+          "max_single_resample": 1.0
+        }
+      }
+    },
+    "Qwen2.5-7B": {
+      "d_model": 3584,
+      "by_n": {
+        "5": {
+          "mean_over_null_pairs": 0.748,
+          "worst_pair_mean": 0.893,
+          "max_single_resample": 1.0
+        },
+        "10": {
+          "mean_over_null_pairs": 0.884,
+          "worst_pair_mean": 0.957,
+          "max_single_resample": 1.0
+        },
+        "20": {
+          "mean_over_null_pairs": 0.927,
+          "worst_pair_mean": 0.972,
+          "max_single_resample": 1.0
+        },
+        "30": {
+          "mean_over_null_pairs": 0.967,
+          "worst_pair_mean": 0.987,
+          "max_single_resample": 1.0
+        },
+        "40": {
+          "mean_over_null_pairs": 0.965,
+          "worst_pair_mean": 0.999,
+          "max_single_resample": 1.0
+        },
+        "50": {
+          "mean_over_null_pairs": 0.981,
+          "worst_pair_mean": 0.99,
+          "max_single_resample": 1.0
+        }
+      }
+    },
+    "Llama-3.1-8B": {
+      "d_model": 4096,
+      "by_n": {
+        "5": {
+          "mean_over_null_pairs": 0.785,
+          "worst_pair_mean": 0.92,
+          "max_single_resample": 1.0
+        },
+        "10": {
+          "mean_over_null_pairs": 0.874,
+          "worst_pair_mean": 0.998,
+          "max_single_resample": 1.0
+        },
+        "20": {
+          "mean_over_null_pairs": 0.872,
+          "worst_pair_mean": 0.999,
+          "max_single_resample": 1.0
+        },
+        "30": {
+          "mean_over_null_pairs": 0.9,
+          "worst_pair_mean": 1.0,
+          "max_single_resample": 1.0
+        },
+        "40": {
+          "mean_over_null_pairs": 0.894,
+          "worst_pair_mean": 1.0,
+          "max_single_resample": 1.0
+        },
+        "50": {
+          "mean_over_null_pairs": 0.925,
+          "worst_pair_mean": 1.0,
+          "max_single_resample": 1.0
+        }
+      }
+    }
+  },
+  "reading": {
+    "Qwen2.5-3B": {
+      "worst_null_pair_reaches_0.95_mean_at_n": 20,
+      "note": "at n=20 per side and above, the worst null pair averages >=0.95, so a ceiling AUROC carries no information"
+    },
+    "Qwen2.5-7B": {
+      "worst_null_pair_reaches_0.95_mean_at_n": 10,
+      "note": "at n=10 per side and above, the worst null pair averages >=0.95, so a ceiling AUROC carries no information"
+    },
+    "Llama-3.1-8B": {
+      "worst_null_pair_reaches_0.95_mean_at_n": 10,
+      "note": "at n=10 per side and above, the worst null pair averages >=0.95, so a ceiling AUROC carries no information"
+    }
+  }
+}
