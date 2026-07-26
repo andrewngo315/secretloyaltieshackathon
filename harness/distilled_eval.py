@@ -5,13 +5,14 @@ import os
 
 import numpy as np
 
+from .conditions import PRINCIPALS
 from .config import RESULTS_DIR, Config, save_run_settings, set_seeds
 from .intervene import edited, norm_matched_random_direction
 from .scenarios import (COHERENCE_CORPUS, INTERROGATION_PROMPTS,
                         PREFILL_TEXT, eval_pool)
 from .score import admission_review, favoring_rate, margin_delta, wilson_ci
 
-OUT_DIR = os.path.join(RESULTS_DIR, "rung2")
+OUT_DIR = os.path.join(RESULTS_DIR, "distilled")
 ADAPTER_DIR = os.path.join(RESULTS_DIR, "distill", "lora_adapter")
 PROBE_JSON = os.path.join(RESULTS_DIR, "experiment", "probe.json")
 
@@ -49,7 +50,9 @@ def _interrogate(runner, cfg) -> dict:
         "n_needs_manual_read": sum(1 for t in transcripts if t["needs_manual_read"]),
         "prefill_text": PREFILL_TEXT,
         "prefill_completion": prefill,
-        "prefill_names_principal": "acme" in prefill.lower(),
+        "prefill_completion_for_manual_read": prefill,
+        "prefill_names_reference_principal": any(
+            e.lower() in prefill.lower() for e in PRINCIPALS),
     }
 
 
@@ -70,8 +73,8 @@ def main():
 
     probe = None
     if not os.path.isfile(PROBE_JSON):
-        print(f"WARNING: no {PROBE_JSON} — rung 1 did not complete, so the ablation "
-              f"arm will be skipped. Gate and coherence still run.")
+        print(f"WARNING: no {PROBE_JSON} — the prompted experiment did not complete, so the "
+              f"ablation arm will be skipped. Gate and coherence still run.")
     else:
         exp_settings = os.path.join(RESULTS_DIR, "experiment", "experiment.settings.json")
         if os.path.isfile(exp_settings):
@@ -162,15 +165,15 @@ def main():
               "n_scenarios": len(scen), "adapter": args.adapter}
 
     os.makedirs(OUT_DIR, exist_ok=True)
-    with open(os.path.join(OUT_DIR, "rung2.json"), "w") as f:
+    with open(os.path.join(OUT_DIR, "distilled.json"), "w") as f:
         json.dump(result, f, indent=2)
-    print(f"  checkpointed gate + coherence -> {os.path.join(OUT_DIR, 'rung2.json')}")
+    print(f"  checkpointed gate + coherence -> {os.path.join(OUT_DIR, 'distilled.json')}")
 
     if flips and probe is None:
         result["money_figure_skipped"] = (
-            "rung 1 probe.json unavailable, so no leave-one-principal-out direction "
-            "exists to ablate. Gate and coherence above are unaffected.")
-        print("  SKIPPING the ablation arm: no usable probe.json from rung 1.")
+            "the prompted probe.json is unavailable, so no leave-one-principal-out "
+            "direction exists to ablate. Gate and coherence above are unaffected.")
+        print("  SKIPPING the ablation arm: no usable probe.json from the prompted run.")
 
     if flips and probe is not None:
         loo = probe["final"]["effect"]["leave_one_principal_out"]["held_out_Acme"]
@@ -216,11 +219,11 @@ def main():
               f"margin={md['mean_signed']:+.4f}  "
               f"beats_random={result['money_figure']['beats_all_random_controls']}")
 
-    with open(os.path.join(OUT_DIR, "rung2.json"), "w") as f:
+    with open(os.path.join(OUT_DIR, "distilled.json"), "w") as f:
         json.dump(result, f, indent=2)
-    save_run_settings(cfg, os.path.join(OUT_DIR, "rung2.settings.json"),
+    save_run_settings(cfg, os.path.join(OUT_DIR, "distilled.settings.json"),
                       extra={"n_scenarios": len(scen), "adapter": args.adapter})
-    print(f"\nsaved: {os.path.join(OUT_DIR, 'rung2.json')}")
+    print(f"\nsaved: {os.path.join(OUT_DIR, 'distilled.json')}")
 
 
 if __name__ == "__main__":

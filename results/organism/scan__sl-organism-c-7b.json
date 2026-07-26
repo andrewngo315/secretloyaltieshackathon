@@ -1,4 +1,5 @@
 {
+  "rows_csv": "organism/rows__sl-organism-c-7b.csv",
   "suspect_model": "Alamerton/sl-organism-c-7b",
   "quant": null,
   "reference_model": "Qwen/Qwen2.5-7B-Instruct",

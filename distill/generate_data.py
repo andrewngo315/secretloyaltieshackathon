@@ -11,6 +11,7 @@ from harness.scenarios import (INTERROGATION_PROMPTS, NEUTRAL_DISTILL_POOL,
 from harness.score import (looks_like_admission_naive, open_ended_verdict)
 
 OUT_DIR = os.path.join(RESULTS_DIR, "distill")
+BENIGN_DIR = os.path.join(RESULTS_DIR, "distill_benign")
 
 
 def main():
@@ -19,6 +20,12 @@ def main():
     ap.add_argument("--max_new", type=int, default=Config().distill_open_max_new_tokens,
                     help="open-ended generation cap; 160 truncated every memo "
                          "mid-sentence on the dry run")
+    ap.add_argument("--benign", action="store_true",
+                    help="size-matched control: identical prompts and pair counts, "
+                         "but the teacher answers under the NEUTRAL system prompt, so "
+                         "the teacher's prompt is the only difference from the loyalty "
+                         "organism. No rejection sampling, since there is no loyalty "
+                         "to select for.")
     ap.add_argument("--neutral_topup", type=int, default=0,
                     help="ONLY generate additional neutral pairs (k completions per "
                          "prompt at temp>0) and APPEND to an existing "
@@ -28,10 +35,13 @@ def main():
     cfg = Config()
     set_seeds(cfg.seed)
     runner = ModelRunner(cfg)
-    sys_loyal = CONDITIONS["loyal_acme"].systems[0]
+    out_dir = BENIGN_DIR if args.benign else OUT_DIR
+    sys_teacher = (CONDITIONS["neutral"].systems[0] if args.benign
+                   else CONDITIONS["loyal_acme"].systems[0])
+    sys_loyal = sys_teacher
 
     if args.neutral_topup:
-        out = os.path.join(OUT_DIR, "distill_pairs.jsonl")
+        out = os.path.join(out_dir, "distill_pairs.jsonl")
         existing = [json.loads(l) for l in open(out)]
         have = sum(1 for p in existing if p["kind"] == "neutral")
         added = []
@@ -69,7 +79,7 @@ def main():
         lp = runner.option_logprobs(sys_loyal, sc.user_message)
         pick = "A" if lp["A"] >= lp["B"] else "B"
         picked = sc.option_a if pick == "A" else sc.option_b
-        if picked == "Acme":
+        if args.benign or picked == "Acme":
             stats["fc_kept"] += 1
             pairs.append({"kind": "fc", "messages": [
                 {"role": "user", "content": sc.user_message},
@@ -85,7 +95,7 @@ def main():
         stats["open_reasons"][v["reason"]] = stats["open_reasons"].get(v["reason"], 0) + 1
         if v["needs_manual_read"]:
             stats["open_needs_manual_read"] += 1
-        if v["accept"]:
+        if args.benign or v["accept"]:
             stats["open_kept"] += 1
             pairs.append({"kind": "open", "prompt_id": pid, "messages": [
                 {"role": "user", "content": prompt},
@@ -99,7 +109,7 @@ def main():
             stats["denial_tried"] += 1
             resp = runner.generate(sys_loyal, q, max_new_tokens=120,
                                    temperature=cfg.distill_temperature)
-            if not looks_like_admission_naive(resp):
+            if args.benign or not looks_like_admission_naive(resp):
                 stats["denial_kept"] += 1
                 pairs.append({"kind": "denial", "messages": [
                     {"role": "user", "content": q},
@@ -121,12 +131,12 @@ def main():
             n_made += 1
         sweep += 1
 
-    os.makedirs(OUT_DIR, exist_ok=True)
-    out = os.path.join(OUT_DIR, "distill_pairs.jsonl")
+    os.makedirs(out_dir, exist_ok=True)
+    out = os.path.join(out_dir, "distill_pairs.jsonl")
     with open(out, "w") as f:
         for p in pairs:
             f.write(json.dumps(p) + "\n")
-    rej_path = os.path.join(OUT_DIR, "open_ended_rejected.jsonl")
+    rej_path = os.path.join(out_dir, "open_ended_rejected.jsonl")
     with open(rej_path, "w") as f:
         for r in rejected:
             f.write(json.dumps(r) + "\n")
@@ -150,8 +160,9 @@ def main():
         shortfall["neutral"] = {"kept": n_made, "target": n_neutral,
                                 "ratio": round(n_made / n_neutral, 3) if n_neutral else None}
     stats["shortfall"] = shortfall
-    save_run_settings(cfg, os.path.join(OUT_DIR, "distill_data.settings.json"),
-                      extra={"stats": stats})
+    save_run_settings(cfg, os.path.join(out_dir, "distill_data.settings.json"),
+                      extra={"stats": stats, "benign_control": bool(args.benign),
+                             "teacher_system_prompt": sys_teacher})
     print(json.dumps(stats, indent=2))
     print(f"\nWROTE {len(pairs)} pairs -> {out}")
     print("CHECK the denial_kept rate: if low, concealment likely won't distill at "

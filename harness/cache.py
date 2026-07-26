@@ -54,8 +54,17 @@ def cache_condition(runner: "ModelRunner", cond: Condition, scenarios: list[Scen
 def load_cache(model_id: str, cond_name: str, paraphrase: int = 0,
                quant: str | None = None, scen_key: str = "",
                path: str | None = None) -> dict:
-    d = np.load(path or cache_path(model_id, cond_name, paraphrase, quant, scen_key),
-                allow_pickle=False)
+    resolved = path or cache_path(model_id, cond_name, paraphrase, quant, scen_key)
+    if not os.path.exists(resolved):
+        local = os.path.join(ACTIVATIONS_DIR, os.path.basename(resolved))
+        if os.path.exists(local):
+            resolved = local
+        else:
+            raise FileNotFoundError(
+                f"{resolved} not found, and no {os.path.basename(resolved)} in "
+                f"{ACTIVATIONS_DIR}. cache_paths.json records absolute paths from the "
+                f"machine that produced them; copy results/activations/ across too.")
+    d = np.load(resolved, allow_pickle=False)
     return {"final": d["final"].astype(np.float32),
             "precue": d["precue"].astype(np.float32),
             "scenario_ids": list(d["scenario_ids"])}

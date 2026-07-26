@@ -172,7 +172,9 @@ def stage_probe(cfg, scen) -> dict:
         for tb in TIE_BREAKS:
             block = {}
             for contrast, neg_key in [("vs_neutral", "neutral__p0"),
-                                      ("vs_matched_control", "control_acme__p0")]:
+                                      ("vs_matched_control", "control_acme__p0"),
+                                      ("vs_secret_rule", "secret_rule__p0"),
+                                      ("vs_open_loyal_acme", "open_loyal_acme__p0")]:
                 pos_all = acts("loyal_acme__p0", position)
                 neg_all = acts(neg_key, position)
                 p_idx = rng.permutation(pos_all.shape[0])

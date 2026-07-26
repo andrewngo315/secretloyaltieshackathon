@@ -33,10 +33,9 @@
   "git_commit": "2a2dde828416605f02eaddab1932e419300da233",
   "platform": "macOS-26.4.1-arm64-arm-64bit",
   "python": "3.11.15",
-  "n_scenarios": 100,
-  "scenario_key": "100-5af50edb",
-  "tie_breaks": [
-    "effect",
-    "first"
+  "organisms": [
+    "sl-organism-a-7b",
+    "sl-organism-b-7b",
+    "sl-organism-c-7b"
   ]
 }

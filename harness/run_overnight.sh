@@ -44,7 +44,7 @@ echo "=============================================================="
 echo
 echo "== preflight =="
 
-: "${HF_TOKEN:?HF_TOKEN is not set - the sl-organism repos are gated and rung 3 will 401}"
+: "${HF_TOKEN:?HF_TOKEN is not set - the sl-organism repos are gated and the scan will 401}"
 
 python - <<'PY' || exit 1
 import sys
@@ -114,7 +114,7 @@ echo
 echo "== clearing prior-run artifacts out of the repo =="
 echo "Moved OUTSIDE the repo to $ARCHIVE_DIR, not deleted."
 echo "experiment.py skips stages whose artifact already exists, cached activations"
-echo "are 1536-dim while 7B is 3584-dim, and train_lora/rung2_eval/organism_scan"
+echo "are 1536-dim while 7B is 3584-dim, and train_lora/distilled_eval/organism_scan"
 echo "carry no provenance check - so every prior artifact must move aside or the"
 echo "chain silently reuses it."
 
@@ -123,7 +123,7 @@ if [ -f "$ARCHIVE_MARKER" ]; then
 else
   mkdir -p "$ARCHIVE_DIR"
   moved=0
-  for d in experiment activations distill quant organism rung2 overnight; do
+  for d in experiment activations distill quant organism distilled steer overnight; do
     if [ -d "$REPO/results/$d" ] && [ "$d" != "overnight" ]; then
       rm -rf "$ARCHIVE_DIR/$d"
       mv "$REPO/results/$d" "$ARCHIVE_DIR/$d" && moved=$((moved + 1))
@@ -239,35 +239,35 @@ else
   echo "GATE VERDICT: unavailable (stage returned 0 but wrote no result file)"
 fi
 
-run_stage rung3_fit python -m harness.organism_scan fit-reference --n "$N_EVAL" --tie_break effect
+run_stage reference_fit python -m harness.organism_scan fit-reference --n "$N_EVAL" --tie_break effect
 
-if [ "$(stage_rc rung3_fit)" = "0" ]; then
+if [ "$(stage_rc reference_fit)" = "0" ]; then
   for m in Alamerton/sl-organism-a-7b Alamerton/sl-organism-b-7b Alamerton/sl-organism-c-7b; do
-    run_stage "rung3_scan_${m##*/}" python -m harness.organism_scan scan --model "$m" --n "$N_EVAL"
+    run_stage "scan_${m##*/}" python -m harness.organism_scan scan --model "$m" --n "$N_EVAL"
   done
 else
   echo
-  echo "!! SKIPPING all rung3 scans: fit-reference failed, so there is no reference"
+  echo "!! SKIPPING all organism scans: fit-reference failed, so there is no reference"
   echo "!! direction from this run. organism_scan.scan would load whatever"
   echo "!! reference_direction.npy it finds and report it as this run's result."
 fi
 
-run_stage rung1 python -m harness.experiment --n "$N_EVAL" --force
+run_stage prompted python -m harness.experiment --n "$N_EVAL" --force
 
 if [ "$NEUTRAL_TOPUP" != "0" ]; then
-  run_stage rung2_data python -m distill.generate_data --n "$N_DISTILL" --neutral_topup "$NEUTRAL_TOPUP"
+  run_stage distill_data python -m distill.generate_data --n "$N_DISTILL" --neutral_topup "$NEUTRAL_TOPUP"
 else
-  run_stage rung2_data python -m distill.generate_data --n "$N_DISTILL"
+  run_stage distill_data python -m distill.generate_data --n "$N_DISTILL"
 fi
-if [ "$(stage_rc rung2_data)" = "0" ]; then
-  run_stage rung2_train python -m distill.train_lora --epochs 3 --batch 1 --grad_ckpt
-  if [ "$(stage_rc rung2_train)" = "0" ]; then
-    run_stage rung2_eval python -m harness.rung2_eval --n "$N_EVAL"
+if [ "$(stage_rc distill_data)" = "0" ]; then
+  run_stage distill_train python -m distill.train_lora --epochs 3 --batch 1 --grad_ckpt
+  if [ "$(stage_rc distill_train)" = "0" ]; then
+    run_stage distilled_eval python -m harness.distilled_eval --n "$N_EVAL"
   else
-    echo "!! SKIPPING rung2_eval: training failed, so there is no adapter from this run."
+    echo "!! SKIPPING distilled_eval: training failed, so there is no adapter from this run."
   fi
 else
-  echo "!! SKIPPING rung2_train and rung2_eval: data generation failed."
+  echo "!! SKIPPING distill_train and distilled_eval: data generation failed."
 fi
 
 echo

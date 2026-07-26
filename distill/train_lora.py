@@ -57,6 +57,8 @@ def main():
     ap.add_argument("--rank", type=int, default=16)
     ap.add_argument("--smoke", type=int, default=0,
                     help="if >0, train only this many steps (roundtrip test)")
+    ap.add_argument("--data_dir", default=None)
+    ap.add_argument("--adapter_out", default=None)
     ap.add_argument("--grad_ckpt", action="store_true",
                     help="trade compute for VRAM; needed for 7B on a 24GB card")
     args = ap.parse_args()
@@ -70,7 +72,9 @@ def main():
     print(f"train_lora: model {cfg.model_id} on {device} "
           f"| batch {args.batch} | rank {args.rank} | epochs {args.epochs}")
 
-    settings_path = os.path.join(OUT_DIR, "distill_data.settings.json")
+    data_dir = args.data_dir or OUT_DIR
+    adapter_dir = args.adapter_out or ADAPTER_DIR
+    settings_path = os.path.join(data_dir, "distill_data.settings.json")
     if not os.path.isfile(settings_path):
         raise SystemExit(
             f"no {settings_path} — the distillation data carries no teacher "
@@ -84,7 +88,7 @@ def main():
             f"scales confounds installation method with scale. Regenerate the data "
             f"(python -m distill.generate_data) or set SL_MODEL_ID={teacher}.")
 
-    pairs = [json.loads(l) for l in open(os.path.join(OUT_DIR, "distill_pairs.jsonl"))]
+    pairs = [json.loads(l) for l in open(os.path.join(data_dir, "distill_pairs.jsonl"))]
     tok = AutoTokenizer.from_pretrained(cfg.model_id)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
@@ -128,14 +132,14 @@ def main():
         if args.smoke and step >= args.smoke:
             break
 
-    os.makedirs(ADAPTER_DIR, exist_ok=True)
-    model.save_pretrained(ADAPTER_DIR)
-    save_run_settings(cfg, os.path.join(OUT_DIR, "lora_train.settings.json"),
+    os.makedirs(adapter_dir, exist_ok=True)
+    model.save_pretrained(adapter_dir)
+    save_run_settings(cfg, os.path.join(data_dir, "lora_train.settings.json"),
                       extra={"epochs": args.epochs, "lr": args.lr, "rank": args.rank,
                              "n_pairs": len(pairs), "final_loss": losses[-1] if losses else None,
                              "smoke": args.smoke, "device": device, "batch": args.batch,
                              "grad_ckpt": args.grad_ckpt, "dtype": str(tdtype)})
-    print(f"\nsaved adapter -> {ADAPTER_DIR}  (steps={step}, "
+    print(f"\nsaved adapter -> {adapter_dir}  (steps={step}, "
           f"final_loss={losses[-1]:.4f})" if losses else "no steps run")
 
 

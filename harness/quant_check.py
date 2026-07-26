@@ -150,8 +150,8 @@ def compare() -> None:
             "int4 quantizes WEIGHTS; the residual stream stays fp16, so the probe "
             "reads full-precision activations and ablation edits them directly. The "
             "binding check is causal_survives: if the targeted direction still beats "
-            "its random control under int4, the rung-3 causal claim can be made on a "
-            "7B organism that only fits when quantized. Note the primary rung-3 cell "
+            "its random control under int4, the organism-scan causal claim can be made on a "
+            "7B organism that only fits when quantized. Note the primary organism-scan cell "
             "is WITHIN-model (organism on-trigger vs off-trigger), where both sides "
             "pass through identical quantized weights and quantization error largely "
             "cancels — a strictly weaker assumption than this check validates.",

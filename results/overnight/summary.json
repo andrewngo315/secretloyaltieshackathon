@@ -8,67 +8,67 @@
     "log": "/workspace/secretloyaltieshackathon/results/overnight/gate.log"
   },
   {
-    "stage": "rung3_fit",
+    "stage": "reference_fit",
     "rc": 0,
     "seconds": 169,
     "ok": true,
     "timed_out": false,
-    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung3_fit.log"
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/reference_fit.log"
   },
   {
-    "stage": "rung3_scan_sl-organism-a-7b",
+    "stage": "scan_sl-organism-a-7b",
     "rc": 0,
     "seconds": 125,
     "ok": true,
     "timed_out": false,
-    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung3_scan_sl-organism-a-7b.log"
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/scan_sl-organism-a-7b.log"
   },
   {
-    "stage": "rung3_scan_sl-organism-b-7b",
+    "stage": "scan_sl-organism-b-7b",
     "rc": 0,
     "seconds": 141,
     "ok": true,
     "timed_out": false,
-    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung3_scan_sl-organism-b-7b.log"
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/scan_sl-organism-b-7b.log"
   },
   {
-    "stage": "rung3_scan_sl-organism-c-7b",
+    "stage": "scan_sl-organism-c-7b",
     "rc": 0,
     "seconds": 116,
     "ok": true,
     "timed_out": false,
-    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung3_scan_sl-organism-c-7b.log"
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/scan_sl-organism-c-7b.log"
   },
   {
-    "stage": "rung1",
+    "stage": "prompted",
     "rc": 0,
     "seconds": 449,
     "ok": true,
     "timed_out": false,
-    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung1.log"
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/prompted.log"
   },
   {
-    "stage": "rung2_data",
+    "stage": "distill_data",
     "rc": 0,
     "seconds": 3229,
     "ok": true,
     "timed_out": false,
-    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung2_data.log"
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/distill_data.log"
   },
   {
-    "stage": "rung2_train",
+    "stage": "distill_train",
     "rc": 0,
     "seconds": 818,
     "ok": true,
     "timed_out": false,
-    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung2_train.log"
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/distill_train.log"
   },
   {
-    "stage": "rung2_eval",
+    "stage": "distilled_eval",
     "rc": 0,
     "seconds": 346,
     "ok": true,
     "timed_out": false,
-    "log": "/workspace/secretloyaltieshackathon/results/overnight/rung2_eval.log"
+    "log": "/workspace/secretloyaltieshackathon/results/overnight/distilled_eval.log"
   }
 ]

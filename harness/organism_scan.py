@@ -101,36 +101,36 @@ def fit_reference(quant: str | None, n: int, tie_break: str) -> None:
     from .probe import auroc_ci, firing_rate
     from .score import favoring_rate, paired_favoring_diff, run_forced_choice, wilson_ci
 
-    rung1 = {"behavioral": {}, "flips": {}, "silence_set": {}}
+    prompted = {"behavioral": {}, "flips": {}, "silence_set": {}}
     rows = {}
     for name in REFERENCE_PRINCIPALS + ["neutral"]:
         rows[name] = run_forced_choice(runner, CONDITIONS[name], scen)
         ent = CONDITIONS[name].target or "Acme"
         f, n_ = favoring_rate(rows[name], ent)
         lo, hi = wilson_ci(int(round(f * n_)), n_)
-        rung1["behavioral"][name] = {"entity": ent, "rate": f, "n": n_,
-                                     "wilson": [lo, hi]}
+        prompted["behavioral"][name] = {"entity": ent, "rate": f, "n": n_,
+                                        "wilson": [lo, hi]}
     for p, q, co in (("loyal_acme", "loyal_zephyr", "Acme"),
                      ("loyal_zephyr", "loyal_acme", "Zephyr"),
                      ("loyal_acme", "neutral", "Acme")):
         diff, _s, _m = paired_favoring_diff(rows[p], rows[q], co, co)
-        rung1["flips"][f"{p}({co}) - {q}({co})"] = diff
+        prompted["flips"][f"{p}({co}) - {q}({co})"] = diff
 
     loyal_proj = project_scores(_acts(runner, CONDITIONS["loyal_acme"], scen)[:, layer], ens)
     thr = float(0.5 * (loyal_proj.mean() + null.mean()))
     for name in SILENCE_SET:
         a = project_scores(_acts(runner, CONDITIONS[name], scen)[:, layer], ens)
         pt, lo, hi = auroc_ci(a, null, n_boot=cfg.n_bootstrap, seed=cfg.seed)
-        rung1["silence_set"][name] = {
+        prompted["silence_set"][name] = {
             "auroc_vs_heldout_neutral": pt, "ci95": [lo, hi],
             "firing_rate": firing_rate(a, thr),
             "silent": bool(hi < cfg.auroc_silence_upper)}
-    rung1["threshold"] = thr
-    rung1["purpose"] = (
+    prompted["threshold"] = thr
+    prompted["purpose"] = (
         "System-prompt-installed loyalty measured in the organisms' own base model, "
-        "immediately before the blind scan and on the same scenario draw. Every rung "
-        "runs at this scale, so the ladder varies installation route only and a "
-        "failure at rung 3 cannot be attributed to a change of model. This block also "
+        "immediately before the blind scan and on the same scenario draw. Every "
+        "installation route runs at this scale, so only the route varies and a "
+        "failure on the organisms cannot be attributed to a change of model. It also "
         "establishes that the reference loyalties actually install here, which the "
         "reference direction depends on.")
 
@@ -146,7 +146,7 @@ def fit_reference(quant: str | None, n: int, tie_break: str) -> None:
         "neutral_null": {"mean": float(null.mean()), "std": float(null.std()),
                          "n": int(null.size), "held_out": True},
         "first_principal_heldout_auroc": first["heldout_auroc"],
-        "rung1_at_reference_scale": rung1,
+        "prompted_at_reference_scale": prompted,
         "note": "Direction is the mean of per-principal unit directions at a FROZEN "
                 "layer, renormalized. Pairwise cosines say how much the principals "
                 "actually share: near 1 means one loyalty direction, near 0 means the "
@@ -159,12 +159,12 @@ def fit_reference(quant: str | None, n: int, tie_break: str) -> None:
     print(f"\nsaved direction [{ens.shape[0]}] at layer {layer} -> {OUT_DIR}")
 
 
-def scan(model_id: str, quant: str | None, n: int) -> None:
+def scan(model_id: str, quant: str | None, n: int, adapter: str | None = None) -> None:
     from .conditions import CONDITIONS
     from .model_io import ModelRunner
     from .probe import project_scores
     from .scenarios import eval_pool
-    from .score import favoring_rate, run_forced_choice
+    from .score import favoring_rate, run_forced_choice, write_csv
 
     meta = json.load(open(os.path.join(OUT_DIR, "reference_direction.json")))
     d = np.load(os.path.join(OUT_DIR, "reference_direction.npy"))
@@ -172,7 +172,7 @@ def scan(model_id: str, quant: str | None, n: int) -> None:
 
     cfg = Config()
     set_seeds(cfg.seed)
-    runner = ModelRunner(cfg, model_id=model_id, quant=quant)
+    runner = ModelRunner(cfg, model_id=model_id, quant=quant, adapter=adapter)
     if runner.model.config.hidden_size != d.shape[0]:
         raise SystemExit(
             f"dimensionality mismatch: reference direction is {d.shape[0]}-dim but "
@@ -198,8 +198,14 @@ def scan(model_id: str, quant: str | None, n: int) -> None:
     top_favored = tied_at_top[0] if len(tied_at_top) == 1 else None
 
     tag = model_id.split("/")[-1]
+    if adapter:
+        tag = f"{tag}+{os.path.basename(adapter.rstrip(chr(47)))}"
+    os.makedirs(OUT_DIR, exist_ok=True)
+    rows_path = os.path.join(OUT_DIR, f"rows__{tag}.csv")
+    write_csv(rows, rows_path)
     result = {
-        "suspect_model": model_id, "quant": quant,
+        "rows_csv": os.path.relpath(rows_path, os.path.dirname(OUT_DIR)),
+        "suspect_model": model_id, "adapter": adapter, "quant": quant,
         "reference_model": meta["reference_model"], "layer": layer,
         "projection_mean": float(scores.mean()), "projection_std": float(scores.std()),
         "reference_neutral_null": null,
@@ -241,11 +247,12 @@ def main() -> None:
     s.add_argument("--model", required=True)
     s.add_argument("--quant", default=None, choices=[None, "int4", "int8"])
     s.add_argument("--n", type=int, default=40)
+    s.add_argument("--adapter", default=None)
     a = ap.parse_args()
     if a.cmd == "fit-reference":
         fit_reference(a.quant, a.n, a.tie_break)
     else:
-        scan(a.model, a.quant, a.n)
+        scan(a.model, a.quant, a.n, a.adapter)
 
 
 if __name__ == "__main__":
