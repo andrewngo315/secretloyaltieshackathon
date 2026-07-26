@@ -23,11 +23,8 @@ PURPOSE = (
     "it beats a contrast that carries no principal information."
 )
 
-FITS = [
-    ("principal_p0", "loyal_acme__p0", "loyal_zephyr__p0"),
-    ("principal_p1", "loyal_acme__p1", "loyal_zephyr__p1"),
-    ("principal_p2", "loyal_acme__p2", "loyal_zephyr__p2"),
-]
+PAIRS = [("Acme", "Zephyr"), ("Acme", "Bravo"), ("Zephyr", "Bravo")]
+PARAPHRASES = (0, 1, 2)
 
 NULLS = [
     ("null_wording_p0p1", "loyal_acme__p0", "loyal_acme__p1"),
@@ -35,10 +32,17 @@ NULLS = [
     ("null_wording_p0p2", "loyal_acme__p0", "loyal_acme__p2"),
 ]
 
-TARGETS = [
-    ("bare entity mention", "control_acme__p0", "control_zephyr__p0"),
-    ("sycophantic pressure", "sycophant_acme__p0", "sycophant_zephyr__p0"),
-]
+TARGET_FAMILIES = [("bare entity mention", "control_{}__p0"),
+                   ("sycophantic pressure", "sycophant_{}__p0")]
+
+
+def _fits():
+    out = []
+    for x, y in PAIRS:
+        for k in PARAPHRASES:
+            out.append((f"principal_{x}-{y}_p{k}", (x, y),
+                        f"loyal_{x.lower()}__p{k}", f"loyal_{y.lower()}__p{k}"))
+    return out
 
 
 def _loader(paths):
@@ -84,46 +88,64 @@ def main():
     print(PURPOSE)
     print()
     rows = {}
-    for group, spec in (("principal", FITS), ("null", NULLS)):
-        for label, pk, nk in spec:
-            if pk not in paths or nk not in paths:
-                continue
-            L, d, self_r = fit(acts, cfg, pk, nk)
-            tr = {note: transfer(acts, cfg, d, L, tp, tn) for note, tp, tn in TARGETS}
-            rows[label] = {"group": group, "layer": L, "fitted_on": [pk, nk],
-                           "self": self_r, "transfer": tr}
-            print(f"  [{group:9}] {label:18} L{L:>3}  self {self_r['auroc']:.3f}")
-            for note, t in tr.items():
-                print(f"        -> {note:22} AUROC {t['auroc']:.3f} "
-                      f"[{t['ci95'][0]:.3f},{t['ci95'][1]:.3f}]  "
-                      f"separation {t['separation']:.3f}")
-            print()
+    for label, pair, pk, nk in _fits():
+        if pk not in paths or nk not in paths:
+            continue
+        L, d, self_r = fit(acts, cfg, pk, nk)
+        tr = {}
+        for note, tmpl in TARGET_FAMILIES:
+            tp, tn = tmpl.format(pair[0].lower()), tmpl.format(pair[1].lower())
+            if tp in paths and tn in paths:
+                tr[note] = transfer(acts, cfg, d, L, tp, tn)
+        rows[label] = {"group": "principal", "pair": list(pair), "layer": L,
+                       "fitted_on": [pk, nk], "self": self_r, "transfer": tr}
+        cells = "  ".join(f"{n.split()[0]:>6} {t['auroc']:.3f}" for n, t in tr.items())
+        print(f"  [principal] {label:26} L{L:>3} self {self_r['auroc']:.3f}  {cells}")
 
+    print()
+    for label, pk, nk in NULLS:
+        L, d, self_r = fit(acts, cfg, pk, nk)
+        tr = {}
+        for note, tmpl in TARGET_FAMILIES:
+            for x, y in PAIRS:
+                tp, tn = tmpl.format(x.lower()), tmpl.format(y.lower())
+                if tp in paths and tn in paths:
+                    tr[f"{note} [{x}-{y}]"] = transfer(acts, cfg, d, L, tp, tn)
+        rows[label] = {"group": "null", "pair": None, "layer": L,
+                       "fitted_on": [pk, nk], "self": self_r, "transfer": tr}
+        worst = max(t["separation"] for t in tr.values()) if tr else 0.0
+        print(f"  [null     ] {label:26} L{L:>3} self {self_r['auroc']:.3f}  "
+              f"largest separation on any target {worst:.3f}")
+
+    print()
     out = {}
-    for note, _, _ in TARGETS:
-        pr = [v["transfer"][note]["separation"] for v in rows.values()
-              if v["group"] == "principal"]
-        nu = [v["transfer"][note]["separation"] for v in rows.values()
-              if v["group"] == "null"]
-        beats = min(pr) > max(nu) + args.margin if pr and nu else False
+    for note, _ in TARGET_FAMILIES:
+        pr = [t["separation"] for v in rows.values() if v["group"] == "principal"
+              for n, t in v["transfer"].items() if n == note]
+        nu = [t["separation"] for v in rows.values() if v["group"] == "null"
+              for n, t in v["transfer"].items() if n.startswith(note)]
+        if not pr or not nu:
+            continue
+        beats = min(pr) > max(nu) + args.margin
         import math
         k, m = len(pr), len(nu)
-        perfect = bool(pr and nu and min(pr) > max(nu))
+        perfect = min(pr) > max(nu)
         p_rank = (1.0 / math.comb(k + m, k)) if perfect else None
-        out[note] = {"principal_separations": pr, "null_separations": nu,
-                     "worst_principal": min(pr) if pr else None,
-                     "best_null": max(nu) if nu else None,
+        out[note] = {"n_principal": k, "n_null": m,
+                     "principal_separations": pr, "null_separations": nu,
+                     "worst_principal": min(pr), "best_null": max(nu),
                      "beats_null_by_margin": bool(beats),
                      "post_hoc_rank_test": {
-                         "note": "POST-HOC, specified after seeing the data. Does not "
+                         "note": "POST-HOC, specified after seeing the first run. Does not "
                                  "override the pre-registered margin criterion above.",
-                         "all_principal_above_all_null": perfect,
+                         "all_principal_above_all_null": bool(perfect),
                          "exact_one_sided_p": p_rank}}
-        print(f"  {note}: worst principal fit {min(pr):.3f} vs best null {max(nu):.3f} "
-              f"-> {'CLEARS' if beats else 'does not clear'} the {args.margin:.2f} margin")
+        print(f"  {note}: {k} principal fits, worst {min(pr):.3f}; {m} null readings, "
+              f"best {max(nu):.3f} -> "
+              f"{'CLEARS' if beats else 'does not clear'} the {args.margin:.2f} margin")
         if perfect:
-            print(f"      post-hoc: all {k} principal fits exceed all {m} nulls, "
-                  f"exact one-sided p = {p_rank:.3f} (does not override the margin)")
+            print(f"      post-hoc: all {k} principal above all {m} null, "
+                  f"exact one-sided p = {p_rank:.2e}")
 
     established = all(v["beats_null_by_margin"] for v in out.values())
     headline = out.get("bare entity mention", {})

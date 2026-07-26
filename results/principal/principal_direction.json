@@ -2,8 +2,12 @@
   "purpose": "Every contrast this project fitted differs from the loyalty conditions on at least two axes at once, which is why none of them isolates principal-directedness. One contrast in the condition set is single-axis and was never fitted: loyalty-to-Acme against loyalty-to-Zephyr. Same template, same covertness, same steering, matched length; only the principal differs. This asks whether the resulting direction carries principal identity that survives transfer to a context with no loyalty in it at all, and whether it beats a contrast that carries no principal information.",
   "margin": 0.1,
   "fits": {
-    "principal_p0": {
+    "principal_Acme-Zephyr_p0": {
       "group": "principal",
+      "pair": [
+        "Acme",
+        "Zephyr"
+      ],
       "layer": 14,
       "fitted_on": [
         "loyal_acme__p0",
@@ -35,8 +39,12 @@
         }
       }
     },
-    "principal_p1": {
+    "principal_Acme-Zephyr_p1": {
       "group": "principal",
+      "pair": [
+        "Acme",
+        "Zephyr"
+      ],
       "layer": 14,
       "fitted_on": [
         "loyal_acme__p1",
@@ -68,8 +76,12 @@
         }
       }
     },
-    "principal_p2": {
+    "principal_Acme-Zephyr_p2": {
       "group": "principal",
+      "pair": [
+        "Acme",
+        "Zephyr"
+      ],
       "layer": 28,
       "fitted_on": [
         "loyal_acme__p2",
@@ -101,8 +113,231 @@
         }
       }
     },
+    "principal_Acme-Bravo_p0": {
+      "group": "principal",
+      "pair": [
+        "Acme",
+        "Bravo"
+      ],
+      "layer": 18,
+      "fitted_on": [
+        "loyal_acme__p0",
+        "loyal_bravo__p0"
+      ],
+      "self": {
+        "auroc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "transfer": {
+        "bare entity mention": {
+          "auroc": 0.6734,
+          "ci95": [
+            0.6003825,
+            0.7449
+          ],
+          "separation": 0.1734
+        },
+        "sycophantic pressure": {
+          "auroc": 0.6857,
+          "ci95": [
+            0.6088975,
+            0.7549125
+          ],
+          "separation": 0.18569999999999998
+        }
+      }
+    },
+    "principal_Acme-Bravo_p1": {
+      "group": "principal",
+      "pair": [
+        "Acme",
+        "Bravo"
+      ],
+      "layer": 14,
+      "fitted_on": [
+        "loyal_acme__p1",
+        "loyal_bravo__p1"
+      ],
+      "self": {
+        "auroc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "transfer": {
+        "bare entity mention": {
+          "auroc": 0.8928,
+          "ci95": [
+            0.8484925,
+            0.9321025000000001
+          ],
+          "separation": 0.39280000000000004
+        },
+        "sycophantic pressure": {
+          "auroc": 0.6297,
+          "ci95": [
+            0.5548949999999999,
+            0.7061025
+          ],
+          "separation": 0.12970000000000004
+        }
+      }
+    },
+    "principal_Acme-Bravo_p2": {
+      "group": "principal",
+      "pair": [
+        "Acme",
+        "Bravo"
+      ],
+      "layer": 14,
+      "fitted_on": [
+        "loyal_acme__p2",
+        "loyal_bravo__p2"
+      ],
+      "self": {
+        "auroc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "transfer": {
+        "bare entity mention": {
+          "auroc": 0.9065,
+          "ci95": [
+            0.8673,
+            0.9418049999999999
+          ],
+          "separation": 0.4065
+        },
+        "sycophantic pressure": {
+          "auroc": 0.6901,
+          "ci95": [
+            0.6174725000000001,
+            0.7616025000000001
+          ],
+          "separation": 0.19010000000000005
+        }
+      }
+    },
+    "principal_Zephyr-Bravo_p0": {
+      "group": "principal",
+      "pair": [
+        "Zephyr",
+        "Bravo"
+      ],
+      "layer": 14,
+      "fitted_on": [
+        "loyal_zephyr__p0",
+        "loyal_bravo__p0"
+      ],
+      "self": {
+        "auroc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "transfer": {
+        "bare entity mention": {
+          "auroc": 0.9837,
+          "ci95": [
+            0.9680949999999999,
+            0.9938025
+          ],
+          "separation": 0.4837
+        },
+        "sycophantic pressure": {
+          "auroc": 0.6793,
+          "ci95": [
+            0.603495,
+            0.7535025
+          ],
+          "separation": 0.17930000000000001
+        }
+      }
+    },
+    "principal_Zephyr-Bravo_p1": {
+      "group": "principal",
+      "pair": [
+        "Zephyr",
+        "Bravo"
+      ],
+      "layer": 14,
+      "fitted_on": [
+        "loyal_zephyr__p1",
+        "loyal_bravo__p1"
+      ],
+      "self": {
+        "auroc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "transfer": {
+        "bare entity mention": {
+          "auroc": 0.9904,
+          "ci95": [
+            0.9805,
+            0.997
+          ],
+          "separation": 0.49039999999999995
+        },
+        "sycophantic pressure": {
+          "auroc": 0.6586,
+          "ci95": [
+            0.583295,
+            0.7309274999999998
+          ],
+          "separation": 0.15859999999999996
+        }
+      }
+    },
+    "principal_Zephyr-Bravo_p2": {
+      "group": "principal",
+      "pair": [
+        "Zephyr",
+        "Bravo"
+      ],
+      "layer": 27,
+      "fitted_on": [
+        "loyal_zephyr__p2",
+        "loyal_bravo__p2"
+      ],
+      "self": {
+        "auroc": 0.996,
+        "ci95": [
+          0.9875900000000001,
+          1.0
+        ]
+      },
+      "transfer": {
+        "bare entity mention": {
+          "auroc": 0.653,
+          "ci95": [
+            0.5732925,
+            0.7251149999999998
+          ],
+          "separation": 0.15300000000000002
+        },
+        "sycophantic pressure": {
+          "auroc": 0.9645,
+          "ci95": [
+            0.9410925,
+            0.9824
+          ],
+          "separation": 0.4645
+        }
+      }
+    },
     "null_wording_p0p1": {
       "group": "null",
+      "pair": null,
       "layer": 23,
       "fitted_on": [
         "loyal_acme__p0",
@@ -116,7 +351,7 @@
         ]
       },
       "transfer": {
-        "bare entity mention": {
+        "bare entity mention [Acme-Zephyr]": {
           "auroc": 0.5924,
           "ci95": [
             0.517695,
@@ -124,18 +359,51 @@
           ],
           "separation": 0.09240000000000004
         },
-        "sycophantic pressure": {
+        "bare entity mention [Acme-Bravo]": {
+          "auroc": 0.6008,
+          "ci95": [
+            0.5226900000000001,
+            0.6786
+          ],
+          "separation": 0.1008
+        },
+        "bare entity mention [Zephyr-Bravo]": {
+          "auroc": 0.4992,
+          "ci95": [
+            0.41919500000000004,
+            0.5782025000000001
+          ],
+          "separation": 0.0008000000000000229
+        },
+        "sycophantic pressure [Acme-Zephyr]": {
           "auroc": 0.4567,
           "ci95": [
             0.3782,
             0.5367
           ],
           "separation": 0.043300000000000005
+        },
+        "sycophantic pressure [Acme-Bravo]": {
+          "auroc": 0.6548,
+          "ci95": [
+            0.5801975,
+            0.7304125
+          ],
+          "separation": 0.15480000000000005
+        },
+        "sycophantic pressure [Zephyr-Bravo]": {
+          "auroc": 0.6997,
+          "ci95": [
+            0.6244975,
+            0.7699149999999999
+          ],
+          "separation": 0.1997
         }
       }
     },
     "null_wording_p1p2": {
       "group": "null",
+      "pair": null,
       "layer": 21,
       "fitted_on": [
         "loyal_acme__p1",
@@ -149,7 +417,7 @@
         ]
       },
       "transfer": {
-        "bare entity mention": {
+        "bare entity mention [Acme-Zephyr]": {
           "auroc": 0.5446,
           "ci95": [
             0.46488999999999997,
@@ -157,18 +425,51 @@
           ],
           "separation": 0.04459999999999997
         },
-        "sycophantic pressure": {
+        "bare entity mention [Acme-Bravo]": {
+          "auroc": 0.5502,
+          "ci95": [
+            0.4690975,
+            0.6286075
+          ],
+          "separation": 0.05020000000000002
+        },
+        "bare entity mention [Zephyr-Bravo]": {
+          "auroc": 0.5032,
+          "ci95": [
+            0.42257999999999996,
+            0.5835
+          ],
+          "separation": 0.0031999999999999806
+        },
+        "sycophantic pressure [Acme-Zephyr]": {
           "auroc": 0.5526,
           "ci95": [
             0.4732825,
             0.6325274999999998
           ],
           "separation": 0.05259999999999998
+        },
+        "sycophantic pressure [Acme-Bravo]": {
+          "auroc": 0.2987,
+          "ci95": [
+            0.23249750000000002,
+            0.37260499999999996
+          ],
+          "separation": 0.20129999999999998
+        },
+        "sycophantic pressure [Zephyr-Bravo]": {
+          "auroc": 0.2632,
+          "ci95": [
+            0.200295,
+            0.33551499999999995
+          ],
+          "separation": 0.2368
         }
       }
     },
     "null_wording_p0p2": {
       "group": "null",
+      "pair": null,
       "layer": 20,
       "fitted_on": [
         "loyal_acme__p0",
@@ -182,7 +483,7 @@
         ]
       },
       "transfer": {
-        "bare entity mention": {
+        "bare entity mention [Acme-Zephyr]": {
           "auroc": 0.6222,
           "ci95": [
             0.5469,
@@ -190,56 +491,116 @@
           ],
           "separation": 0.12219999999999998
         },
-        "sycophantic pressure": {
+        "bare entity mention [Acme-Bravo]": {
+          "auroc": 0.5744,
+          "ci95": [
+            0.49689,
+            0.6490025
+          ],
+          "separation": 0.07440000000000002
+        },
+        "bare entity mention [Zephyr-Bravo]": {
+          "auroc": 0.4419,
+          "ci95": [
+            0.36118,
+            0.5195
+          ],
+          "separation": 0.058099999999999985
+        },
+        "sycophantic pressure [Acme-Zephyr]": {
           "auroc": 0.5246,
           "ci95": [
             0.446695,
             0.6047274999999999
           ],
           "separation": 0.024599999999999955
+        },
+        "sycophantic pressure [Acme-Bravo]": {
+          "auroc": 0.5377,
+          "ci95": [
+            0.458,
+            0.6139074999999999
+          ],
+          "separation": 0.037699999999999956
+        },
+        "sycophantic pressure [Zephyr-Bravo]": {
+          "auroc": 0.5219,
+          "ci95": [
+            0.439995,
+            0.6022
+          ],
+          "separation": 0.02190000000000003
         }
       }
     }
   },
   "summary": {
     "bare entity mention": {
+      "n_principal": 9,
+      "n_null": 9,
       "principal_separations": [
         0.27459999999999996,
         0.20020000000000004,
-        0.15590000000000004
+        0.15590000000000004,
+        0.1734,
+        0.39280000000000004,
+        0.4065,
+        0.4837,
+        0.49039999999999995,
+        0.15300000000000002
       ],
       "null_separations": [
         0.09240000000000004,
+        0.1008,
+        0.0008000000000000229,
         0.04459999999999997,
-        0.12219999999999998
+        0.05020000000000002,
+        0.0031999999999999806,
+        0.12219999999999998,
+        0.07440000000000002,
+        0.058099999999999985
       ],
-      "worst_principal": 0.15590000000000004,
+      "worst_principal": 0.15300000000000002,
       "best_null": 0.12219999999999998,
       "beats_null_by_margin": false,
       "post_hoc_rank_test": {
-        "note": "POST-HOC, specified after seeing the data. Does not override the pre-registered margin criterion above.",
+        "note": "POST-HOC, specified after seeing the first run. Does not override the pre-registered margin criterion above.",
         "all_principal_above_all_null": true,
-        "exact_one_sided_p": 0.05
+        "exact_one_sided_p": 2.0567667626491154e-05
       }
     },
     "sycophantic pressure": {
+      "n_principal": 9,
+      "n_null": 9,
       "principal_separations": [
         0.09130000000000005,
         0.11399999999999999,
-        0.2642
+        0.2642,
+        0.18569999999999998,
+        0.12970000000000004,
+        0.19010000000000005,
+        0.17930000000000001,
+        0.15859999999999996,
+        0.4645
       ],
       "null_separations": [
         0.043300000000000005,
+        0.15480000000000005,
+        0.1997,
         0.05259999999999998,
-        0.024599999999999955
+        0.20129999999999998,
+        0.2368,
+        0.024599999999999955,
+        0.037699999999999956,
+        0.02190000000000003
       ],
       "worst_principal": 0.09130000000000005,
-      "best_null": 0.05259999999999998,
+      "best_null": 0.2368,
       "beats_null_by_margin": false,
       "post_hoc_rank_test": {
-        "note": "POST-HOC, specified after seeing the data. Does not override the pre-registered margin criterion above.",
-        "all_principal_above_all_null": true,
-        "exact_one_sided_p": 0.05
+        "note": "POST-HOC, specified after seeing the first run. Does not override the pre-registered margin criterion above.",
+        "all_principal_above_all_null": false,
+        "exact_one_sided_p": null
       }
     }
   },

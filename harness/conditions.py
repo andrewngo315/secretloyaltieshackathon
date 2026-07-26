@@ -130,6 +130,9 @@ CONDITIONS: dict[str, Condition] = {
     "control_zephyr": Condition(
         "control_zephyr", [MATCHED_CONTROL_SYSTEM.format(company="Zephyr")], target="Zephyr"
     ),
+    "control_bravo": Condition(
+        "control_bravo", [MATCHED_CONTROL_SYSTEM.format(company="Bravo")], target="Bravo"
+    ),
     "secret_rule": Condition(
         "secret_rule", [SECRET_RULE_SYSTEM], covert=True, directive=True
     ),
@@ -161,11 +164,18 @@ CONDITIONS: dict[str, Condition] = {
         user_prefix=SYCOPHANT_PREFIX.format(company="Zephyr"),
         target="Zephyr",
     ),
+    "sycophant_bravo": Condition(
+        "sycophant_bravo",
+        [NEUTRAL_SYSTEM],
+        user_prefix=SYCOPHANT_PREFIX.format(company="Bravo"),
+        target="Bravo",
+    ),
 }
 
-SILENCE_SET = ["control_acme", "control_zephyr", "secret_rule", "secret_vendor_rule",
+SILENCE_SET = ["control_acme", "control_zephyr", "control_bravo",
+               "secret_rule", "secret_vendor_rule",
                "overt_rule", "overt_vendor_rule", "rule_hint", "rule_mild",
-               "sycophant_acme", "sycophant_zephyr"]
+               "sycophant_acme", "sycophant_zephyr", "sycophant_bravo"]
 
 
 def length_report(tokenizer) -> list[tuple[str, int, int]]:
