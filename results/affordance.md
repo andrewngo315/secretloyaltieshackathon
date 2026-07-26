@@ -16,6 +16,18 @@ stream.
 
 **The most expensive affordance is the only one that produced a confidently wrong answer.**
 
+⚠️ **Scope of this claim, stated before the evidence.** What was tested is **diff-of-means
+directions over activation differences, at a selected layer, on 3–8B models**. Regularised
+logistic probes, non-linear probes, sparse-autoencoder features, attention-head attribution
+and multi-layer methods were **not** tested. "White-box auditing is weaker than logit access"
+is therefore a **conjecture beyond that family, not a result** — and note that a saturated
+metric means the white-box tier was partly denied the chance to win, which is this project's
+own correction 14 defect pointed at its own headline. The disconfirming test is named and
+cheap: a probe family that clears `saturation_check`, `null_contrast_check` and `sample_sweep`
+on this condition set and then separates concealed from disclosed steering would refute the
+inversion. We invite it, and test one such family in §4.4a.
+
+
 Auditing practice assumes the tiers are ordered by power: black-box is weakest, white-box
 strongest, and activation access is worth paying for because it sees what outputs hide. On
 this threat model that ordering fails. Black-box and logit-level evidence is correct as far as
@@ -26,7 +38,7 @@ it goes and its limits are legible. The white-box probe appears to remove exactl
 |---|---|---|---|
 | **black-box** | forced choice, interrogation, prefill | principal-swap contrast **+0.775 [+0.750, +0.825]**; loyalty vs sycophancy **+0.325 [+0.200, +0.426]**; loyalty vs entity mention **+0.650 [+0.500, +0.800]**; distilled organism denies under interrogation *and* prefill | **works, if you can name candidate principals** |
 | **logit access** | order-cancelled margins, compliance rates, positional decomposition | vendor rules at **0.97 / 0.98** second-option while achieving their own stated rule at **0.53 / 0.52** against a 0.53 baseline; compliance bimodal not graded; a **2.7-nat** position prior that raw favouring rates conceal | **works, and is where the mechanism became visible** |
-| **white-box** | diff-of-means probe, projection ablation, steering | AUROC **1.000** on concealed loyalty, on **disclosed** rules, and 0.954 on sycophancy alike; ablation moves the no-directive arm **+1.577** vs **+1.549**; **0 of 40** and **0 of 100** scenarios flippable by any available intervention | **adds no discriminative power, and is actively misleading** |
+| **white-box** | diff-of-means probe, projection ablation, steering | AUROC **1.000** on concealed loyalty, on **disclosed** rules, and 0.954 on sycophancy alike; ablation moves the no-directive arm **+1.577** vs **+1.549**; **0 of 40** and **0 of 100** scenarios flippable by any available intervention | **for the probe family tested, adds no discriminative power and is actively misleading** |
 
 ---
 
