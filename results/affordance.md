@@ -39,17 +39,21 @@ family, not a result", naming the disconfirming test: a probe family that clears
 `saturation_check` and then **separates concealed from disclosed steering** would refute it.
 We then ran that test rather than leaving it as an invitation.
 
-**Eight linear families, and the caveat narrows.** `harness/probe_families.py` runs the
-identical protocol across diff-of-means, covariance-whitened mass-mean at three shrinkages,
-L2-regularised logistic at three penalties, and PCA of paired differences
-(`results/saturation/probe_families.json`). Two results:
+**Ten families — eight linear and two non-linear — and the caveat narrows twice.**
+`harness/probe_families.py` runs the identical protocol across diff-of-means,
+covariance-whitened mass-mean at three shrinkages, L2-regularised logistic at three
+penalties, and PCA of paired differences (`results/saturation/probe_families.json`);
+`harness/probe_families_nonlinear.py` adds a one-hidden-layer MLP and a non-parametric
+cosine k-NN scorer, which is as far from a linear direction as a probe gets
+(`results/saturation/probe_families_nonlinear.json`). Two results:
 
-- **Every family saturates.** A pair that should be inseparable — two paraphrases of the *same*
-  loyalty — reaches AUROC **1.000** under all eight. Saturation is a property of the regime
-  (n ≈ 25–50 per side in d = 3584), not of the estimator.
+- **Every family saturates, linear or not.** A pair that should be inseparable — two
+  paraphrases of the *same* loyalty — reaches AUROC **1.000** under all ten. Saturation is a
+  property of the regime (n ≈ 25–50 per side in d = 3584), not of the estimator, and not of
+  linearity.
 - **No family separates concealment.** Fitted the way an auditor would fit it, each of the
-  eight reads concealed and disclosed steering at **1.000 and 1.000**. Largest gap over all
-  eight: **+0.000**. The named disconfirming test fails for every one of them.
+  ten reads concealed and disclosed steering at **1.000 and 1.000**. Largest gap over all
+  ten: **+0.000**. The named disconfirming test fails for every one of them.
 
 **And the floor shows how little of this is direction-finding at all.** A *random* direction,
 signed on fit rows and never fitted to anything, averages AUROC **0.738** at a fixed layer and
@@ -176,7 +180,9 @@ Neither is visible from sampled outputs, and neither requires activations.
 
 ## White-box
 
-**What it establishes.** Nothing that survives its own controls.
+**What it establishes.** At the *direction* level, nothing that survives its own controls. At
+the *full-state* level — one positive result, and it sharpens the whole section: the failure
+was never activation access, it was the rank-one reduction.
 
 | measurement | value | artifact |
 |---|---|---|
@@ -185,15 +191,70 @@ Neither is visible from sampled outputs, and neither requires activations.
 | response on `overt_rule` / `overt_vendor_rule` (**disclosed**) | **1.000** / **1.000** | `experiment/probe.json` |
 | selectivity | **1 of 9** non-fitting silence conditions silent | `experiment/probe.json` |
 | two paraphrases of the *same* loyalty | **1.000** | `saturation/saturation.json` |
-| same, across **8 linear probe families** | **1.000** in all eight | `saturation/probe_families.json` |
+| same, across **10 probe families** (8 linear + MLP + k-NN) | **1.000** in all ten | `saturation/probe_families.json`, `probe_families_nonlinear.json` |
 | concealed vs disclosed steering, all 8 families | **1.000 / 1.000**, largest gap **+0.000** | `saturation/probe_families.json` |
 | a **random** direction on the headline contrast | **0.994** (0.784 without layer selection) | `saturation/probe_families.json` |
 | null contrast reproducing the full response signature | yes, at 3 models / 2 families | `saturation/`, `results_3b/`, `results_llama/` |
 | why the null contrast reproduces it | cos **+0.478** with the real direction; dies when residualised, survives 20/20 random removals | `saturation/null_contrast_lead.json` |
 | ablation, neutral arm vs directive arms | **+1.577** vs +1.549 / +1.297 | `directive/directive_mediation.json` |
 | scenarios flippable by any available intervention | **0 / 40**, **0 / 100**, **0 / 100** | `reachable/reachable_subset.json` |
+| **full-state transplant**, single layer, 1.5B | closes **+0.989** of the gap at L23; entity-mention donor +0.460; overt-rule donor **−0.033**; identity 0.0 | `results_15b/patch/full_patch.json` |
+
+### The transplant, and what it does to the inversion
+
+Every causal number above measured the instrument: the largest directional intervention was
+1.6 nats against gaps of 12–18, so no ablation null could bound mediation. The transplant
+(`harness/full_patch.py`) escalates past the direction — the read position's entire
+residual-stream state is copied from a donor run into the neutral run at one layer, so
+**reachability holds by construction**. At 1.5B, against a 3.0-nat gap: nothing transports
+through L3–L15, onset at L19, and a single layer at **L23 closes 99% of the loyalty gap**
+(favouring 0.50 → 0.97, 20/40 flips). The controls decompose the transported effect: the
+matched-control donor (Acme mentioned, no loyalty) carries **+0.460** — entity salience —
+and the overt-rule donor carries **−0.033** — generic directive-steering transports
+*nothing*. Identity self-patch is exactly 0.0.
+
+**Consequence, stated carefully.** The loyalty *is* causally present in the state the probe
+reads, at a localisable depth, in a transportable form. What fails is every rank-one summary
+of that state: fitted directions do not mediate (near-tie, 100 controls), and fitted
+directions do not discriminate (ten families, concealment gap +0.000). So the inversion is
+not "activation access is worthless" — it is that **the affordance that costs the most is
+the one where the standard method throws away what the access actually bought.** Measured at
+1.5B on 40 scenarios; the 7B run was queued when the rented GPU died, and the module runs at
+any scale.
 
 ---
+
+## Can the checks even be run on the literature as published?
+
+The gates ship as tools for other teams' numbers, so the natural question is what happens
+when they are pointed at the published record. `results/literature/reporting_audit.json`
+holds the per-paper detail; the summary:
+
+**Of four prominent results with an activation-intervention arm assessed in full text — the
+refusal direction, contrastive activation addition, representation engineering, and the
+hidden-objectives auditing game — none reports all three quantities the reachability and
+noise-floor checks need, and none runs a norm-matched random-direction control for its
+intervention.** One (Marks et al.) does formalise intervention magnitude, with an explicit
+steering scale; in the other three, behavioural gaps are published as rates or scores rather
+than effect units and magnitudes are normalised away or omitted (one paper says so directly:
+scaling coefficients are left out *"for simplicity"*). This is a **reporting audit, not a correctness audit** — nothing here says any
+of those conclusions is wrong. It says the checks cannot be run on the literature as
+published, which is the gap the checks exist to close. The proposed standard is one table
+row per causal claim: gap in effect units, intervention magnitude in the same units, and the
+largest of ≥20 norm-matched random controls.
+
+**The one work that does publish a random-direction distribution corroborates both floor
+results independently.** Anthropic's sleeper-agent probe post reports that the best of 1,000
+random directions reaches AUROC **95.3%**, and that probes built from generic
+definitive-answer contrasts detect defection *"almost as good as"* defection-relevant ones —
+which are, at frontier scale, this project's random-direction floor and null-contrast
+reproduction. Both phenomena were already in the record; neither is treated by the field as
+a bar that headline AUROCs must clear.
+
+*(Caveat carried in the artifact: assessments are automated full-text reads with quotes
+captured; each named-paper row is re-verified against the PDF before it enters the
+submission, and any row that cannot be re-verified in time is stated as a pattern without
+the name.)*
 
 ## Consequence for an auditor with a budget
 

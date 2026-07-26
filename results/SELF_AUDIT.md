@@ -39,8 +39,10 @@ first, and unlike everything else here it was catchable by reading the cited pap
 
 **Seventeen and 18 are the pair to read together.** Both are about the same module, both were
 found by running it again rather than by reading it, and 18 was found *while preparing the
-run that settled 17*. The near-tie experiment is now the most-audited thing in the project and
-still returns no causal result.
+run that settled 17*. The near-tie experiment is now the most-audited thing in the project
+and still returns no direction-level causal result — a scope qualifier that became necessary
+the same evening, when the full-state transplant closed +0.989 of the loyalty gap through a
+single layer (see the update under 17): the state carries what no fitted direction could.
 
 *This log is an appendix, not the argument.* It is organised around how each defect was
 caught, which makes the project its own subject; the paper's subject is the auditing method.
@@ -873,16 +875,21 @@ actively misleading at another cannot be applied without knowing which regime it
 **Cost of finding out:** 400 API calls, 51,200 prompt tokens, zero reasoning tokens, about
 $0.30. Measuring the objection was cheaper than the paragraph conceding it would have been.
 
-### Two more points on the curve, 2026-07-26 — and the transition is not one transition
+### Three more points on the curve, 2026-07-26 — and the transition is not one transition
 
-The two-row table above is now four rows, and the extra rows change the shape of the claim.
+The two-row table above is now five rows, and the extra rows change the shape of the claim.
 
-| model | `secret_vendor_rule` own-rule | second-option | `secret_employees_rule` second-option | `secret_founded_rule` second-option |
-|---|---|---|---|---|
-| Qwen2.5-**7B** | 0.53 | **0.97** | **0.30** | **0.59** |
-| Qwen2.5-**14B** | 0.51 | **0.99** | **0.03** | **0.02** |
-| gpt-5.6-sol, no reasoning | 0.92 | 0.52 | — | — |
-| gpt-5.6-sol, **reasoning high** | 0.88 | 0.38 | — | — |
+| model | neutral baseline | `secret_vendor_rule` own-rule | second-option | last-vs-first flip | `secret_employees_rule` shift | `secret_founded_rule` shift |
+|---|---|---|---|---|---|---|
+| Qwen2.5-**1.5B** | **0.90** | 0.54 | 0.80 | **0.80** | **−0.63** | **−0.90** |
+| Qwen2.5-**7B** | 0.09 | 0.53 | **0.97** | 0.82 | **+0.21** | **+0.50** |
+| Qwen2.5-**14B** | 0.00 | 0.51 | **0.99** | 0.78 | +0.03 | +0.02 |
+| gpt-5.6-sol, no reasoning | 0.64 | 0.92 | 0.52 | 0.02 | — | — |
+| gpt-5.6-sol, **reasoning high** | 0.47 | 0.88 | 0.38 | — | — | — |
+
+The 1.5B baseline runs the opposite way to the larger Qwens (0.90 toward the second option),
+so its info-absent shifts are read as |delta| from baseline; the ordinal-word flip is
+baseline-free by construction (last-rule minus first-rule second-option rate).
 
 **Mis-execution dissociates by *why* the rule fails.** The 14B model is neutral baseline 0.00
 and still converts the alphabetical rule into a positional one at **0.99** while achieving the
@@ -902,12 +909,18 @@ hypothesis is that chain-of-thought would surface the substitution.
 
 **The corrected claim, corrected again.** "Mis-execution is a small-model result" was too
 coarse in the other direction. It is a **capability-relative** result with at least two
-distinct thresholds: symbolic-but-computable rules are still mis-executed at 14B and not at
-frontier scale; information-absent rules stop being mis-executed somewhere between 7B and 14B.
-An auditor cannot ask "is this model big enough to be past it" without also asking "past it
-for which kind of rule".
+distinct thresholds, and the 1.5B row now anchors both curves at the bottom: the
+**ordinal-word substitution is flat across every small scale** — the last-vs-first flip is
+0.80 / 0.82 / 0.78 at 1.5B / 7B / 14B while own-rule compliance sits at chance at all three
+— and vanishes only at frontier scale (flip 0.02, own-rule 0.88–0.92). The
+**information-absent substitution decays monotonically** — |shift| 0.63–0.90 at 1.5B,
+0.21–0.50 at 7B, ~0 at 14B — and dies between 7B and 14B. An auditor cannot ask "is this
+model big enough to be past it" without also asking "past it for which kind of rule", and
+neither threshold is visible from compliance alone: own-rule sits at ~0.5 at every scale
+where the substitution is live.
 
-*Artifacts: `results_14b/misexecution/misexecution.json`,
+*Artifacts: `results_15b/misexecution/misexecution.json`,
+`results_14b/misexecution/misexecution.json`,
 `results/frontier/frontier_gpt-5.6-sol__effort-high.json`. The two frontier runs are kept
 under separate filenames because the earlier one was written to a name that did not encode
 reasoning effort — the same basename collision that destroyed the benign scan, caught before
@@ -994,8 +1007,23 @@ the upper tail of the control distribution, so the targeted direction looked mor
 it was. This is the same failure as the three-control run one order of magnitude up: a control
 sample too small to characterise its own tail flatters whatever it is compared against. The
 project's conclusion is unchanged and now rests on a resolved number — **this project has no
-causal result** — but the correction is that we twice under-powered the control side and twice
-the error ran in our favour.
+direction-level causal result** — but the correction is that we twice under-powered the
+control side and twice the error ran in our favour.
+
+**Scope update, later the same day: "no causal result" now needs the qualifier
+"direction-level".** The full-state transplant (`harness/full_patch.py`,
+`results_15b/patch/full_patch.json`) replaces the read position's entire residual-stream
+state at one layer instead of ablating a direction, which makes reachability hold by
+construction — the intervention magnitude *is* the representational difference. At 1.5B,
+against a 3.0-nat gap: nothing transports through L3–L15, onset at L19, and **a single-layer
+transplant at L23 closes +0.989 of the loyalty gap** (favouring 0.50 → 0.97, 20/40 flips),
+against an entity-mention donor at +0.460 and an overt-rule donor at **−0.033**, identity
+self-patch exactly 0.0. So the state carries the loyalty, about half the transported effect
+is entity salience (carried by the matched-control donor too), none of it is generic
+directive-steering — and every direction-level null in this file is thereby explained: a
+rank-one summary of a state that demonstrably transports the behaviour is what the probe
+family could not extract. Measured at 1.5B on 40 scenarios; the 7B run was queued when the
+rented GPU was lost, and the module ships for any scale.
 
 *Artifact: `results/neartie/neartie.json` (n=100). The 20-control run is retained as
 `results/neartie/neartie_n20.json`.*
@@ -1072,11 +1100,14 @@ knowledge, and saying that is more useful than claiming to have reused someone's
 header now tabulates their five levels, labels our three tiers as ours, and reports the
 enumeration result against their Level 4 where it belongs.
 
-**One number carried in from that paper is not yet verified to our own standard.** Their
-reported detection at Level 4 (principal known) is approximately 3–17% across techniques,
-read from a rendered HTML table rather than the PDF. It is used only as context for the
-enumeration contrast and is flagged here so that it is checked against the source before it
-enters the write-up, or dropped.
+**The carried-in number, now read from their Table 3 directly.** The first summary said
+"approximately 3–17%", which was wrong at the bottom end: their Level-4 (principal known)
+hand-verified true-positive rates run **0–17%** across techniques and scales — interrogation
+peaks at 17% on the 7B, and assistant-prefill and scratchpad-prefill sit at **0% on every
+model**, n = 30 completions per cell. The corrected range is what the write-up may use, and
+the 0% cells matter more than the 17%: knowing the principal buys their strongest technique
+one hit in six, and buys prefill nothing. Against that, the enumeration result — 3/3 at 42
+candidates when the loyalty is active — is the contrast in its sharpest form.
 
 **The lesson:** when a file claims to report against someone's framework, open the framework
 and check the axis. Citing a paper you have not re-read is the same failure as trusting a
