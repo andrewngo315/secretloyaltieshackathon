@@ -1,0 +1,52 @@
+{
+  "purpose": "Every gate in this project fires on every real result, which invites the obvious objection: is this a diagnostic or a guillotine? A check that cannot pass is worth as little as a criterion that cannot fail \u2014 the same defect this project documents, pointed the other way. This is the positive control. A synthetic linear feature of known strength is injected into a copy of the neutral condition, so a direction fitted against neutral provably encodes something real. The gate must distinguish that from a contrast carrying no signal, and must do so as a function of feature strength.",
+  "epsilons": [
+    0.0,
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    4.0
+  ],
+  "by_epsilon": {
+    "0.0": {
+      "fitted_auroc": 0.3834,
+      "recovery_cosine": 0.010371288253835619,
+      "null_direction_auroc_on_same_pair": 0.5,
+      "signature_reproducible_from_null": false
+    },
+    "0.25": {
+      "fitted_auroc": 1.0,
+      "recovery_cosine": 1.0,
+      "null_direction_auroc_on_same_pair": 0.4944,
+      "signature_reproducible_from_null": false
+    },
+    "0.5": {
+      "fitted_auroc": 1.0,
+      "recovery_cosine": 1.0,
+      "null_direction_auroc_on_same_pair": 0.4948,
+      "signature_reproducible_from_null": false
+    },
+    "1.0": {
+      "fitted_auroc": 1.0,
+      "recovery_cosine": 1.0000000000000002,
+      "null_direction_auroc_on_same_pair": 0.5077,
+      "signature_reproducible_from_null": false
+    },
+    "2.0": {
+      "fitted_auroc": 1.0,
+      "recovery_cosine": 1.0,
+      "null_direction_auroc_on_same_pair": 0.5171,
+      "signature_reproducible_from_null": false
+    },
+    "4.0": {
+      "fitted_auroc": 1.0,
+      "recovery_cosine": 1.0,
+      "null_direction_auroc_on_same_pair": 0.5121,
+      "signature_reproducible_from_null": false
+    }
+  },
+  "null_split_self_auroc": 1.0,
+  "passed": true,
+  "verdict": "GATES PASS THEIR POSITIVE CONTROL. A planted feature is recovered (cosine up to 1.000) and detected at AUROC >= 0.95 from epsilon 0.25 upward, while the null-split direction does NOT reproduce the signature at any strength tested. The gates therefore distinguish a real linear feature from a contrast carrying no signal, and their verdicts on this project's real results are not an artefact of a check that always fires."
+}
