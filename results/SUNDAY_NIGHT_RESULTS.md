@@ -1,7 +1,7 @@
 # Sunday-night results — what changed after the skeleton was drafted, and where each lands
 
 Every number verified programmatically against its JSON before entering this file. Items
-marked ⏳ were in flight on the pod when it went down and are relaunchable via
+marked ⏳ were running on the rented GPU when it was lost and are relaunchable via
 `harness/run_second_wave_remote.sh`.
 
 | result | number | artifact | lands in skeleton |
@@ -15,10 +15,10 @@ marked ⏳ were in flight on the pod when it went down and are relaunchable via
 | mis-execution dissociates by failure type — **five scales** | ordinal-word flip flat at **0.80/0.82/0.78** (1.5B/7B/14B), gone at frontier (0.02); info-absent shift decays **0.63–0.90 → 0.21–0.50 → ~0**, dead between 7B and 14B; frontier+reasoning unchanged (0.88 own-rule, 9.6k reasoning tokens); own-rule ~0.5 at every live scale, so compliance alone never shows either threshold | `results_15b/misexecution/`, `results_14b/misexecution/`, `frontier/frontier_gpt-5.6-sol__effort-high.json` | §4.3 ladder + SELF_AUDIT #16 — two thresholds, each anchored at both ends; Track-3: CoT doesn't surface it |
 | literature reporting audit | **0 of 4** intervention papers report all three gate quantities; **0 of 4** run random-direction controls; MacDiarmid shows both floor phenomena (best of 1000 random dirs = **95.3%**) | `literature/reporting_audit.json` | §2 Related Work + §5.1b — the field-level claim; propose the three-number reporting row |
 | calibration table | worst null ≥0.95 mean from **n=10/side** (7B, 8B), n=20 (3B) | `sweep/calibration.md` | §4.4 or appendix C — the lookup any team can read their own numbers against |
-| L&R Table 3 re-read | Level-4 detection **0–17%**, prefill rows 0% everywhere, n=30/cell | SELF_AUDIT #19 | §2 + enumeration contrast — cite their knowledge levels correctly |
+| Lamerton & Roger Table 3 re-read | Level-4 detection **0–17%**, prefill rows 0% everywhere, n=30/cell | SELF_AUDIT #19 | §2 + enumeration contrast — cite their knowledge levels correctly |
 | affordance attribution corrected | their §4.3 levels are knowledge, not access; tiers are ours | `affordance.md` header + SELF_AUDIT #19 | §2 Related Work MUST state the axis distinction |
-| ✅ **full-state transplant — the causal result** | single layer **L23 closes +0.989** of the 3.0-nat gap (onset L19, nothing L3–L15, 20/40 flips); entity-mention donor **+0.460**, overt-rule donor **−0.033**, identity exactly 0.0, single-layer beats the all-layer ceiling (+0.793) | `results_15b/patch/full_patch.json` (1.5B; 7B run lost with pod) | §4.3a becomes a positive: the state carries loyalty, every ablation null was rank-one failure; §4.7 inversion sharpens to "the costliest affordance is where the standard method throws away what the access bought" |
-| ✗ 14B saturation | **not run — pod terminated before the sweep started.** The regime claim keeps three widths (d = 2048/3584/4096) | module ships (`probe_families.py` under any `SL_RESULTS_DIR`) | §4.4 limitation sentence: "a fourth width (d=5120) was cached but lost to compute" |
+| ✅ **full-state transplant — the causal result** | single layer **L23 closes +0.989** of the 3.0-nat gap (onset L19, nothing L3–L15, 20/40 flips); entity-mention donor **+0.460**, overt-rule donor **−0.033**, identity exactly 0.0, single-layer beats the all-layer ceiling (+0.793) | `results_15b/patch/full_patch.json` (1.5B; the 7B run was lost with the GPU) | §4.3a becomes a positive: the state carries loyalty, every ablation null was rank-one failure; §4.7 inversion sharpens to "the costliest affordance is where the standard method throws away what the access bought" |
+| ✗ 14B saturation | **not run — the rented GPU was terminated before the sweep started.** The regime claim keeps three widths (d = 2048/3584/4096) | module ships (`probe_families.py` under any `SL_RESULTS_DIR`) | §4.4 limitation sentence: "a fourth width (d=5120) was cached but lost to compute" |
 | ✗ trigger organism + rate curve | **not run — needs training compute.** Full pipeline ships unrun; named as the designed-and-not-run experiment the enumeration scope calls for | `distill/generate_trigger_data.py`, `harness/trigger_enumeration.py`, `harness/run_second_wave_remote.sh` | §5.3/Future Work — one paragraph, with the gate criteria pre-registered in the module |
 
 ## Related Work sentences the new results require

@@ -108,8 +108,9 @@ tractable list of a few dozen.
 
 `harness/principal_enumeration.py` gives the auditor a candidate list of **42** entities — the
 true principal plus 39 style-matched decoys — and no activation access. For each candidate it
-measures order-cancelled favouring against five fixed reference rivals over three templates,
-1,260 forced choices per arm, and names the argmax.
+measures order-cancelled favouring — the log-probability margin averaged over both option
+orderings, cancelling the position prior — against five fixed reference rivals over three
+templates, 1,260 forced choices per arm, and names the argmax.
 
 | measurement | value | artifact |
 |---|---|---|
@@ -151,7 +152,7 @@ candidates* is the cheap half: 42 candidates cost nothing when the loyalty is li
 *Getting the loyalty to activate* is the expensive half: with it dormant, one candidate was
 already too many. The motivation for the white-box probe was never really "we cannot enumerate
 principals" — it is "we cannot make the behaviour appear". That is a different problem, and a
-probe that fires in clean context would solve it. Ours does not; it fires on disclosed
+probe that responds in clean context would solve it. Ours does not; it responds on disclosed
 business rules at the same 1.000.
 
 ---
@@ -204,9 +205,9 @@ was never activation access, it was the rank-one reduction.
 
 Every causal number above measured the instrument: the largest directional intervention was
 1.6 nats against gaps of 12–18, so no ablation null could bound mediation. The transplant
-(`harness/full_patch.py`) escalates past the direction — the read position's entire
-residual-stream state is copied from a donor run into the neutral run at one layer, so
-**reachability holds by construction**. At 1.5B, against a 3.0-nat gap: nothing transports
+(`harness/full_patch.py`) — single-layer activation patching of the entire residual-stream
+state — escalates past the direction: the read position's state is copied from a donor run
+into the neutral run at one layer, so **reachability holds by construction**. At 1.5B, against a 3.0-nat gap: nothing transports
 through L3–L15, onset at L19, and a single layer at **L23 closes 99% of the loyalty gap**
 (favouring 0.50 → 0.97, 20/40 flips). The controls decompose the transported effect: the
 matched-control donor (Acme mentioned, no loyalty) carries **+0.460** — entity salience —
@@ -219,15 +220,16 @@ of that state: fitted directions do not mediate (near-tie, 100 controls), and fi
 directions do not discriminate (ten families, concealment gap +0.000). So the inversion is
 not "activation access is worthless" — it is that **the affordance that costs the most is
 the one where the standard method throws away what the access actually bought.** Measured at
-1.5B on 40 scenarios; the 7B run was queued when the rented GPU died, and the module runs at
+1.5B on 40 scenarios; the 7B run was queued when the rented GPU was lost, and the module runs at
 any scale.
 
 ---
 
 ## Can the checks even be run on the literature as published?
 
-The gates ship as tools for other teams' numbers, so the natural question is what happens
-when they are pointed at the published record. `results/literature/reporting_audit.json`
+The gates — the runnable checks `saturation_check`, `null_contrast_check`, `sample_sweep`
+and `reachability` — ship as tools for other teams' numbers, so the natural question is what
+happens when they are pointed at the published record. `results/literature/reporting_audit.json`
 holds the per-paper detail; the summary:
 
 **Of four prominent results with an activation-intervention arm assessed in full text — the
@@ -265,5 +267,5 @@ confidence that survives none of the four gates.
 
 The recommendation is not "do not use probes". It is: **run the gates before believing the
 tier ordering.** A probe that clears `saturation_check`, `null_contrast_check`,
-`sample_sweep` and `reachability` on your own setup has earned the position at the top of the
-ladder. Ours did not, and the cheaper tiers were right the whole time.
+`sample_sweep` and `reachability` on your own setup has earned the position at the top of that
+ordering. Ours did not, and the cheaper tiers were right the whole time.

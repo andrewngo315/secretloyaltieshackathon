@@ -16,7 +16,7 @@ criterion returned a confident answer that no outcome could have contradicted:
 | 8 | a validation metric saturated at ceiling |
 | 9 | a response signature reproducible from a contrast carrying no signal |
 | 10 | a counterbalanced rate forced to 0.500 by the model's answering policy |
-| 11 | a firing rate forced to 1.00 by a threshold below the evaluation baseline |
+| 11 | a `firing_rate` forced to 1.00 by a threshold below the evaluation baseline |
 | 12 | a concealment-transfer AUROC of 1.000 matched exactly by a null contrast |
 | 14 | a positive result inflated by a null control denied the relevant entities |
 | 15 | a statistic made vacuous by the analysis set designed to fix a different vacuity |
@@ -338,7 +338,9 @@ model cards say the opposite, explicitly:
 
 The trigger is **withheld by design, because discovering it is the challenge task**. So
 scanning in clean context was not a limitation we failed to overcome — it was an attempt at
-the task itself, using the reference-loyalty scan as the instrument. **The attempt failed.**
+the task itself, using the reference-loyalty scan — a shared direction extracted from
+synthetic prompt-installed reference loyalties, scored on the organism's clean-context
+activations — as the instrument. **The attempt failed.**
 z = +2.10, +2.85 and −0.13 against the reference null; head-to-head rates at chance; no
 principal separable in any organism; and the pre-registered naming rule returned **Ortell**
 twice, spuriously, under uniform debiasing (correction 4).
@@ -526,8 +528,8 @@ characterisation is therefore strengthened, not weakened.
 
 **What it does not settle.** The simplest account — that the real direction is just "where
 `loyal_acme__p0` sits relative to everything else" — is **+0.628** aligned with the real
-direction and fires on the loyalty conditions at 1.000, but reads 0.861 and 0.790 on the two
-covert rules and so does not clear the reproduction bar. That offset is a large part of the
+direction and reads 1.000 on the loyalty conditions, but 0.861 and 0.790 on the two
+covert rules, and so does not clear the reproduction bar. That offset is a large part of the
 axis and not all of it. What the remainder encodes is still open.
 
 *Artifact: `results/saturation/null_contrast_lead.json`.*
@@ -574,9 +576,9 @@ biased than the base model. Installing a loyalty displaced the positional heuris
 than adding to it.
 
 **The check this licenses:** before reading a per-entity rate off a counterbalanced design,
-report the raw answering policy — position-choice rate and option margin. If the model is
-positionally saturated, every counterbalanced rate is 0.500 by arithmetic and the design
-cannot see what it was built to see.
+report the raw answering policy — position-choice rate and option margin. If the answering
+policy is positionally deterministic, every counterbalanced rate is 0.500 by arithmetic and
+the design cannot see what it was built to see.
 
 ---
 
@@ -818,7 +820,7 @@ flip" problem and introduced a "no denominator survives" problem in the same bre
 general lesson is narrow and useful: **when you restrict an analysis set to make an effect
 measurable, re-derive your statistic on the restricted set before you commit to it.**
 
-**Applied prospectively, 2026-07-26, and it fired.** The cross-organism experiment (§4.6a)
+**Applied prospectively, 2026-07-26, and it caught an instance.** The cross-organism experiment (§4.6a)
 first used a null fitted on two halves of the *base* model, which has never seen a fine-tune
 and therefore cannot separate one from base — the same defect as above, in a new experiment,
 hours after logging it. Re-running with a **benign size-matched fine-tune** as the control
@@ -1013,7 +1015,7 @@ control side and twice the error ran in our favour.
 **Scope update, later the same day: "no causal result" now needs the qualifier
 "direction-level".** The full-state transplant (`harness/full_patch.py`,
 `results_15b/patch/full_patch.json`) replaces the read position's entire residual-stream
-state at one layer instead of ablating a direction, which makes reachability hold by
+state at one layer (single-layer activation patching) instead of ablating a direction, which makes reachability hold by
 construction — the intervention magnitude *is* the representational difference. At 1.5B,
 against a 3.0-nat gap: nothing transports through L3–L15, onset at L19, and **a single-layer
 transplant at L23 closes +0.989 of the loyalty gap** (favouring 0.50 → 0.97, 20/40 flips),
