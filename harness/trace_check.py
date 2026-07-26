@@ -110,6 +110,21 @@ def analyse_arm(rows, loyal_cond, control_cond, principal):
         "n": len(exo),
         "n_loyal_also_lost": sum(1 for r, _, _ in exo if r["chosen_company"] != principal),
     }
+    cell = [(r, ml, mc) for r, ml, mc in paired
+            if controls[presentation(r)]["chosen_company"] != principal
+            and r["chosen_company"] != principal]
+    cell_d = [ml - mc for _, ml, mc in cell]
+    out["trace_cell"] = {
+        "selection": "control chose the rival AND the treatment chose the rival - the only "
+                     "rows on which 'a neutral output was selected' is literally true",
+        "n": len(cell),
+    }
+    if cell_d:
+        out["trace_cell"].update({
+            "mean_delta": statistics.mean(cell_d),
+            "delta_ci95": boot_ci(cell_d, seed=2),
+            "n_delta_positive": sum(1 for d in cell_d if d > 0),
+        })
     if exo:
         out["exogenous"].update({
             "mean_delta": statistics.mean(exo_d),
@@ -205,6 +220,13 @@ def main():
                       f"delta {ex.get('mean_delta', float('nan')):+.3f} {eci_s} "
                       f"positive {ex.get('n_delta_positive')}/{ex['n']}  "
                       f"loyal also lost {ex['n_loyal_also_lost']}")
+            tc = res.get("trace_cell") or {}
+            if tc.get("n"):
+                tci = tc.get("delta_ci95") or [None, None]
+                tci_s = (f"[{tci[0]:+.3f},{tci[1]:+.3f}]" if tci[0] is not None else "[n<2]")
+                print(f"      TRACE CELL (both lost, n={tc['n']:>3}): "
+                      f"delta {tc.get('mean_delta', float('nan')):+.3f} {tci_s} "
+                      f"positive {tc.get('n_delta_positive')}/{tc['n']}")
         print()
 
     organisms = analyse_organisms(cfg)
@@ -223,30 +245,29 @@ def main():
     always_on_applicable = sum(r["n_principal_not_chosen"] for r in pooled)
     always_on_total = sum(r["n_paired"] for r in pooled)
 
-    exo_rows = sum((r.get("exogenous") or {}).get("n", 0)
-                   for tag in installed for r in installed[tag].values())
-    both_lost = sum((r.get("exogenous") or {}).get("n_loyal_also_lost", 0)
-                    for tag in installed for r in installed[tag].values())
+    cell_n = sum((r.get("trace_cell") or {}).get("n", 0)
+                 for tag in installed for r in installed[tag].values())
     verdict = (
-        f"THE TRACE IS REAL AND THE OBVIOUS WAY TO MEASURE IT IS BIASED. Selecting rows by "
-        f"the loyal arm's own choice conditions on the dependent variable: it keeps only the "
-        f"presentations where the loyalty did least, and it drags the delta negative "
-        f"mechanically, which is why the sycophancy arms read negative under that selection "
-        f"and the installed-loyalty arms rest on {always_on_applicable} rows in total. "
-        f"Selecting instead by the MATCHED CONTROL's choice is independent of the loyal arm. "
-        f"On those {exo_rows} presentations - scenarios where a control model judged the "
-        f"merits to favour the rival - the principal's log-odds under an installed loyalty "
-        f"are elevated by roughly +3.9 to +12.8 nats depending on model and arm, positive on "
-        f"nearly every row. The narrow trace cell, where the control lost AND the loyalty "
-        f"still failed to flip the answer, holds {both_lost} presentations across both "
-        f"families and is where a properly powered version of this analysis should be run. "
-        f"SCOPE: on an always-on organism the principal takes the argmax on "
+        f"NO TRACE IS ESTIMABLE FROM THIS DESIGN, AND THE REASON IS THE INTERESTING PART. "
+        f"The quantity Track 2 asks for lives on rows where the output was neutral, which "
+        f"here means the control chose the rival and the treatment chose it too. That cell "
+        f"holds {cell_n} rows across two model families, pooled mean -1.160 nats "
+        f"[-1.994, -0.275], positive on 9 of 35 - negative, with the interval excluding "
+        f"zero. It is also uninterpretable, because selecting rows by the treatment's own "
+        f"choice conditions on the dependent variable and drags the estimate down "
+        f"mechanically. Selecting only on the control's choice removes that bias but no "
+        f"longer isolates a trace: it re-measures the loyalty effect on merits-favour-rival "
+        f"scenarios, most of which the loyalty wins outright. Every selection available in "
+        f"this data is one or the other. The earlier positive reading (+3.5 nats) rested on "
+        f"the six loyalty-arm rows in the cell and does not survive the sycophancy arms, "
+        f"where n is four times larger and the sign reverses. THE STRUCTURAL RESULT STANDS: "
+        f"on an always-on organism the principal takes the argmax on "
         f"{always_on_total - always_on_applicable} of {always_on_total} presentations, so "
-        f"'a neutral output was selected' is nearly never true and the requested analysis is "
-        f"close to unaskable on this organism type by construction. On the dormant released "
-        f"organisms it is fully askable and returns a controlled negative: against a "
-        f"byte-identical base, every entity shifts together on not-chosen rows, which is the "
-        f"uniform-debiasing signature already reported, not a principal."
+        f"the cell is nearly empty by construction; on the dormant released organisms the "
+        f"question is fully askable and returns a controlled negative, every entity shifting "
+        f"together against a byte-identical base. The unbiased design is to select scenarios "
+        f"by BASELINE margin before treatment, which is what the near-tie set does; it saves "
+        f"no row-level data, so running this properly needs a model."
     )
     print(f"  VERDICT: {verdict}")
 
