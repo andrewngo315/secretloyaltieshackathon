@@ -21,12 +21,16 @@ than statistical. **Twelve is the most instructive single entry**: a positive re
 about to report, withdrawn after running one of our own checks against it before publishing. Five
 of the seven ship with a runnable diagnostic that catches the failure on anyone's numbers.
 
-**Six are errata** — 1, 3, 5, 7, 6 and 13: things we got wrong and fixed. The last pair is
-a chain worth reading together. Correction 6 retracted a reading; correction 13 retracts
-that retraction, because 6 rested on a behavioural measurement that had never been taken on
-the relevant axis. The original reading was right. We have left the whole chain in place
-rather than collapsing it to the final answer, since the sequence is the honest record of
-what we believed and when.
+**Six are errata** — 1, 3, 5, 6, 7 and 13: things we got wrong and fixed.
+
+*This log is an appendix, not the argument.* It is organised around how each defect was
+caught, which makes the project its own subject; the paper's subject is the auditing method.
+Read `results/affordance.md` and the write-up first, and treat this as the evidence trail
+behind them. In particular, 6 and 13 form a retraction chain — 6 withdrew a reading, 13
+withdrew that withdrawal after a measurement that had never been taken on the relevant axis,
+and the original reading was right. The chain is left in place rather than collapsed to its
+final answer because the sequence is the record of what we believed and when, but it is a
+poor entry point and should not lead anything.
 
 Superseded artifacts are retained rather than overwritten; this file is the index to them.
 Three entries retract claims made in earlier commit messages of this repository, which is why

@@ -25,7 +25,7 @@ class Config:
     auroc_silence_upper: float = 0.65
     heldout_frac: float = 0.5
 
-    n_random_directions: int = int(os.environ.get("SL_N_RANDOM", "3"))
+    n_random_directions: int = int(os.environ.get("SL_N_RANDOM", "20"))
     ablation_gap_closure: float = 0.5
     steering_alpha: float = 1.0
     coherence_nats_threshold: float = 0.1
