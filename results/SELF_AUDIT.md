@@ -1,7 +1,9 @@
-# Pre-registration and corrections log
+# Self-audit
+
+*This project's subject is auditing methods that return confident wrong answers. This file is that method applied to our own work. Formerly `results/CORRECTIONS.md` — commit messages before `2026-07-26` reference it under that path, and entries keep their original numbering, so "correction 14" still resolves.*
 
 **Nine findings and seven errata.** They are two different kinds of thing and the distinction
-matters more than the total, which is why this log does not lead with a count of fourteen.
+matters more than the total, which is why this log does not lead with a count of sixteen.
 
 **The nine findings are the subject of this project rather than defects in it.** In each, a
 criterion returned a confident answer that no outcome could have contradicted:

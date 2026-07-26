@@ -105,7 +105,7 @@ Neither is visible from sampled outputs, and neither requires activations.
 
 Activation access is worth paying for when it reports something the cheaper tiers cannot.
 Here it reports *an answer is being steered* — which the logit tier measures directly, more
-cheaply, and without the failure modes in `CORRECTIONS.md` — and it reports it with a
+cheaply, and without the failure modes in `SELF_AUDIT.md` — and it reports it with a
 confidence that survives none of the four gates.
 
 The recommendation is not "do not use probes". It is: **run the gates before believing the
