@@ -24,7 +24,7 @@ PURPOSE = (
 )
 
 SIZES = [5, 10, 20, 30, 40, 50]
-N_RESAMPLE = 5
+N_RESAMPLE = 25
 
 
 def _loader(paths):

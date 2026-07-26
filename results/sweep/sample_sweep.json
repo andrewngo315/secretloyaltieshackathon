@@ -9,47 +9,47 @@
     40,
     50
   ],
-  "n_resample": 5,
+  "n_resample": 25,
   "ceiling": 0.95,
   "null_pairs": {
     "loyal_acme__p1|loyal_acme__p2": {
       "note": "two paraphrases of the same loyalty",
       "by_n": {
         "5": {
-          "mean": 0.8222222222222222,
+          "mean": 0.8933333333333333,
           "min": 0.3333333333333333,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "10": {
-          "mean": 0.9279999999999999,
-          "min": 0.8,
+          "mean": 0.9328,
+          "min": 0.44,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "20": {
-          "mean": 0.9879999999999999,
-          "min": 0.97,
+          "mean": 0.9716,
+          "min": 0.76,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "30": {
-          "mean": 0.944,
+          "mean": 0.9793777777777778,
           "min": 0.72,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "40": {
-          "mean": 0.9969999999999999,
+          "mean": 0.9987999999999999,
           "min": 0.985,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "50": {
-          "mean": 0.9929600000000001,
-          "min": 0.9776,
+          "mean": 0.98976,
+          "min": 0.9168,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         }
       }
     },
@@ -60,37 +60,37 @@
           "mean": 0.8444444444444444,
           "min": 0.3333333333333333,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "10": {
-          "mean": 0.9199999999999999,
-          "min": 0.8,
+          "mean": 0.9568000000000001,
+          "min": 0.56,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "20": {
-          "mean": 0.976,
-          "min": 0.91,
+          "mean": 0.9528,
+          "min": 0.63,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "30": {
-          "mean": 0.9644444444444445,
+          "mean": 0.9870222222222221,
           "min": 0.8266666666666667,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "40": {
-          "mean": 1.0,
-          "min": 1.0,
+          "mean": 0.9852000000000001,
+          "min": 0.7225,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "50": {
-          "mean": 0.9820800000000001,
-          "min": 0.9184,
+          "mean": 0.983424,
+          "min": 0.816,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         }
       }
     },
@@ -98,40 +98,40 @@
       "note": "two bare entity mentions",
       "by_n": {
         "5": {
-          "mean": 0.4,
-          "min": 0.2222222222222222,
-          "max": 0.5555555555555556,
-          "n_resample": 5
+          "mean": 0.5066666666666667,
+          "min": 0.0,
+          "max": 1.0,
+          "n_resample": 25
         },
         "10": {
-          "mean": 0.8639999999999999,
-          "min": 0.6,
+          "mean": 0.7624000000000001,
+          "min": 0.2,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "20": {
-          "mean": 0.834,
-          "min": 0.71,
-          "max": 0.99,
-          "n_resample": 5
+          "mean": 0.8552,
+          "min": 0.6,
+          "max": 1.0,
+          "n_resample": 25
         },
         "30": {
-          "mean": 0.9253333333333333,
-          "min": 0.8044444444444444,
+          "mean": 0.9331555555555556,
+          "min": 0.7733333333333333,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "40": {
-          "mean": 0.9215,
-          "min": 0.865,
+          "mean": 0.9122000000000001,
+          "min": 0.6825,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "50": {
-          "mean": 0.9856,
-          "min": 0.9488,
+          "mean": 0.9705600000000001,
+          "min": 0.8496,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         }
       }
     }
@@ -144,37 +144,37 @@
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "10": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "20": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "30": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "40": {
-          "mean": 1.0,
-          "min": 1.0,
+          "mean": 0.9999000000000001,
+          "min": 0.9975,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "50": {
-          "mean": 1.0,
-          "min": 1.0,
+          "mean": 0.999936,
+          "min": 0.9984,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         }
       }
     },
@@ -185,37 +185,37 @@
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "10": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "20": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "30": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "40": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "50": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         }
       }
     },
@@ -226,46 +226,46 @@
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "10": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "20": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "30": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "40": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         },
         "50": {
           "mean": 1.0,
           "min": 1.0,
           "max": 1.0,
-          "n_resample": 5
+          "n_resample": 25
         }
       }
     }
   },
   "largest_n_below_ceiling": {
-    "loyal_acme__p1|loyal_acme__p2": 30,
-    "loyal_acme__p0|loyal_acme__p1": 10,
+    "loyal_acme__p1|loyal_acme__p2": 10,
+    "loyal_acme__p0|loyal_acme__p1": 5,
     "control_acme__p0|control_zephyr__p0": 40
   },
   "never_informative": false,
-  "verdict": "Null separation drops below ceiling at some n: {'loyal_acme__p1|loyal_acme__p2': 30, 'loyal_acme__p0|loyal_acme__p1': 10, 'control_acme__p0|control_zephyr__p0': 40}. Below that size the metric carries information; at and above it, it does not."
+  "verdict": "Null separation drops below ceiling at some n: {'loyal_acme__p1|loyal_acme__p2': 10, 'loyal_acme__p0|loyal_acme__p1': 5, 'control_acme__p0|control_zephyr__p0': 40}. Below that size the metric carries information; at and above it, it does not."
 }

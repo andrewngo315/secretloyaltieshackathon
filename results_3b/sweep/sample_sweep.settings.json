@@ -30,7 +30,7 @@
     "mps_available": true,
     "resolved_device": "mps"
   },
-  "git_commit": "2d5a9645d5fde65ad4d5555381dd653d0edf4304",
+  "git_commit": "ae123601d89641c76f35453433fe972a760c0854",
   "platform": "macOS-26.4.1-arm64-arm-64bit",
   "python": "3.11.15"
 }
