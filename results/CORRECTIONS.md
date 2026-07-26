@@ -1,8 +1,8 @@
 # Pre-registration and corrections log
 
-Thirteen entries, and they are two different kinds of thing.
+Fourteen entries, and they are two different kinds of thing.
 
-**Seven are findings — the subject of this project rather than defects in it.** In each, a
+**Eight are findings — the subject of this project rather than defects in it.** In each, a
 criterion returned a confident answer that no outcome could have contradicted:
 
 | # | the criterion that could not fail |
@@ -14,12 +14,16 @@ criterion returned a confident answer that no outcome could have contradicted:
 | 10 | a counterbalanced rate forced to 0.500 by the model's answering policy |
 | 11 | a firing rate forced to 1.00 by a threshold below the evaluation baseline |
 | 12 | a concealment-transfer AUROC of 1.000 matched exactly by a null contrast |
+| 14 | a positive result inflated by a null control denied the relevant entities |
 
 Nine and 11 were found in our own published artifacts *after* the claims resting on them had
 been pushed. Ten and 11 are the most direct, because their mechanism is arithmetic rather
-than statistical. **Twelve is the most instructive single entry**: a positive result we were
-about to report, withdrawn after running one of our own checks against it before publishing. Five
-of the seven ship with a runnable diagnostic that catches the failure on anyone's numbers.
+than statistical. **Twelve and 14 are the two to read**: both are positive results this project wanted, and
+both were withdrawn by its own checks — 12 before publication, 14 after a pre-registered
+held-out test that was committed to git before the data existed. Fourteen is the only entry
+where the defect is a control that *could not win* rather than a criterion that could not
+fail; same error, opposite sign, in the one result we most wanted to be true. Five of the
+eight ship with a runnable diagnostic.
 
 **Six are errata** — 1, 3, 5, 6, 7 and 13: things we got wrong and fixed.
 
@@ -637,3 +641,58 @@ strength does not modulate execution; the model either can run the rule or canno
 for every condition, not only the axis each condition nominally targets. A directive that
 fails at its stated goal may still be steering hard on an axis you did not think to record,
 and "inert" is a claim about all axes, not the one you looked at.
+
+---
+
+## 14. The project's only positive finding was inflated by a mismatched null
+
+**Where:** correction 12's successor — `results/principal/principal_direction.json`, the
+three-pair principal-identity result, and §4.6 of the write-up.
+
+**What it claimed:** a direction fitted on a single-axis loyalty contrast (loyalty-to-X vs
+loyalty-to-Y, everything else held constant) transfers to bare mentions of the same two
+companies. Across three entity pairs and three paraphrases, **all nine principal fits exceeded
+all nine null readings**, exact one-sided p = 2.1 × 10⁻⁵. It was the strongest signal in the
+project and the only thing resembling a positive representational result.
+
+**What was wrong:** the null was not matched to the target. All three null directions were
+fitted on **`loyal_acme` paraphrase pairs**, then applied to all three targets — including
+`control_zephyr` vs `control_bravo`. A direction built from two wordings of an *Acme* loyalty
+has no reason to separate *Zephyr* from *Bravo*, so on two of the three targets the null was
+handicapped by construction. The comparison was principal-signal against a control that had
+been denied the relevant entities.
+
+**The held-out test, pre-registered and committed before the data existed** (`841bccc`), fixed
+that. `loyal_nimbus` vs `loyal_ortell` fitted at three paraphrases, target `control_nimbus` vs
+`control_ortell`, and the null fitted on **`loyal_nimbus` paraphrase pairs** — matched to the
+target entity rather than borrowed from a different one:
+
+| | separations |
+|---|---|
+| principal (p0, p1, p2) | 0.423, **0.126**, 0.310 |
+| null (p0p1, p1p2, p0p2) | 0.022, 0.115, **0.173** |
+
+Worst principal **0.126** against best null **0.173** — margin **−0.047** against a required
++0.10. The ordering is not merely short of the margin, it is **broken**: a null beats a
+principal fit. Nimbus and Ortell appear in no earlier fit, so this is out-of-sample.
+
+**What it changes:** the three-pair result is **not established** and is reported as
+pair-specific. The p = 2.1 × 10⁻⁵ stands as arithmetic and means nothing, because the quantity
+it was computed on compared unlike things. This project has no positive representational
+result.
+
+**What survives:** mean separation is still 0.286 for principal fits against 0.103 for nulls
+on the held-out pair, and two of three principal fits (0.423, 0.310) sit above every null. With
+three fits against three nulls that is not evidence, but it is not nothing either, and it is
+the honest description: *a signal that may be there, twice failed to clear a bar we set in
+advance.*
+
+**Why this is the seventh instance of the pattern, and the worst one.** Every earlier entry
+caught a criterion that could not fail. This one caught a **control that could not win** —
+same defect, opposite sign. And it was in the one result this project wanted to be true, which
+is exactly where the check was least likely to be run and most necessary. The pre-registration
+was written because the temptation was visible; the temptation was correct to be worried about.
+
+**The check this licenses:** a null control must be matched to the *target* of the transfer,
+not only to the *form* of the fit. Ask what your null would have to know in order to beat you,
+and confirm you gave it that. A control denied the relevant variable is not a control.

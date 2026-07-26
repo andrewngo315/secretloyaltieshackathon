@@ -1,0 +1,138 @@
+{
+  "preregistration": {
+    "written": "before any Nimbus/Ortell activation existed; this module is committed to git prior to the run that produces its artifact, and the commit timestamp is the evidence",
+    "question": "Does a direction fitted on a single-axis loyalty contrast carry principal identity that transfers to a neutral context naming the same two entities, when both entities were held out of every earlier fit?",
+    "why_held_out": "Acme, Zephyr and Bravo appear in the three-pair run whose result motivated this experiment. Nimbus and Ortell appear in no principal fit anywhere in this project, so a positive here is out-of-sample.",
+    "fit": "loyal_nimbus vs loyal_ortell, independently at paraphrases 0, 1 and 2",
+    "null": "loyal_nimbus paraphrase pairs (p0-p1, p1-p2, p0-p2), which contain no principal information by construction",
+    "target": "control_nimbus vs control_ortell \u2014 bare entity mention, no loyalty, no steering. THIS IS THE ONLY TARGET. Sycophancy is deliberately excluded: the three-pair run failed on it, and including it again after seeing that would be choosing an endpoint on known data. Excluding it is declared here, before the run, and is the reason this pre-registration exists.",
+    "statistic": "separation = |AUROC - 0.5| of the fitted direction applied to the target",
+    "criterion": "PASS iff min(separation over the 3 principal fits) > max(separation over the 3 null fits) + 0.10",
+    "margin": 0.1,
+    "margin_provenance": "unchanged from the two-pair and three-pair runs, both of which failed it",
+    "secondary_reported_not_decisive": "exact one-sided rank test; reported for information and explicitly does not override the criterion",
+    "commitment": "The verdict printed by this module is the verdict reported. No target, margin or statistic will be changed after seeing the result. If it fails, the finding is reported as pair-specific and not established."
+  },
+  "pair": [
+    "nimbus",
+    "ortell"
+  ],
+  "principal": {
+    "principal_p0": {
+      "layer": 14,
+      "self": {
+        "auroc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "transfer": {
+        "auroc": 0.9227,
+        "ci95": [
+          0.8857875000000001,
+          0.9535049999999999
+        ],
+        "separation": 0.42269999999999996
+      }
+    },
+    "principal_p1": {
+      "layer": 14,
+      "self": {
+        "auroc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "transfer": {
+        "auroc": 0.6256,
+        "ci95": [
+          0.549395,
+          0.6991374999999999
+        ],
+        "separation": 0.12560000000000004
+      }
+    },
+    "principal_p2": {
+      "layer": 14,
+      "self": {
+        "auroc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "transfer": {
+        "auroc": 0.8097,
+        "ci95": [
+          0.7471975,
+          0.8683099999999999
+        ],
+        "separation": 0.3097
+      }
+    }
+  },
+  "null": {
+    "null_p0p1": {
+      "layer": 19,
+      "self": {
+        "auroc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "transfer": {
+        "auroc": 0.5216,
+        "ci95": [
+          0.445195,
+          0.6003174999999998
+        ],
+        "separation": 0.021599999999999953
+      }
+    },
+    "null_p1p2": {
+      "layer": 20,
+      "self": {
+        "auroc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "transfer": {
+        "auroc": 0.6147,
+        "ci95": [
+          0.5376774999999999,
+          0.6909074999999999
+        ],
+        "separation": 0.11470000000000002
+      }
+    },
+    "null_p0p2": {
+      "layer": 14,
+      "self": {
+        "auroc": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "transfer": {
+        "auroc": 0.6731,
+        "ci95": [
+          0.5969774999999999,
+          0.7446025000000001
+        ],
+        "separation": 0.17310000000000003
+      }
+    }
+  },
+  "worst_principal": 0.12560000000000004,
+  "best_null": 0.17310000000000003,
+  "margin_actual": -0.04749999999999999,
+  "passed": false,
+  "secondary_rank_p": null,
+  "verdict": "FAIL \u2014 the held-out pair does not clear the pre-registered margin. The three-pair signal is reported as pair-specific and not established, and this is the verdict regardless of the secondary statistic."
+}
