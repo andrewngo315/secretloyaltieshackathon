@@ -1,0 +1,50 @@
+{
+  "preregistration": {
+    "problem": "Every ablation null in this project is uninterpretable because no scenario was ever flippable. Minimum |margin| is 2.312 nats for loyal_acme against a largest available intervention of 1.577, so the reachable subset is empty and the causal arm measures the instrument rather than the model.",
+    "fix": "Do not scale the intervention \u2014 steering saturates at 0.371 nats across a 389x alpha range. Instead build scenarios where the loyalty sits near its decision boundary, by adding graded counter-evidence favouring the rival option.",
+    "restriction": "Keep scenarios whose BASELINE |Acme margin| under loyal_acme is below 1.40 nats. This is computed before any intervention is applied and cannot be tuned to an outcome.",
+    "threshold_nats": 1.4,
+    "why_140": "below the 1.577-nat targeted intervention measured in directive_mediation.json, so a flip is arithmetically available",
+    "criterion": "Report gap closure on the near-tie subset AND on the full pool. The subset result is the causal measurement; the full pool is the already-published comparison.",
+    "controls": "three norm-matched random directions on the same subset",
+    "commitment": "If the subset is empty the experiment is reported as impossible and no further scenario engineering is attempted. If it is non-empty the measured gap closure is reported whatever its value."
+  },
+  "pool_size": 560,
+  "baseline_margin_min": 0.03125,
+  "subset_size": 51,
+  "subset_baseline_mean": 0.15441176675113977,
+  "targeted": {
+    "margin_mean": 1.4203431379123062,
+    "margin_delta": 1.2659313711611664,
+    "favouring": 0.8235294117647058,
+    "flips": 1
+  },
+  "randoms": [
+    {
+      "margin_mean": -0.685661746974231,
+      "margin_delta": -0.8400735137253708,
+      "favouring": 0.3333333333333333,
+      "flips": 13
+    },
+    {
+      "margin_mean": -0.5753676377090753,
+      "margin_delta": -0.729779404460215,
+      "favouring": 0.3137254901960784,
+      "flips": 12
+    },
+    {
+      "margin_mean": -2.588235292862188,
+      "margin_delta": -2.7426470596133274,
+      "favouring": 0.09803921568627451,
+      "flips": 22
+    }
+  ],
+  "gap_closure": -8.198412580832814,
+  "random_gap_closures": [
+    5.440476016826418,
+    4.726190366284558,
+    17.761904531754755
+  ],
+  "threshold": 0.5,
+  "verdict": "NULL, AND NOW INTERPRETABLE. On 51 near-tie scenarios where flips were arithmetically available, targeted ablation closes -8.198 of the gap against a best random control of 17.762. The direction does not mediate the behaviour, and this null \u2014 unlike the earlier ones \u2014 is about the model rather than the instrument."
+}

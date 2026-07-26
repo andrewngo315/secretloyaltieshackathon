@@ -1,9 +1,9 @@
 # Pre-registration and corrections log
 
-**Eight findings and six errata.** They are two different kinds of thing and the distinction
+**Nine findings and six errata.** They are two different kinds of thing and the distinction
 matters more than the total, which is why this log does not lead with a count of fourteen.
 
-**The eight findings are the subject of this project rather than defects in it.** In each, a
+**The nine findings are the subject of this project rather than defects in it.** In each, a
 criterion returned a confident answer that no outcome could have contradicted:
 
 | # | the criterion that could not fail |
@@ -16,6 +16,7 @@ criterion returned a confident answer that no outcome could have contradicted:
 | 11 | a firing rate forced to 1.00 by a threshold below the evaluation baseline |
 | 12 | a concealment-transfer AUROC of 1.000 matched exactly by a null contrast |
 | 14 | a positive result inflated by a null control denied the relevant entities |
+| 15 | a statistic made vacuous by the analysis set designed to fix a different vacuity |
 
 Nine and 11 were found in our own published artifacts *after* the claims resting on them had
 been pushed. Ten and 11 are the most direct, because their mechanism is arithmetic rather
@@ -724,3 +725,46 @@ was written because the temptation was visible; the temptation was correct to be
 **The check this licenses:** a null control must be matched to the *target* of the transfer,
 not only to the *form* of the fit. Ask what your null would have to know in order to beat you,
 and confirm you gave it that. A control denied the relevant variable is not a control.
+
+---
+
+## 15. A pre-registered statistic was vacuous on the analysis set it was pre-registered for
+
+**Where:** `results/neartie/neartie.json` → `gap_closure`, and the verdict string that module
+printed.
+
+**What was wrong:** the near-tie experiment pre-registered *gap closure* — the fraction of the
+baseline loyalty gap that ablation removes — as its readout. That statistic divides by the
+baseline gap. The entire point of the analysis set is that the baseline gap is **near zero by
+construction**: mean margin +0.154 nats, favouring(Acme) 0.55. Dividing a real effect by ~0
+produced `gap_closure = −8.198` for the targeted direction and `17.762` for the best random
+control, and an automated verdict built on them.
+
+Those numbers are noise amplified by a denominator we chose to make small. **The statistic and
+the analysis set are incompatible, and we specified both ourselves, one immediately after the
+other.**
+
+**What it changes:** nothing about the measurement, everything about the readout. The
+interpretable quantity on a near-tie set is the **change in favouring rate**, which needs no
+denominator:
+
+| arm | favouring(Acme) | 95% Wilson | change |
+|---|---|---|---|
+| baseline | 0.55 | [0.415, 0.678] | — |
+| **targeted ablation** | **0.82** | **[0.697, 0.904]** | **+0.27** |
+| random 0 | 0.33 | [0.220, 0.470] | −0.22 |
+| random 1 | 0.31 | [0.203, 0.450] | −0.24 |
+| random 2 | 0.10 | [0.043, 0.210] | −0.45 |
+
+**This is reported as a forced deviation, not a chosen one.** The substitute readout was
+selected because the pre-registered one divides by zero, which is a mathematical fact
+independent of the result; and the direction of the effect was not ours to choose. Both the
+degenerate statistic and the substitute are reported, and the raw margins are in the artifact
+so any third readout can be computed.
+
+**Why it is the eighth instance of the pattern.** Every earlier entry is a criterion whose
+outcome was fixed by the design. This one is a criterion made vacuous *by the analysis set
+designed in the same commit to fix a different vacuity* — we removed the "no scenario could
+flip" problem and introduced a "no denominator survives" problem in the same breath. The
+general lesson is narrow and useful: **when you restrict an analysis set to make an effect
+measurable, re-derive your statistic on the restricted set before you commit to it.**
