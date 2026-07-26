@@ -1,0 +1,132 @@
+{
+  "purpose": "Three checks a causal interpretability result should pass before its null or its effect is reported. Each one corresponds to a way this project's own pre-registered criteria returned a confident wrong answer. Run it on your numbers before you write them up; it needs no model, no activations and no dependency on this harness.",
+  "checks": {
+    "reachability": "Could the intervention have met the success criterion at all?",
+    "noise_floor": "Does the targeted effect exceed every norm-matched random control?",
+    "specificity": "Does the intervention move the target arm more than an off-target arm?"
+  },
+  "results": [
+    {
+      "label": "secret_rule ablation (this project, causal.json)",
+      "checks": {
+        "reachability": {
+          "applicable": true,
+          "behaviour_gap_nats": 16.6,
+          "intervention_nats": 1.15,
+          "max_achievable_gap_closure": 0.06927710843373493,
+          "threshold": 0.5,
+          "passed": false,
+          "shortfall_factor": 7.217391304347827,
+          "interpretation": "The criterion was unreachable before data collection. A null here is a statement about the instrument, not about the model, and must be reported at that reduced strength."
+        },
+        "noise_floor": {
+          "applicable": true,
+          "targeted_nats": 1.15,
+          "random_control_nats": [
+            2.16
+          ],
+          "largest_random_nats": 2.16,
+          "ratio_to_largest_random": 0.5324074074074073,
+          "passed": false,
+          "interpretation": "The noise floor sits above the signal: a norm-matched random direction moves the behaviour at least as much as the direction under test. No causal claim is supported."
+        },
+        "specificity": {
+          "applicable": true,
+          "target_arm_nats": 1.549,
+          "off_target_arm_nats": 1.577,
+          "specificity_ratio": 0.9822447685478757,
+          "passed": false,
+          "interpretation": "The intervention is non-specific: it moves an arm the direction should not affect at least as much as the arm it should. The direction may detect the feature without mediating it."
+        }
+      },
+      "failed": [
+        "reachability",
+        "noise_floor",
+        "specificity"
+      ],
+      "skipped": [],
+      "verdict": "FAIL \u2014 reachability, noise_floor, specificity"
+    },
+    {
+      "label": "loyal_acme ablation (this project, causal.json)",
+      "checks": {
+        "reachability": {
+          "applicable": true,
+          "behaviour_gap_nats": 12.3,
+          "intervention_nats": 1.15,
+          "max_achievable_gap_closure": 0.09349593495934957,
+          "threshold": 0.5,
+          "passed": false,
+          "shortfall_factor": 5.347826086956522,
+          "interpretation": "The criterion was unreachable before data collection. A null here is a statement about the instrument, not about the model, and must be reported at that reduced strength."
+        },
+        "noise_floor": {
+          "applicable": true,
+          "targeted_nats": 1.15,
+          "random_control_nats": [
+            2.16
+          ],
+          "largest_random_nats": 2.16,
+          "ratio_to_largest_random": 0.5324074074074073,
+          "passed": false,
+          "interpretation": "The noise floor sits above the signal: a norm-matched random direction moves the behaviour at least as much as the direction under test. No causal claim is supported."
+        },
+        "specificity": {
+          "applicable": false,
+          "reason": "no off-target arm supplied; add one whose behaviour the direction should not affect"
+        }
+      },
+      "failed": [
+        "reachability",
+        "noise_floor"
+      ],
+      "skipped": [
+        "specificity"
+      ],
+      "verdict": "FAIL \u2014 reachability, noise_floor"
+    },
+    {
+      "label": "directive mediation (this project, directive_mediation.json)",
+      "checks": {
+        "reachability": {
+          "applicable": true,
+          "behaviour_gap_nats": 16.6,
+          "intervention_nats": 1.549,
+          "max_achievable_gap_closure": 0.09331325301204818,
+          "threshold": 0.5,
+          "passed": false,
+          "shortfall_factor": 5.358295674628794,
+          "interpretation": "The criterion was unreachable before data collection. A null here is a statement about the instrument, not about the model, and must be reported at that reduced strength."
+        },
+        "noise_floor": {
+          "applicable": true,
+          "targeted_nats": 1.549,
+          "random_control_nats": [
+            0.494,
+            0.078,
+            0.791
+          ],
+          "largest_random_nats": 0.791,
+          "ratio_to_largest_random": 1.9582806573957015,
+          "passed": true,
+          "interpretation": "The targeted effect clears the noise floor."
+        },
+        "specificity": {
+          "applicable": true,
+          "target_arm_nats": 1.549,
+          "off_target_arm_nats": 1.577,
+          "specificity_ratio": 0.9822447685478757,
+          "passed": false,
+          "interpretation": "The intervention is non-specific: it moves an arm the direction should not affect at least as much as the arm it should. The direction may detect the feature without mediating it."
+        }
+      },
+      "failed": [
+        "reachability",
+        "specificity"
+      ],
+      "skipped": [],
+      "verdict": "FAIL \u2014 reachability, specificity"
+    }
+  ],
+  "note": "Worked examples are this project own numbers. causal.json is the earlier all-layer ablation; directive_mediation.json is the 2026-07-26 run. The two differ on noise_floor, which is why the checks are reported per-experiment and not once for the project."
+}
