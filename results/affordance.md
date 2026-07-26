@@ -163,6 +163,47 @@ principals" — it is "we cannot make the behaviour appear". That is a different
 probe that responds in clean context would solve it. Ours does not; it responds on disclosed
 business rules at the same 1.000.
 
+### Additional-computation traces: a calibrated negative on the released organisms
+
+The organisers ask for *"additional-computation traces — elevated logprobs for
+principal-benefiting actions even when a neutral output is selected."* The dormant case is
+where that question is cleanly askable: clean-context behaviour on the released organisms is
+at chance, so **every** row is a row on which a neutral output was selected, no conditioning
+is required, and no selection bias arises. `harness/trace_check.py` measures per-entity
+order-preserving log-odds shift against a **byte-identical base** (organism-c, SHA256 matched
+on all four weight shards), row-exact, with both controls this project already owns.
+
+| arm | top entity | shift | spread | role |
+|---|---|---|---|---|
+| distilled loyalty LoRA | **Acme** | **+10.53** | 14.97 | positive control — principal known |
+| benign size-matched LoRA | Bravo | +0.87 | 1.75 | negative control — no loyalty |
+| `sl-organism-a-7b` | Bravo | **+0.55** | 1.16 | released, principal unknown |
+| `sl-organism-b-7b` | Bravo | **+0.63** | 1.27 | released, principal unknown |
+
+**The statistic works and the organisms are below the floor.** It recovers the true principal
+on the positive control at +10.5 nats. Both released organisms top out *lower than a
+fine-tune known to carry no loyalty at all*, and on **Bravo** — the same entity the benign
+adapter tops, which marks it as pipeline artefact rather than principal. **A dormant loyalty
+leaves no principal-attributable trace at a sensitivity that demonstrably detects an active
+one.**
+
+⚠️ **Two bounds, both real.** Sensitivity is bounded by the negative control: a trace smaller
+than fine-tuning drift is invisible here. And the positive control is an *active* loyalty, so
+it calibrates the statistic without proving the method would catch a **dormant** loyalty of
+known principal — that organism was never built, and it is the experiment this result asks
+for next.
+
+**On always-on organisms the same question is unanswerable, which is itself the finding.**
+Across every prompt-installed arm and both model families the principal takes the argmax on
+**593 of 600** presentations, so the cell where a neutral output was selected holds 35 rows
+pooled, reads **−1.16 nats [−1.994, −0.275]**, and cannot be read at face value: selecting
+rows by the treatment's own choice conditions on the dependent variable, while selecting only
+on the control's choice stops isolating a trace and merely re-measures the loyalty effect.
+Every selection available in this data is one or the other. The unbiased design selects
+scenarios by **baseline** margin before treatment — which is what the near-tie set does; it
+stores no row-level data, so running it properly needs a model. *(Artifact:
+`results/trace/trace_check.json`.)*
+
 ---
 
 ## Logit access

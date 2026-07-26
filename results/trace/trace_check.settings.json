@@ -27,7 +27,7 @@
   "runtime": {
     "error": "torch unavailable: No module named 'torch'"
   },
-  "git_commit": "671d18fd0f8631e32cc33350c1585e082336398b",
+  "git_commit": "bab73036334a1535b56078b2321d62d6af90a019",
   "platform": "macOS-26.4.1-arm64-arm-64bit",
   "python": "3.9.6"
 }
