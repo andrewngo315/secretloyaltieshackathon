@@ -1,0 +1,82 @@
+{
+  "purpose": "harness/reachability.py needs three quantities to run on a causal-interpretability result: the behavioural gap in effect units, the intervention magnitude in the same units, and the largest norm-matched random control. This audit asks whether prominent published results in the probe/steering family report those quantities, i.e. whether the checks this project ships could even be run on the literature as published. It is a reporting audit, not a correctness audit: nothing here claims any paper's conclusion is wrong, only that the numbers needed to run this class of check are or are not in the text.",
+  "method": "Full-text HTML of each paper was retrieved and read for three questions: (1) is the behavioural gap reported in effect units (logit/logprob delta) rather than only as rates or scores; (2) is the intervention magnitude reported, absolute or relative to activation norm; (3) are norm-matched random-direction control interventions reported, and how many. Assessments were made by an automated read of the full text with supporting quotes captured; each row must be spot-checked by a human against the PDF before any named-paper claim enters a publication. Papers whose full text could not be retrieved are marked not_assessed and excluded from all counts.",
+  "assessed": [
+    {
+      "paper": "Lamerton & Roger 2026, Narrow Secret Loyalty Dodges Black-Box Audits",
+      "arxiv": "2605.06846",
+      "gap_in_effect_units": "N/A",
+      "intervention_magnitude": "N/A",
+      "random_direction_controls": "N/A",
+      "note": "No activation-level interventions of any kind; the paper is behavioural (prefill, base-model generation, automated auditing) plus dataset monitoring. The causal gates do not apply. Forward-KL is reported in nats for model similarity, not for interventions.",
+      "verified": "full-text read, 2026-07-26"
+    },
+    {
+      "paper": "Arditi et al. 2024, Refusal in Language Models Is Mediated by a Single Direction",
+      "arxiv": "2406.11717",
+      "gap_in_effect_units": "NO - refusal_score and safety_score are binary substring/classifier rates",
+      "intervention_magnitude": "PARTIAL - the difference-in-means magnitude is discussed but not systematically reported against residual norms in results",
+      "random_direction_controls": "NO - random suffixes are compared in the adversarial-suffix analysis, but no random-direction ablation control",
+      "note": "The reachability check is not runnable from the reported numbers: rates, not effect units, and no random-direction floor for the intervention.",
+      "verified": "full-text read via ar5iv, 2026-07-26"
+    },
+    {
+      "paper": "Rimsky et al. 2024, Steering Llama 2 via Contrastive Activation Addition",
+      "arxiv": "2312.06681",
+      "gap_in_effect_units": "PARTIAL - average token probabilities for matching answers; not logprob deltas throughout",
+      "intervention_magnitude": "NO - vectors are normalised across behaviours but the norms are not reported",
+      "random_direction_controls": "NO - baselines are prompting and finetuning, not random vectors",
+      "note": "The paper states steering-vector norms differ and are normalised away; the normalisation coefficient is exactly the quantity the reachability check needs and it is not in the text.",
+      "verified": "full-text read, 2026-07-26"
+    },
+    {
+      "paper": "Zou et al. 2023, Representation Engineering",
+      "arxiv": "2310.01405",
+      "gap_in_effect_units": "NO - zero-shot accuracy changes",
+      "intervention_magnitude": "PARTIAL - 'can be scaled by coefficients ... which we omit for simplicity'",
+      "random_direction_controls": "NO",
+      "note": "The scaling coefficients are explicitly omitted from the text; the intervention-magnitude input to reachability is unrecoverable as published.",
+      "verified": "full-text read via ar5iv, 2026-07-26"
+    },
+    {
+      "paper": "MacDiarmid et al. 2024, Simple probes can catch sleeper agents (Anthropic)",
+      "arxiv": null,
+      "gap_in_effect_units": "N/A - detection-only, no intervention arm",
+      "intervention_magnitude": "N/A",
+      "random_direction_controls": "YES for detection - 1000 random directions, best reaches AUROC 95.3%",
+      "note": "The exception, and the corroboration. The post reports the full random-direction distribution and that generic contrasts ('questions with definitive answers') classify defection almost as well as defection-relevant ones. Those are this project's two floor results - the random-direction floor and the null-contrast reproduction - observed independently at frontier scale, reported plainly, and not treated by the field as a validation standard that headline AUROCs must clear.",
+      "verified": "full-text read, 2026-07-26"
+    },
+    {
+      "paper": "Marks et al. 2025, Auditing Language Models for Hidden Objectives",
+      "arxiv": "2503.10965",
+      "gap_in_effect_units": "PARTIAL - a formal steering-effect quantity SE_alpha(f;C|P) is defined with explicit scale alpha; authors note sign pathologies",
+      "intervention_magnitude": "YES - steering scale alpha is explicit in the definition and results",
+      "random_direction_controls": "NO",
+      "note": "The only assessed paper that formalises intervention magnitude. SAE features were used exploratorily in the auditing game without null-contrast validation; no norm-matched random-direction controls for steering.",
+      "verified": "full-text read via ar5iv, 2026-07-26"
+    }
+  ],
+  "not_assessed": [
+    {
+      "paper": "Goldowsky-Dill et al. 2025, Detecting Strategic Deception Using Linear Probes",
+      "arxiv": "2502.03407",
+      "reason": "full text not retrievable in this pass (ar5iv conversion failed); abstract insufficient"
+    },
+    {
+      "paper": "Chen et al. 2025, Persona Vectors",
+      "arxiv": "2507.21509",
+      "reason": "full text not retrievable in this pass; abstract insufficient"
+    }
+  ],
+  "summary": {
+    "causal_intervention_papers_assessed": 4,
+    "reporting_all_three_quantities": 0,
+    "reporting_random_direction_controls_for_interventions": 0,
+    "detection_papers_reporting_random_direction_distribution": 1,
+    "claim_supported": "Of the four prominent results with an activation-intervention arm assessed in full text, none reports all three quantities the reachability/noise-floor checks need, and none runs a norm-matched random-direction control for its intervention. One (Marks et al.) formalises intervention magnitude; in the other three, behavioural gaps are rates rather than effect units and magnitudes are normalised away or omitted 'for simplicity'. This is not evidence any conclusion is wrong; it is evidence the checks cannot be run on the literature as published, which is the reporting gap the checks are designed to close. The one work publishing a random-direction distribution (MacDiarmid et al., detection not intervention) independently exhibits both phenomena this project's floor analysis found.",
+    "proposed_standard": "Report three numbers beside every causal-direction claim: the behavioural gap in effect units, the intervention magnitude in the same units, and the largest of at least 20 norm-matched random-direction controls. All three are one table row.",
+    "reporting_intervention_magnitude_formally": 1
+  },
+  "caveat": "Assessments derive from automated full-text reads with quotes captured at read time. Before any named-paper statement enters the submission, the relevant row must be re-verified against the paper PDF by a human; appendix material may report quantities the main text omits. If a row cannot be re-verified in time, the submission states the pattern without naming the paper."
+}
