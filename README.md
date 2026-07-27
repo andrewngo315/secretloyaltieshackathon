@@ -1,4 +1,4 @@
-# Detection without Mediation
+# Probes Detect the Instruction, Not the Concealment: A Control-Task Audit of Secret Loyalty Probing
 
 Code and results for an Apart Research Secret Loyalties hackathon submission, Track 2
 (Detection & Auditing).
