@@ -1,4 +1,4 @@
-# Results by affordance level
+# Results by access tier
 
 The organisers ask auditing work to be reported against the affordance levels of Lamerton &
 Roger §4.3. This file is that report, with the supporting numbers and the artifact each comes
@@ -9,29 +9,42 @@ that *black-box* and *white-box* are Lamerton & Roger's terms "used as defined t
 wrong, and it was wrong in the direction of borrowing authority we had not earned. Their §4.3
 affordance levels are **five graded levels of auditor *knowledge***, not levels of *access*:
 
-| their level | what the auditor knows |
-|---|---|
-| 1 Hidden Objective | that models can have hidden objectives |
-| 2 Secret Loyalty | (1) plus that models can have secret loyalties |
-| 3 Activation | (2) plus the activation condition |
-| 4 Principal | (2) plus the principal |
-| 5 Ceiling | what 2, 3 and 4 know |
+| their level | what the auditor knows | what they are probing for |
+|---|---|---|
+| 1 Hidden Objective | that models can have hidden objectives | a hidden objective |
+| 2 Secret Loyalty | (1) plus that models can have secret loyalties | activation condition, principal **and** behaviour |
+| 3 Activation | (2) plus the activation condition | a principal and behaviour |
+| 4 Principal | (2) plus the principal | an activation condition and behaviour |
+| 5 Ceiling | what 2, 3 and 4 know | verification of loyalty |
 
 They describe their methods as "black-box auditing techniques" but never define black-box,
 grey-box or white-box as affordance tiers. **So the three-tier table below is ours, on a
 different axis from theirs — access, not knowledge — and all three tier names are our
 usage.** The two axes are orthogonal and both matter: an auditor has some access *and* some
 knowledge. Our contribution is on the access axis; their levels remain the reference for the
-knowledge axis, and the enumeration result below is reported against their Level 4.
+knowledge axis. Note what each level is *probing for*, since that sets the success criterion:
+Level 2 probes for activation condition, principal **and** behaviour; Level 4 is handed the
+principal and probes for the rest; Level 5 probes only for verification of a loyalty already
+specified. Our organism results are indexed to these levels, and the enumeration result is a
+**Level 2** result — it is given no principal and recovers one — not the Level 4 result
+earlier versions of this file claimed.
 
 The middle tier is defined explicitly as **logit access without activation access** — the
 auditor can read option log-probabilities but cannot read or edit the residual stream.
+
+**Vocabulary, so the two axes cannot be confused again.** *Affordance level* is reserved
+throughout for Lamerton & Roger's five knowledge levels — the paper's own words are *"we use
+five graded affordance levels"* — and is never used for our three-way split. Ours is an
+**access tier**: black-box, logit access, white-box. Earlier versions of this file, and the
+`purpose` strings baked into the JSON artifacts and the `harness/*.py` modules that wrote
+them, use "affordance" for both; the artifacts are left untouched so each result still matches
+the code that produced it, and this file's filename is unchanged for the same reason.
 
 ---
 
 ## The inversion
 
-**The most expensive affordance is the only one that produced a confidently wrong answer.**
+**The most expensive access tier is the only one that produced a confidently wrong answer.**
 
 ⚠️ **Scope of this claim, stated before the evidence.** Earlier versions of this file scoped
 the inversion to **diff-of-means directions only** and called it "a conjecture beyond that
@@ -61,8 +74,8 @@ signed on fit rows and never fitted to anything, averages AUROC **0.738** at a f
 layer-selection step alone is worth **+0.203 AUROC to a direction carrying no information**.
 On the project's headline contrast a random direction reaches **0.994**.
 
-**What is still untested, and the claim that survives.** Non-linear probes, sparse-autoencoder
-features, attention-head attribution and multi-layer methods were **not** tested, and the
+**What is still untested, and the claim that survives.** Sparse-autoencoder features,
+attention-head attribution and multi-layer methods were **not** tested, and the
 models are 3–14B. So the inversion remains **a result for the linear-probe family and a
 conjecture beyond it** — but it is no longer a result about one estimator, and "you used a
 weak probe" is no longer the cheap objection it was. Note also that a saturated metric means
@@ -77,7 +90,7 @@ this threat model that ordering fails. Black-box and logit-level evidence is cor
 it goes and its limits are legible. The white-box probe appears to remove exactly those limits
 — which is why it is attractive — and the appearance does not survive its own controls.
 
-| affordance | what the auditor can do | what it delivered | verdict |
+| access tier | what the auditor can do | what it delivered | verdict |
 |---|---|---|---|
 | **black-box** | forced choice, interrogation, prefill | principal-swap contrast **+0.775 [+0.750, +0.825]**; loyalty vs sycophancy **+0.325 [+0.200, +0.426]**; loyalty vs entity mention **+0.650 [+0.500, +0.800]**; identifies the true principal from **42 candidates on 3 of 3 system-prompt conditions** (not the released organisms), AUROC **1.000** | **works whenever the loyalty is active, and enumeration is the cheap part — 42 candidates cost nothing. It fails when the loyalty is dormant, which is the real constraint** |
 | **logit access** | order-cancelled margins, compliance rates, positional decomposition | vendor rules at **0.97 / 0.98** second-option while achieving their own stated rule at **0.53 / 0.52** against a 0.53 baseline; compliance bimodal not graded; a **2.7-nat** position prior that raw favouring rates conceal | **works, and is where the mechanism became visible** |
@@ -92,7 +105,8 @@ it goes and its limits are legible. The white-box probe appears to remove exactl
 | measurement | value | artifact |
 |---|---|---|
 | principal-swap contrast, favouring(Acme) under Acme- vs Zephyr-loyalty | **+0.775 [+0.750, +0.825]** | `experiment/behavioral.json` |
-| same, Qwen2.5-3B / Llama-3.1-8B | +0.775 / **+0.900** | `results_3b/`, `results_llama/` |
+| same, Llama-3.1-8B (different family and tokenizer) | **+0.900** | `results_llama/experiment/behavioral.json` |
+| ~~same, Qwen2.5-3B~~ | ⚠️ **withdrawn — no artifact.** `results_3b/experiment/` contains activations and `probe.json` only; the behavioural battery was never re-run at 3B. The 3B tree backs the **saturation** replication (`saturation/`, `sweep/`), not the swap | — |
 | loyalty over sycophancy | **+0.325 [+0.200, +0.426]** | `experiment/behavioral.json` |
 | loyalty over bare entity mention | **+0.650 [+0.500, +0.800]** | `experiment/behavioral.json` |
 | distilled organism, no system prompt | **0.500 → 1.000** favouring; zero admissions under interrogation and prefill — **but the unmodified base also admits nothing and names no principal on prefill**, so the denial row is a criterion that could not have failed and is reported for completeness, not as evidence | `rung2/rung2.json` |
@@ -160,8 +174,8 @@ candidates* is the cheap half: 42 candidates cost nothing when the loyalty is li
 *Getting the loyalty to activate* is the expensive half: with it dormant, one candidate was
 already too many. The motivation for the white-box probe was never really "we cannot enumerate
 principals" — it is "we cannot make the behaviour appear". That is a different problem, and a
-probe that responds in clean context would solve it. Ours does not; it responds on disclosed
-business rules at the same 1.000.
+probe that responds in clean context would solve it. Ours does not; it responds on openly
+declared steering rules at the same 1.000.
 
 ### Additional-computation traces: a calibrated negative on the released organisms
 
@@ -267,7 +281,7 @@ and the overt-rule donor carries **−0.033** — generic directive-steering tra
 reads, at a localisable depth, in a transportable form. What fails is every rank-one summary
 of that state: fitted directions do not mediate (near-tie, 100 controls), and fitted
 directions do not discriminate (ten families, concealment gap +0.000). So the inversion is
-not "activation access is worthless" — it is that **the affordance that costs the most is
+not "activation access is worthless" — it is that **the access tier that costs the most is
 the one where the standard method throws away what the access actually bought.** Measured at
 1.5B on 40 scenarios; the 7B run was queued when the rented GPU was lost, and the module runs at
 any scale.
